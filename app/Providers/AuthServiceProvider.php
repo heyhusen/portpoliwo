@@ -28,5 +28,6 @@ class AuthServiceProvider extends ServiceProvider
 
         Passport::routes();
         Passport::personalAccessClientId(env('PERSONAL_ACCESS_CLIENT_ID', '1'));
+        Passport::personalAccessTokensExpireIn(now()->addDays(2));
     }
 }

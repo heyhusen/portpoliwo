@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\ApiCode;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
@@ -23,6 +22,6 @@ abstract class BaseFormRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         $errors = (new ValidationException($validator))->errors();
-        throw new HttpResponseException(ResponseBuilder::error(ApiCode::UNPROCESSABLE_ENTITY, null, collect($errors)->toArray(), 422));
+        throw new HttpResponseException(ResponseBuilder::error(422, null, collect($errors)->toArray(), 422));
     }
 }

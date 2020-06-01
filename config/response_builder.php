@@ -29,8 +29,8 @@ return [
     |
     */
     'map'               => [
-        ApiCode::UNAUTHORIZED => 'These credentials do not match our records.',
-        ApiCode::INVALID_INPUT => 'The given data was invalid.',
+        ApiCode::UNAUTHORIZED => 'Unauthorized.',
+        ApiCode::UNPROCESSABLE_ENTITY => 'The given data was invalid.',
     ],
 
     /*

@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Works as WorkResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class Tags extends JsonResource
 {

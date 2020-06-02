@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\API\Auth;
 
-use Auth;
 use App\Http\Controllers\Controller;
+use Auth;
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 
 class LoginController extends Controller
@@ -80,7 +80,8 @@ class LoginController extends Controller
                 $userToken->token->expires_at
             )->toDateTimeString()
         ];
-        return ResponseBuilder::success($data);
+        return $this->authenticated($request, $this->guard()->user())
+                ?: ResponseBuilder::success($data);
     }
 
     /**
@@ -117,6 +118,6 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         $this->guard()->user()->token()->revoke();
-        return ResponseBuilder::success();
+        return $this->loggedOut($request) ?: ResponseBuilder::success();
     }
 }

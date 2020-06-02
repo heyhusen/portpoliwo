@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 use GraphQL\Client;
 use GraphQL\Query;
 use GraphQL\Variable;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class Works extends JsonResource
 {

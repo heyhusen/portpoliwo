@@ -2,11 +2,11 @@
 
 namespace App\Notifications;
 
+use App\Mail\ResetPassword as Mailable;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Auth\Notifications\ResetPassword;
-use App\Mail\ResetPassword as Mailable;
 
 class PasswordResetRequest extends ResetPassword
 {

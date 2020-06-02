@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Relations\Pivot;
 use Datakrama\Eloquid\Traits\Uuids;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class WorkCategory extends Pivot
 {

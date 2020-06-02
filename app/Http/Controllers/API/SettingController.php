@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Setting;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreSetting;
 use App\Http\Resources\Settings as SettingResource;
+use App\Setting;
+use Illuminate\Http\Request;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 
 class SettingController extends Controller

@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Tag;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreTag;
 use App\Http\Resources\Tags as TagResource;
-use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
+use App\Tag;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 
 class TagController extends Controller
 {

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Work;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreWork;
 use App\Http\Resources\Works as WorkResource;
+use App\Work;
+use Illuminate\Http\Request;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 
 class WorkController extends Controller

@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Datakrama\Eloquid\Traits\Uuids;
+use Illuminate\Database\Eloquent\Model;
 
 class Setting extends Model
 {

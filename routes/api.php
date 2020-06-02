@@ -17,7 +17,7 @@ Route::namespace('API')->group(function () {
     // Auth
     Route::namespace('Auth')->prefix('auth')->group(function () {
         Route::post('login', 'LoginController@login');
-        Route::post('register', 'RegisterController');
+        Route::post('register', 'RegisterController@register');
 
         Route::prefix('password')->group(function () {
             Route::post('email', 'ForgotPasswordController');

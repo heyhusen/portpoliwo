@@ -5,41 +5,11 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
+use Illuminate\Auth\Notifications\ResetPassword;
 use App\Mail\ResetPassword as Mailable;
 
-class PasswordResetRequest extends Notification
+class PasswordResetRequest extends ResetPassword
 {
-    use Queueable;
-
-    /**
-     * Reset password token
-     *
-     * @var string
-     */
-    protected $token;
-
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
-    public function __construct($token)
-    {
-        $this->token = $token;
-    }
-
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function via($notifiable)
-    {
-        return ['mail'];
-    }
-
     /**
      * Get the mail representation of the notification.
      *
@@ -48,7 +18,7 @@ class PasswordResetRequest extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new Mailable($this->token))->to($notifiable->email);
+        return (new Mailable($this->token))->to($notifiable->getEmailForPasswordReset());
     }
 
     /**

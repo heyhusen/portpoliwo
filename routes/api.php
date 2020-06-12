@@ -14,18 +14,6 @@ use Illuminate\Http\Request;
 */
 
 Route::namespace('API')->name('api.')->group(function () {
-    Route::get('foo', function ()
-    {
-        $provider = config('auth.guards.api.provider');
-        $table = config('auth.providers.' . $provider . '.table');
-        if (config('auth.providers.' . $provider . '.driver') == 'eloquent') {
-            $model = config('auth.providers.' . $provider . '.model');
-            $table = new $model;
-            $table = $table->getTable();
-        }
-        return response()->json($table);
-    });
-
     Route::middleware('auth:api')->group(function () {
         Route::get('/', 'HomeController@index')->name('home');
 

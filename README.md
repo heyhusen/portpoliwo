@@ -16,20 +16,14 @@ This repository only contains backend code. If you want to see the frontend, you
 You can see my personal site at [husenis.me](http://husenis.me "husenis.me").
 
 ## Installation
-1. Copy `.env.example` as `.env` and fill `APP_`, `CLIENT_URL`, `DB_`, `GITHUB_TOKEN`, and `MAIL_` settings.
-2. Run `php artisan app:install` in project terminal. 
-3. Run `php artisan serve` or direct access the app to `/public` folder.
+1. Run command `composer install` on terminal.
+2. Copy `.env.example` as `.env` and fill `APP_`, `CLIENT_URL`, `DB_`, `GITHUB_TOKEN`, and `MAIL_` settings.
+3. Run `php artisan app:install` in project terminal. 
+4. Run `php artisan serve` or direct access the app to `/public` folder.
 
 ## Credits
 
-- [Laravel](https://github.com/laravel/laravel "Laravel")
-- [Eloquid](https://github.com/datakrama/eloquid)
-- [doctrine/dbal](https://github.com/doctrine/dbal)
-- [fruitcake/laravel-cors](https://github.com/fruitcake/laravel-cors)
-- [gmostafa/php-graphql-client](https://github.com/mghoneimy/php-graphql-client)
-- [laravolt/avatar](https://github.com/laravolt/avatar)
-- [ResponseBuilder](https://github.com/MarcinOrlowski/laravel-api-response-builder)
-- [spatie/laravel-permission](https://github.com/spatie/laravel-permission)
+- [Ahmad Husen](https://github.com/husenisme)
 
 ## License
 

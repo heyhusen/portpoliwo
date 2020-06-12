@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreTag extends BaseFormRequest
+class StoreTag extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

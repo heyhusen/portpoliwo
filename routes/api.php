@@ -13,21 +13,17 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::namespace('API')->group(function () {
-    // Auth
-    Route::namespace('Auth')->prefix('auth')->group(function () {
-        Route::post('login', 'LoginController@login');
-        Route::post('register', 'RegisterController@register');
-
-        Route::prefix('password')->group(function () {
-            Route::post('email', 'ForgotPasswordController');
-            Route::post('reset', 'ResetPasswordController@reset');
-        });
-
-        Route::middleware('auth:api')->group(function () {
-            Route::get('user', 'LoginController@user');
-            Route::get('logout', 'LoginController@logout');
-        });
+Route::namespace('API')->name('api.')->group(function () {
+    Route::get('foo', function ()
+    {
+        $provider = config('auth.guards.api.provider');
+        $table = config('auth.providers.' . $provider . '.table');
+        if (config('auth.providers.' . $provider . '.driver') == 'eloquent') {
+            $model = config('auth.providers.' . $provider . '.model');
+            $table = new $model;
+            $table = $table->getTable();
+        }
+        return response()->json($table);
     });
 
     Route::middleware('auth:api')->group(function () {

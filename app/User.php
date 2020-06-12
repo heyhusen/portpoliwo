@@ -2,17 +2,18 @@
 
 namespace App;
 
-use App\Notifications\PasswordResetRequest;
 use Datakrama\Eloquid\Traits\Uuids;
+use Datakrama\Lapiuth\Traits\CanResetPassword;
+use Datakrama\Lapiuth\Traits\MustVerifyEmail as MustVerificationEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use Uuids, HasApiTokens, HasRoles, Notifiable;
+    use Uuids, HasApiTokens, HasRoles, Notifiable, CanResetPassword, MustVerificationEmail;
 
     /**
      * The attributes that are mass assignable.
@@ -40,27 +41,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    /**
-     * Send the password reset notification.
-     *
-     * @param  string  $token
-     * @return void
-     */
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new PasswordResetRequest($token));
-    }
-
-    /**
-     * Route notifications for the mail channel.
-     *
-     * @param  \Illuminate\Notifications\Notification  $notification
-     * @return array|string
-     */
-    public function routeNotificationForMail($notification)
-    {
-        // Return name and email address...
-        return [$this->email => $this->name];
-    }
 }

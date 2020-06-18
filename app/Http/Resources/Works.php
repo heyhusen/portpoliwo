@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use GraphQL\Client;
 use GraphQL\Query;
 use GraphQL\Variable;
+use GraphQL\Exception\QueryError;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Works extends JsonResource
@@ -24,7 +25,7 @@ class Works extends JsonResource
             'git' => $this->git,
             'category' => $this->category,
             'tags' => $this->tags,
-            'repository' => $this->git($this->owner, $this->name),
+            'repository' => empty($this->owner)? null : $this->git($this->owner, $this->name),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];
@@ -90,7 +91,11 @@ class Works extends JsonResource
                         )
                 ]
         );
-        $results = $client->runQuery($gql, false, ['owner' => $owner, 'name' => $name]);
+        try {
+            $results = $client->runQuery($gql, false, ['owner' => $owner, 'name' => $name]);
+        } catch (QueryError $exception) {
+            return false;
+        }
         return collect($results->getData()->repository)->toArray();
     }
 }

@@ -16,6 +16,7 @@ class UsersTableSeeder extends Seeder
         $supersu = User::firstOrCreate([
             'name' => 'Super Admin',
             'email' => 'supersu@example.com',
+            'email_verified_at' => now(),
             'password' => Hash::make('HowDoIKnow?!'),
         ]);
         $supersu->assignRole('supersu');
@@ -23,6 +24,7 @@ class UsersTableSeeder extends Seeder
         $admin = User::firstOrCreate([
             'name' => 'Admin',
             'email' => 'admin@example.com',
+            'email_verified_at' => now(),
             'password' => Hash::make('HowDoIKnow?!'),
         ]);
         $admin->assignRole('admin');
@@ -30,6 +32,7 @@ class UsersTableSeeder extends Seeder
         $user = User::firstOrCreate([
             'name' => 'User',
             'email' => 'user@example.com',
+            'email_verified_at' => now(),
             'password' => Hash::make('HowDoIKnow?!'),
         ]);
         $user->assignRole('user');

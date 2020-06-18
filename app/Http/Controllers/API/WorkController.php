@@ -29,6 +29,7 @@ class WorkController extends Controller
      */
     public function store(StoreWork $request)
     {
+        $request->request->add(['git' => 'github']);
         $work = Work::create($request->all());
         $work->category()->attach($request->category_id);
         $work->tags()->attach($request->tag_id);

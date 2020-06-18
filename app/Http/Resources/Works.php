@@ -55,24 +55,58 @@ class Works extends JsonResource
             ->setSelectionSet(
                 [
                     'createdAt',
+                    'updatedAt',
+                    'pushedAt',
                     'name',
+                    'nameWithOwner',
                     'description',
                     'url',
                     'homepageUrl',
+                    'openGraphImageUrl',
+                    'forkCount',
                     (new Query('languages'))
-                        ->setArguments(['first' => 10])
+                        ->setArguments(['last' => 10])
                         ->setSelectionSet(
                             [
-                                (new Query('edges'))
+                                (new Query('nodes'))
                                     ->setSelectionSet(
                                         [
-                                            (new Query('node'))
-                                                ->setSelectionSet(
-                                                    [
-                                                        'name',
-                                                        'color'
-                                                    ]
-                                                )
+                                            'name',
+                                            'color'
+                                        ]
+                                    )
+                            ]
+                        ),
+                    (new Query('repositoryTopics'))
+                        ->setArguments(['last' => 10])
+                        ->setSelectionSet(
+                            [
+                                (new Query('nodes'))
+                                    ->setSelectionSet(
+                                        [
+                                            (new Query('topic'))
+                                            ->setSelectionSet(
+                                                [
+                                                    'name'
+                                                ]
+                                            ),
+                                            'url'
+                                        ]
+                                    )
+                            ]
+                        ),
+                    (new Query('releases'))
+                        ->setArguments(['last' => 1])
+                        ->setSelectionSet(
+                            [
+                                (new Query('nodes'))
+                                    ->setSelectionSet(
+                                        [
+                                            'name',
+                                            'tagName',
+                                            'publishedAt',
+                                            'description',
+                                            'url'
                                         ]
                                     )
                             ]
@@ -88,7 +122,14 @@ class Works extends JsonResource
                                         ]
                                     )
                             ]
-                        )
+                        ),
+                    (new Query('licenseInfo'))
+                        ->setSelectionSet(
+                            [
+                                'name',
+                                'url'
+                            ]
+                        ),
                 ]
         );
         try {

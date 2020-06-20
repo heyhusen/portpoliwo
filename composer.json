@@ -15,7 +15,6 @@
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.0",
         "fruitcake/laravel-cors": "^1.0",
-        "gmostafa/php-graphql-client": "^1.4",
         "laravel/framework": "^6.2",
         "laravel/passport": "^8.0",
         "laravel/tinker": "^2.0",

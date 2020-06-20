@@ -29,8 +29,9 @@ class WorkController extends Controller
      */
     public function store(StoreWork $request)
     {
-        $request->request->add(['git' => 'github']);
         $work = Work::create($request->all());
+        $work->photo = $this->uploadPhoto($request);
+        $work->save();
         $work->category()->attach($request->category_id);
         $work->tags()->attach($request->tag_id);
         $data = collect(new WorkResource($work));
@@ -59,11 +60,28 @@ class WorkController extends Controller
     public function update(StoreWork $request, Work $work)
     {
         $work->fill($request->all());
+        $work->photo = $this->uploadPhoto($request, $work->photo);
         $work->save();
         $work->category()->sync($request->category_id);
         $work->tags()->sync($request->tag_id);
         $data = collect(new WorkResource($work));
         return $this->dataUpdated($data);
+    }
+
+    /**
+     * Upload photo
+     *
+     * @param Request $request
+     * @param string $path
+     * @return void
+     */
+    public function uploadPhoto(Request $request, $path = null)
+    {
+        if ($request->hasFile('photo')) {
+            $path = $request->photo->store('public/work');
+            $path = \Illuminate\Support\Str::replaceFirst('public/', '', $path);
+        }
+        return $path;
     }
 
     /**

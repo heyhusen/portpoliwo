@@ -56,5 +56,14 @@ Route::namespace('API')->name('api.')->group(function () {
 
         // Setting
         Route::apiResource('setting', 'SettingController');
+
+        // Tag
+        Route::prefix('account')->name('account.')->group(function () {
+            Route::post('/list', 'AccountController@list')->name('list');
+            Route::delete('/', 'AccountController@destroy')->name('destroy');
+        });
+        Route::apiResource('account', 'AccountController')->except([
+            'destroy'
+        ]);
     });
 });

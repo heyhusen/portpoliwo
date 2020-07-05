@@ -1,6 +1,6 @@
 ## Portpoliwo
 
-Portpoliwo is simple personal portfolio application. This application uses [Laravel](https://github.com/laravel/laravel "Laravel") as the API server (backend) and [Quasar Framework](https://github.com/quasarframework/quasar "Quasar") as the API client (frontend).
+Portpoliwo is my simple personal portfolio application. This application uses [Laravel](https://github.com/laravel/laravel "Laravel") as the API server (backend), [Nuxt.js](https://github.com/nuxt/nuxt.js "Nuxt.js") as the API client (panel), and [Gridsome](https://github.com/gridsome/gridsome "Gridsome") as front-end (Jamstack).
 
 This repository only contains backend code. If you want to see the frontend, you can see the [portpoliwo-client](https://github.com/husenisme/portpoliwo-client) repository.
 

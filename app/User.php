@@ -21,7 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'photo'
     ];
 
     /**
@@ -41,4 +41,18 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the user's photo.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getPhotoAttribute($value)
+    {
+        if ($value == 'default.png') {
+            return 'https://www.gravatar.com/avatar/' . md5($this->email) . '?s=200';
+        }
+        return asset('storage/avatar/' . $value);
+    }
 }

@@ -18,7 +18,6 @@
         "laravel/framework": "^6.2",
         "laravel/passport": "^8.0",
         "laravel/tinker": "^2.0",
-        "laravolt/avatar": "^3.0",
         "spatie/laravel-permission": "^3.4"
     },
     "require-dev": {

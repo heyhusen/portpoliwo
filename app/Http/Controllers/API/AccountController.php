@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUser;
+use App\Http\Resources\Users as UserResource;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +18,8 @@ class AccountController extends Controller
      */
     public function index()
     {
-        //
+        $data = collect(UserResource::collection(User::all()));
+        return $this->successResponse($data);
     }
 
     public function list(Request $request)
@@ -26,24 +29,18 @@ class AccountController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUser $request)
     {
-        //
+        $user = User::create($request->all());
+        $user->photo = $this->uploadPhoto($request, $user);
+        $user->save();
+        $data = collect(new UserResource($user));
+        return $this->dataCreated($data);
     }
 
     /**
@@ -54,18 +51,8 @@ class AccountController extends Controller
      */
     public function show(User $user)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
+        $data = collect(new UserResource($user));
+        return $this->successResponse($data);
     }
 
     /**
@@ -75,9 +62,30 @@ class AccountController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(StoreUser $request, User $user)
     {
-        //
+        $user->fill($request->all());
+        $user->photo = $this->uploadPhoto($request, $user, $user->photo);
+        $user->save();
+        $data = collect(new UserResource($user));
+        return $this->dataUpdated($data);
+    }
+
+    /**
+     * Upload photo
+     *
+     * @param array $request
+     * @param array $data
+     * @param string $name
+     * @return void
+     */
+    public function uploadPhoto($request, $data, $name = null)
+    {
+        if ($request->hasFile('photo')) {
+            $name = $data->id . '/avatar-' . md5($data->id)  . date('-Y-m-d-H-m-s.') . $request->photo->extension();
+            $request->photo->storeAs('avatar', $name);
+        }
+        return $name;
     }
 
     /**
@@ -86,8 +94,9 @@ class AccountController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Request $request)
     {
-        //
+        User::destroy($request->selectedData);
+        return $this->dataDeleted();
     }
 }

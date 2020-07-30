@@ -27,8 +27,8 @@ class StoreUser extends FormRequest
         $rules = [
             'name' => ['required'],
             'email' => ['required', 'email', 'unique:App\User,email'],
-            'password' => [Rule::requiredIf($this->isMethod('post'))],
-            'password_repeat' => [Rule::requiredIf($this->isMethod('post')), 'same:password'],
+            'password' => [Rule::requiredIf($this->isMethod('post')), 'min:8'],
+            'password_repeat' => [Rule::requiredIf($this->isMethod('post')), 'min:8', 'same:password'],
             'photo' => ['image']
         ];
         if ($this->isMethod('put')) {

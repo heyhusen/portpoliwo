@@ -8,6 +8,7 @@ use App\Http\Resources\Users as UserResource;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
@@ -22,9 +23,18 @@ class AccountController extends Controller
         return $this->successResponse($data);
     }
 
+    /**
+     * Display a listing of the resource for datatable
+     *
+     * @param Request $request
+     * @return void
+     */
     public function list(Request $request)
     {
-        $data = DB::table('users')->orderBy($request->sort_field, $request->sort_order)->select('id', 'name', 'email', 'photo', 'created_at')->paginate($request->per_page);
+        $data = DB::table('users')
+                    ->orderBy($request->sort_field, $request->sort_order)
+                    ->select('id', 'name', 'email', 'photo', 'created_at')
+                    ->paginate($request->per_page);
         return $this->successResponse($data);
     }
 
@@ -36,6 +46,7 @@ class AccountController extends Controller
      */
     public function store(StoreUser $request)
     {
+        $request->merge(['password' => Hash::make($request->password)]);
         $user = User::create($request->all());
         $user->photo = $this->uploadPhoto($request, $user);
         $user->save();
@@ -64,6 +75,9 @@ class AccountController extends Controller
      */
     public function update(StoreUser $request, User $user)
     {
+        if ($request->has('password')) {
+            $request->merge(['password' => Hash::make($request->password)]);
+        }
         $user->fill($request->all());
         $user->photo = $this->uploadPhoto($request, $user, $user->photo);
         $user->save();
@@ -79,7 +93,7 @@ class AccountController extends Controller
      * @param string $name
      * @return void
      */
-    public function uploadPhoto($request, $data, $name = null)
+    public function uploadPhoto($request, $data, $name = 'default.png')
     {
         if ($request->hasFile('photo')) {
             $name = $data->id . '/avatar-' . md5($data->id)  . date('-Y-m-d-H-m-s.') . $request->photo->extension();

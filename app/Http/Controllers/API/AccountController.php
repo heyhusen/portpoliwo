@@ -97,7 +97,7 @@ class AccountController extends Controller
     {
         if ($request->hasFile('photo')) {
             $name = $data->id . '/avatar-' . md5($data->id)  . date('-Y-m-d-H-m-s.') . $request->photo->extension();
-            $request->photo->storeAs('avatar', $name);
+            $request->photo->storeAs('public/avatar', $name);
         }
         return $name;
     }

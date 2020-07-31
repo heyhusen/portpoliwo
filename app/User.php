@@ -51,7 +51,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getPhotoAttribute($value)
     {
         if ($value == 'default.png') {
-            return 'https://www.gravatar.com/avatar/' . md5($this->email) . '?s=200';
+            return 'https://www.gravatar.com/avatar/' . md5($this->email) . '?s=256';
         }
         return asset('storage/avatar/' . $value);
     }

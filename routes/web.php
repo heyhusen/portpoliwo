@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return config('app.name');
-});
+Route::get('/{any}', function () {
+    return view('layouts.vue');
+})->where('any', '.*');

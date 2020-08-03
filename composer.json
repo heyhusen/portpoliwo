@@ -11,12 +11,10 @@
         "php": "^7.2",
         "datakrama/eloquid": "^1.0",
         "datakrama/lapires": "^2.0",
-        "datakrama/lapiuth": "^2.0",
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.0",
         "fruitcake/laravel-cors": "^2.0",
         "laravel/framework": "^7.0",
-        "laravel/passport": "^8.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
         "spatie/laravel-permission": "^3.4"

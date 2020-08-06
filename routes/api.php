@@ -14,8 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::namespace('API')->name('api.')->group(function () {
-    Route::get('/work', 'WorkController@index')->name('work.index');
-    Route::middleware('auth:api')->group(function () {
+    Route::middleware('auth:sanctum')->group(function () {
         Route::get('/', 'HomeController@index')->name('home');
 
         // Category
@@ -39,7 +38,7 @@ Route::namespace('API')->name('api.')->group(function () {
             Route::delete('/', 'WorkController@destroy')->name('destroy');
         });
         Route::apiResource('work', 'WorkController')->except([
-            'index', 'destroy'
+            'destroy'
         ]);
 
         // Social Media

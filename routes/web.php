@@ -11,6 +11,8 @@
 |
 */
 
+Auth::routes(['register' => false]);
+
 Route::get('/{any}', function () {
     return view('layouts.vue');
 })->where('any', '.*');

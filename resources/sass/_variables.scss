@@ -1,8 +1,11 @@
 // Import Bulma's core
 @import "~bulma/sass/utilities/_all";
 
+// Layout
+$section-padding: 1.5rem 1.5rem;
+
 // Set your colors
-$primary: #8c67ef;
+$primary: #575fcf;
 $primary-invert: findColorInvert($primary);
 $twitter: #4099FF;
 $twitter-invert: findColorInvert($twitter);
@@ -20,6 +23,14 @@ $colors: (
     "danger": ($danger, $danger-invert),
     "twitter": ($twitter, $twitter-invert)
 );
+$scheme-invert: $black;
+
+// Sidebar
+$sidebar-width: 100%;
+$sidebar-box-shadow: 5px 0px 13px 3px rgba($black, 0.1);
+
+// Box
+$box-shadow: 0 0.5em 1em -0.125em rgba($scheme-invert, 0.1), 0 0px 0 1px rgba($scheme-invert, 0.02);
 
 // Links
 $link: $primary;

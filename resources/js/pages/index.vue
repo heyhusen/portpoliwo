@@ -1,30 +1,29 @@
 <template>
-  <div class="card">
-    <header class="card-header">
-      <p class="card-header-title">
-        Home
-      </p>
-      <a href="#" class="card-header-icon" aria-label="more options">
-        <span class="icon">
-          <i class="fas fa-angle-down" aria-hidden="true"></i>
-        </span>
-      </a>
-    </header>
-    <div class="card-content">
-      <div class="content">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec
-        iaculis mauris.
-        <a href="#">@bulmaio</a>. <a href="#">#css</a>
-        <a href="#">#responsive</a>
-        <br />
-        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-      </div>
+  <div class="columns is-multiline">
+    <div class="column is-12">
+      <section class="hero is-primary is-info">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title">Hello, {{ user.name }}.</h1>
+            <h2 class="subtitle">
+              I hope you are having a great day!
+            </h2>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'Home',
+  computed: {
+    ...mapGetters({
+      user: 'auth/user',
+    }),
+  },
 }
 </script>

@@ -6,21 +6,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 </head>
-<body>
-    @if (Auth::check())
-        <script>
-           window.Laravel = {!!json_encode([
-               'isLoggedin' => true,
-               'user' => Auth::user()
-           ])!!}
-        </script>
-    @else
-        <script>
-            window.Laravel = {!!json_encode([
-                'isLoggedin' => false
-            ])!!}
-        </script>
-    @endif
+<body class="has-background-light">
     <div id="app"></div>
     <script src="{{ mix('js/app.js') }}"></script>
 </body>

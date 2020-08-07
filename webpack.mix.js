@@ -1,4 +1,5 @@
 const mix = require('laravel-mix')
+require('laravel-mix-purgecss')
 
 /*
  |--------------------------------------------------------------------------
@@ -12,6 +13,12 @@ const mix = require('laravel-mix')
  */
 
 mix.webpackConfig({
+  resolve: {
+    extensions: ['.js', '.vue'],
+    alias: {
+      '@': __dirname + '/resources',
+    },
+  },
   module: {
     rules: [
       {
@@ -31,6 +38,7 @@ mix.webpackConfig({
 mix
   .js('resources/js/app.js', 'public/js')
   .sass('resources/sass/app.scss', 'public/css')
+  .purgeCss()
 
 if (mix.inProduction()) {
   mix.version()

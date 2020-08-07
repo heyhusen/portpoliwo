@@ -67,6 +67,18 @@ class AccountController extends Controller
     }
 
     /**
+     * Get authenticated user
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function me(Request $request)
+    {
+        $data = $request->user('sanctum');
+        return $this->successResponse($data);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

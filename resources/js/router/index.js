@@ -1,24 +1,41 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '@/js/store'
 
 Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
+  linkActiveClass: 'is-active',
   routes: [
     {
       path: '/login',
-      component: () => import('../pages/auth/login.vue'),
+      component: () => import('@/js/pages/auth/login.vue'),
       name: 'login',
     },
     {
       path: '/',
-      component: () => import('../layouts/default.vue'),
+      component: () => import('@/js/layouts/default.vue'),
       children: [
         {
           path: '',
-          component: () => import('../pages/index.vue'),
+          component: () => import('@/js/pages/index.vue'),
           name: 'home',
+        },
+        {
+          path: '/account',
+          children: [
+            {
+              path: '',
+              component: () => import('@/js/pages/account/index.vue'),
+              name: 'account',
+            },
+            {
+              path: 'me',
+              component: () => import('@/js/pages/account/me.vue'),
+              name: 'account-me',
+            },
+          ],
         },
       ],
     },
@@ -26,7 +43,8 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.name !== 'login' && !window.Laravel.isLoggedin) next({ name: 'login' })
+  if (to.name !== 'login' && !store.getters['auth/authenticated'])
+    next({ name: 'login' })
   else next()
 })
 

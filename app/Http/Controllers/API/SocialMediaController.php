@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSocialMedia;
 use App\Http\Resources\SocialMedias as SocialMediaResource;
-use App\SocialMedia;
+use App\Models\SocialMedia;
 use Illuminate\Http\Request;
 
 class SocialMediaController extends Controller

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategory;
 use App\Http\Resources\Categories as CategoryResource;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 

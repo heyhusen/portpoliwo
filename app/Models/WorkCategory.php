@@ -1,16 +1,16 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Datakrama\Eloquid\Traits\Uuids;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class WorkTag extends Pivot
+class WorkCategory extends Pivot
 {
     use Uuids;
 
     /**
-     * Get the work that owns the work tag.
+     * Get the work that owns the work category.
      */
     public function work()
     {

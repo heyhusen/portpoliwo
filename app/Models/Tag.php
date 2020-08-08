@@ -1,20 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Datakrama\Eloquid\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 
-class SocialMedia extends Model
+class Tag extends Model
 {
     use Uuids;
-
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'social_medias';
 
     /**
      * The attributes that aren't mass assignable.
@@ -31,4 +24,12 @@ class SocialMedia extends Model
     protected $hidden = [
         'id',
     ];
+
+    /**
+     * The work that belong to the tag.
+     */
+    public function works()
+    {
+        return $this->belongsToMany('App\Work', 'work_tags')->using('App\WorkTag');
+    }
 }

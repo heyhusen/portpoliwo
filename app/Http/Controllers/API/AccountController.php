@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUser;
 use App\Http\Resources\Users as UserResource;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -31,8 +31,7 @@ class AccountController extends Controller
      */
     public function list(Request $request)
     {
-        $data = DB::table('users')
-                    ->orderBy($request->sort_field, $request->sort_order)
+        $data = User::orderBy($request->sort_field, $request->sort_order)
                     ->select('id', 'name', 'email', 'photo', 'created_at')
                     ->paginate($request->per_page);
         return $this->successResponse($data);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Datakrama\Eloquid\Traits\Uuids;
 use Illuminate\Contracts\Auth\MustVerifyEmail;

@@ -121,6 +121,9 @@ class AccountController extends Controller
      */
     public function destroy(Request $request)
     {
+        $request->merge([
+            'selectedData' => array_diff($request->selectedData, [$request->user('sanctum')->id])
+        ]);
         User::destroy($request->selectedData);
         return $this->dataDeleted();
     }

@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Image\Image;
+use Spatie\Image\Manipulations;
 
 class AccountController extends Controller
 {
@@ -107,6 +109,9 @@ class AccountController extends Controller
     public function uploadPhoto($request, $data, $name = 'default.png')
     {
         if ($request->hasFile('photo')) {
+            Image::load($request->photo)
+                ->fit(Manipulations::FIT_CROP, 256, 256)
+                ->save();
             $name = $data->id . '/avatar-' . md5($data->id)  . date('-Y-m-d-H-m-s.') . $request->photo->extension();
             $request->photo->storeAs('public/avatar', $name);
         }

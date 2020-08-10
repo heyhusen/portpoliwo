@@ -62,7 +62,9 @@ Route::namespace('API')->name('api.')->group(function () {
             Route::post('/list', 'AccountController@list')->name('list');
             Route::delete('/', 'AccountController@destroy')->name('destroy');
         });
-        Route::apiResource('account', 'AccountController')->except([
+        Route::apiResource('account', 'AccountController')->parameters([
+            'account' => 'user'
+        ])->except([
             'destroy'
         ]);
     });

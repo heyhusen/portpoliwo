@@ -40,16 +40,22 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * Get the user's photo.
+     * The accessors to append to the model's array form.
      *
-     * @param  string  $value
+     * @var array
+     */
+    protected $appends = ['avatar'];
+
+    /**
+     * Get the user's avatar.
+     *
      * @return string
      */
-    public function getPhotoAttribute($value)
+    public function getAvatarAttribute()
     {
-        if ($value == 'default.png') {
+        if ($this->photo == 'default.png') {
             return 'https://www.gravatar.com/avatar/' . md5($this->email) . '?s=256';
         }
-        return asset('storage/avatar/' . $value);
+        return asset('storage/avatar/' . $this->photo);
     }
 }

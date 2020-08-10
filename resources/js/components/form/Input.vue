@@ -4,6 +4,7 @@
       :label="label"
       :type="{ 'is-danger': errors[0] }"
       :message="errors[0]"
+      :horizontal="horizontal"
     >
       <b-input
         :value="value"
@@ -44,6 +45,10 @@ export default {
     placeholder: {
       type: String,
       default: '',
+    },
+    horizontal: {
+      type: Boolean,
+      default: false,
     },
   },
 }

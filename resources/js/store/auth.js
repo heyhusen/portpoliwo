@@ -1,4 +1,4 @@
-import $axios from '@/js/api.js'
+import $axios, { api } from '@/js/api'
 
 export default {
   namespaced: true,
@@ -42,8 +42,8 @@ export default {
     },
 
     me({ commit }) {
-      return $axios
-        .get('/api/account/me')
+      return api
+        .get('/account/me')
         .then((response) => {
           commit('setAuthenticated', true)
           commit('setUser', response.data.data)

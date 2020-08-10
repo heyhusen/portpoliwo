@@ -54,7 +54,7 @@
                 </div>
                 <div class="column is-12">
                   <FormImage
-                    v-model="photo"
+                    v-model="user.photo"
                     label="Photo"
                     name="photo"
                     message="For best results, use an image with an aspect ratio of 1:1 with a minimum size of 256x256 px."
@@ -73,31 +73,50 @@
 </template>
 
 <script>
-import { userMixin } from '@/js/mixins/user'
 import { ValidationObserver } from 'vee-validate'
 import { api } from '@/js/api'
-import { mapActions } from 'vuex'
 
 export default {
-  name: 'MyAccount',
+  name: 'AccountDetail',
   components: {
     ValidationObserver,
     FormInput: () => import('@/js/components/form/Input'),
     FormImage: () => import('@/js/components/form/Image'),
     SaveButton: () => import('@/js/components/SaveButton'),
   },
-  mixins: [userMixin],
   data() {
     return {
-      photo: null,
+      user: {
+        name: '',
+        email: '',
+        password: '',
+        passwordRepeat: '',
+        avatar: null,
+      },
     }
   },
+  mounted() {
+    this.fetchData()
+  },
   methods: {
-    ...mapActions({
-      update: 'auth/me',
-    }),
     selectPhoto(event) {
-      this.photo = event.target.files[0]
+      this.user.photo = event.target.files[0]
+    },
+    async fetchData() {
+      await api
+        .get(`/account/${this.$route.params.id}`)
+        .then((response) => {
+          this.user = response.data.data
+        })
+        .catch(() => {
+          this.user = {
+            name: '',
+            email: '',
+            password: '',
+            passwordRepeat: '',
+            avatar: null,
+          }
+        })
     },
     async onSubmit() {
       const data = new FormData()
@@ -110,11 +129,11 @@ export default {
       if (this.user.passwordRepeat) {
         data.append('password_repeat', this.user.passwordRepeat)
       }
-      if (this.photo) {
-        data.append('photo', this.photo)
+      if (this.user.photo) {
+        data.append('photo', this.user.photo)
       }
       await api
-        .post(`/account/${this.user.id}`, data)
+        .post(`/account/${this.$route.params.id}`, data)
         .then((response) => {
           if (response.data.success) {
             this.$buefy.toast.open({
@@ -122,7 +141,7 @@ export default {
               type: 'is-success',
             })
           }
-          this.update()
+          this.fetchData()
         })
         .catch((error) => {
           if (error.response.data.errors) {

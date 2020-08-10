@@ -24,6 +24,7 @@
         "resolve-url-loader": "^3.1.1",
         "sass": "^1.20.1",
         "sass-loader": "^8.0.0",
+        "vue-auto-routing": "^0.5.0",
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {

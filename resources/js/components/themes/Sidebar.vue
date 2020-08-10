@@ -24,9 +24,12 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { userMixin } from '@/js/mixins/user'
+import { logOutMixin } from '@/js/mixins/logOut'
 
 export default {
+  name: 'Sidebar',
+  mixins: [userMixin, logOutMixin],
   data() {
     return {
       menus: [
@@ -35,24 +38,13 @@ export default {
           icon: 'home',
           to: { name: 'home' },
         },
+        {
+          title: 'Account',
+          icon: 'account',
+          to: { name: 'account' },
+        },
       ],
     }
-  },
-  computed: {
-    ...mapGetters({
-      authenticated: 'auth/authenticated',
-      user: 'auth/user',
-    }),
-  },
-  methods: {
-    ...mapActions({
-      logOut: 'auth/logOut',
-    }),
-
-    async signOut() {
-      await this.logOut()
-      this.$router.push({ name: 'login' })
-    },
   },
 }
 </script>

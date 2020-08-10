@@ -16,7 +16,7 @@
           <div class="level">
             <div class="level-item">
               <figure class="image is-96x96">
-                <img class="is-rounded" :src="user.photo" />
+                <img class="is-rounded" :src="user.avatar" />
               </figure>
             </div>
           </div>
@@ -31,10 +31,10 @@
         </b-dropdown-item>
         <hr class="dropdown-divider" aria-role="menuitem" />
         <b-dropdown-item value="settings">
-          <b-icon icon="settings"></b-icon>
+          <b-icon icon="cog"></b-icon>
           Settings
         </b-dropdown-item>
-        <b-dropdown-item value="logout" aria-role="menuitem">
+        <b-dropdown-item aria-role="menuitem" @click="signOut()">
           <b-icon icon="logout"></b-icon>
           Logout
         </b-dropdown-item>
@@ -44,14 +44,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { userMixin } from '@/js/mixins/user'
+import { logOutMixin } from '@/js/mixins/logOut'
 
 export default {
   name: 'Navbar',
-  computed: {
-    ...mapGetters({
-      user: 'auth/user',
-    }),
-  },
+  mixins: [userMixin, logOutMixin],
 }
 </script>

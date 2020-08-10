@@ -6,34 +6,45 @@ Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
-  linkActiveClass: 'is-active',
+  linkExactActiveClass: 'is-active',
   routes: [
     {
       path: '/login',
-      component: () => import('@/js/pages/auth/login.vue'),
+      component: () => import('@/js/pages/auth/login'),
       name: 'login',
     },
     {
       path: '/',
-      component: () => import('@/js/layouts/default.vue'),
+      component: () => import('@/js/layouts/default'),
       children: [
         {
           path: '',
-          component: () => import('@/js/pages/index.vue'),
+          component: () => import('@/js/pages/index'),
           name: 'home',
         },
         {
           path: '/account',
+          component: () => import('@/js/pages/account.vue'),
           children: [
             {
               path: '',
-              component: () => import('@/js/pages/account/index.vue'),
+              component: () => import('@/js/pages/account/index'),
               name: 'account',
             },
             {
+              path: 'create',
+              component: () => import('@/js/pages/account/create'),
+              name: 'account-create',
+            },
+            {
               path: 'me',
-              component: () => import('@/js/pages/account/me.vue'),
+              component: () => import('@/js/pages/account/me'),
               name: 'account-me',
+            },
+            {
+              path: ':id',
+              component: () => import('@/js/pages/account/_id'),
+              name: 'account-show',
             },
           ],
         },

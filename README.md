@@ -2,6 +2,8 @@
 
 Portpoliwo is my simple personal portfolio application. This application uses [Laravel](https://github.com/laravel/laravel "Laravel") as backend, and [Vue.js](https://github.com/vuejs/vue "Vue.js") as SPA.
 
+> This is my first Vue.js project.
+
 ## Features
 
 - UUID as default primary database key

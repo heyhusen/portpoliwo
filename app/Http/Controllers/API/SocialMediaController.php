@@ -7,6 +7,7 @@ use App\Http\Requests\StoreSocialMedia;
 use App\Http\Resources\SocialMedias as SocialMediaResource;
 use App\Models\SocialMedia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SocialMediaController extends Controller
 {
@@ -18,6 +19,21 @@ class SocialMediaController extends Controller
     public function index()
     {
         $data = collect(SocialMediaResource::collection(SocialMedia::all()));
+        return $this->successResponse($data);
+    }
+
+    /**
+     * Display a listing of the resource for datatable
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function list(Request $request)
+    {
+        $data = DB::table('social_medias')
+                    ->orderBy($request->sort_field, $request->sort_order)
+                    ->select('id', 'name', 'icon', 'url', 'created_at')
+                    ->paginate($request->per_page);
         return $this->successResponse($data);
     }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <AddButton :to="{ name: 'account-create' }" />
+    <AddButton :to="{ name: 'social-media-create' }" />
     <b-button
       v-if="checkedRows.length"
       type="is-danger"
@@ -50,21 +50,19 @@
           {{ props.row.name }}
         </b-table-column>
 
-        <b-table-column field="email" label="E-Mail" sortable>
-          {{ props.row.email }}
+        <b-table-column field="icon" label="Icon" sortable>
+          <b-icon :icon="props.row.icon"></b-icon>
         </b-table-column>
 
-        <b-table-column field="avatar" label="Photo">
-          <figure class="image is-32x32">
-            <img class="is-rounded" :src="props.row.avatar" />
-          </figure>
+        <b-table-column field="url" label="URL" sortable>
+          <a :href="props.row.url" target="_blank">{{ props.row.url }}</a>
         </b-table-column>
 
         <b-table-column field="action" label="Action">
           <ActionButton
             :edit="false"
             :detail-to="{
-              name: 'account-show',
+              name: 'social-media-show',
               params: { id: props.row.id },
             }"
           />
@@ -81,11 +79,11 @@
 import { datatableMixin } from '@/js/mixins/datatable'
 
 export default {
-  name: 'AccountIndex',
+  name: 'SocialMediaIndex',
   mixins: [datatableMixin],
   data() {
     return {
-      url: 'account',
+      url: 'social-media',
     }
   },
 }

@@ -39,6 +39,11 @@ export default {
           to: { name: 'home' },
         },
         {
+          title: 'Social Media',
+          icon: 'account-network',
+          to: { name: 'social-media' },
+        },
+        {
           title: 'Account',
           icon: 'account',
           to: { name: 'account' },

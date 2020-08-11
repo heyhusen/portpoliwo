@@ -23,6 +23,27 @@ const router = new Router({
           name: 'home',
         },
         {
+          path: '/social-media',
+          component: () => import('@/js/pages/social-media.vue'),
+          children: [
+            {
+              path: '',
+              component: () => import('@/js/pages/social-media/index'),
+              name: 'social-media',
+            },
+            {
+              path: 'create',
+              component: () => import('@/js/pages/social-media/create'),
+              name: 'social-media-create',
+            },
+            {
+              path: ':id',
+              component: () => import('@/js/pages/social-media/_id'),
+              name: 'social-media-show',
+            },
+          ],
+        },
+        {
           path: '/account',
           component: () => import('@/js/pages/account.vue'),
           children: [

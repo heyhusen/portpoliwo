@@ -10,6 +10,7 @@
         :value="value"
         :type="type"
         :icon="icon"
+        :icon-right="iconRight"
         :placeholder="placeholder ? placeholder : label"
         :password-reveal="type == 'password'"
         @input="$emit('input', $event)"
@@ -39,6 +40,10 @@ export default {
       default: '',
     },
     icon: {
+      type: String,
+      default: '',
+    },
+    iconRight: {
       type: String,
       default: '',
     },

@@ -56,16 +56,6 @@ class AppInstall extends Command
             '--seed' => 'default'
         ]);
         $this->line(' ');
-        $this->line('Installing Passport.');
-        $this->call('passport:install', [
-            '--force' => 'default'
-        ]);
-        $this->line(' ');
-        $this->line('Generate Passport encryption keys.');
-        $this->call('passport:keys', [
-            '--force' => 'default'
-        ]);
-        $this->line(' ');
         $this->line(' ');
         $this->info('Done.');
     }

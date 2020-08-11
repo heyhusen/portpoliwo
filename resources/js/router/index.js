@@ -50,6 +50,11 @@ const router = new Router({
         },
       ],
     },
+    {
+      path: '*',
+      component: () => import('@/js/pages/404'),
+      name: '404',
+    },
   ],
 })
 

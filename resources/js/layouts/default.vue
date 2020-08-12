@@ -12,9 +12,12 @@
             <section class="section">
               <div class="columns is-multiline">
                 <div class="column is-12">
-                  <b-tooltip label="Back to previous page" type="is-dark">
+                  <b-tooltip
+                    v-if="$route.name !== 'home'"
+                    label="Back to previous page"
+                    type="is-dark"
+                  >
                     <b-button
-                      v-if="$route.name !== 'home'"
                       tag="a"
                       type="is-white"
                       size="is-small"
@@ -45,9 +48,9 @@
 export default {
   name: 'Layout',
   components: {
-    Navbar: () => import('@/js/components/themes/Navbar.vue'),
-    Sidebar: () => import('@/js/components/themes/Sidebar.vue'),
-    Footer: () => import('@/js/components/themes/Footer.vue'),
+    Navbar: () => import('@/js/components/themes/Navbar'),
+    Sidebar: () => import('@/js/components/themes/Sidebar'),
+    Footer: () => import('@/js/components/themes/Footer'),
   },
 }
 </script>

@@ -39,7 +39,7 @@ class Work extends Model
      */
     public function workCategory()
     {
-        return $this->hasOne('App\WorkCategory');
+        return $this->hasOne('App\Models\WorkCategory');
     }
 
     /**
@@ -47,15 +47,15 @@ class Work extends Model
      */
     public function workTags()
     {
-        return $this->hasMany('App\WorkTag');
+        return $this->hasMany('App\Models\WorkTag');
     }
 
     /**
      * The category that belong to the work.
      */
-    public function category()
+    public function categories()
     {
-        return $this->belongsToMany('App\Category', 'work_categories')->using('App\WorkCategory')->withTimestamps();
+        return $this->belongsToMany('App\Models\Category', 'work_categories')->using('App\Models\WorkCategory')->withTimestamps();
     }
 
     /**
@@ -63,6 +63,6 @@ class Work extends Model
      */
     public function tags()
     {
-        return $this->belongsToMany('App\Tag', 'work_tags')->using('App\WorkTag')->withTimestamps();
+        return $this->belongsToMany('App\Models\Tag', 'work_tags')->using('App\Models\WorkTag')->withTimestamps();
     }
 }

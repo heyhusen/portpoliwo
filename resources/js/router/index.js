@@ -23,6 +23,48 @@ const router = new Router({
           name: 'home',
         },
         {
+          path: '/category',
+          component: () => import('@/js/pages/category.vue'),
+          children: [
+            {
+              path: '',
+              component: () => import('@/js/pages/category/index'),
+              name: 'category',
+            },
+            {
+              path: 'create',
+              component: () => import('@/js/pages/category/create'),
+              name: 'category-create',
+            },
+            {
+              path: ':id',
+              component: () => import('@/js/pages/category/_id'),
+              name: 'category-show',
+            },
+          ],
+        },
+        {
+          path: '/tag',
+          component: () => import('@/js/pages/tag.vue'),
+          children: [
+            {
+              path: '',
+              component: () => import('@/js/pages/tag/index'),
+              name: 'tag',
+            },
+            {
+              path: 'create',
+              component: () => import('@/js/pages/tag/create'),
+              name: 'tag-create',
+            },
+            {
+              path: ':id',
+              component: () => import('@/js/pages/tag/_id'),
+              name: 'tag-show',
+            },
+          ],
+        },
+        {
           path: '/social-media',
           component: () => import('@/js/pages/social-media.vue'),
           children: [

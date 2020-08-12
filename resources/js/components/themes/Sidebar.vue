@@ -39,6 +39,16 @@ export default {
           to: { name: 'home' },
         },
         {
+          title: 'Category',
+          icon: 'folder-table',
+          to: { name: 'category' },
+        },
+        {
+          title: 'Tag',
+          icon: 'label',
+          to: { name: 'tag' },
+        },
+        {
           title: 'Social Media',
           icon: 'account-network',
           to: { name: 'social-media' },

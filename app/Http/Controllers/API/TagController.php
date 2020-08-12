@@ -23,6 +23,21 @@ class TagController extends Controller
     }
 
     /**
+     * Display a listing of the resource for datatable
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function list(Request $request)
+    {
+        $data = Tag::orderBy($request->sort_field, $request->sort_order)
+                    ->select('id', 'name', 'slug', 'created_at')
+                    ->withCount('works')
+                    ->paginate($request->per_page);
+        return $this->successResponse($data);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -30,8 +45,11 @@ class TagController extends Controller
      */
     public function store(StoreTag $request)
     {
-        if ( ! $request->filled('slug')) {
+        if ($request->missing('slug')) {
             $request->request->add(['slug' => $request->name]);
+        }
+        if ($request->has('slug') && empty($request->slug)) {
+            $request->merge(['slug' => $request->name]);
         }
         $request->merge(['slug' => Str::slug($request->slug, '-')]);
         $tag = Tag::create($request->all());
@@ -60,8 +78,11 @@ class TagController extends Controller
      */
     public function update(StoreTag $request, Tag $tag)
     {
-        if ( ! $request->filled('slug')) {
+        if ($request->missing('slug')) {
             $request->request->add(['slug' => $request->name]);
+        }
+        if ($request->has('slug') && empty($request->slug)) {
+            $request->merge(['slug' => $request->name]);
         }
         $request->merge(['slug' => Str::slug($request->slug, '-')]);
         $tag->fill($request->all());

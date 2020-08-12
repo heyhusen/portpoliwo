@@ -21,15 +21,13 @@ class Category extends Model
      *
      * @var array
      */
-    protected $hidden = [
-        'id',
-    ];
+    protected $hidden = [];
 
     /**
      * The work that belong to the category.
      */
     public function works()
     {
-        return $this->belongsToMany('App\Work', 'work_categories')->using('App\WorkCategory');
+        return $this->belongsToMany('App\Models\Work', 'work_categories')->using('App\Models\WorkCategory');
     }
 }

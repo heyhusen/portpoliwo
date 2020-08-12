@@ -14,6 +14,6 @@ class WorkCategory extends Pivot
      */
     public function work()
     {
-        return $this->belongsTo('App\Work');
+        return $this->belongsTo('App\Models\Work');
     }
 }

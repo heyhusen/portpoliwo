@@ -21,15 +21,13 @@ class Tag extends Model
      *
      * @var array
      */
-    protected $hidden = [
-        'id',
-    ];
+    protected $hidden = [];
 
     /**
      * The work that belong to the tag.
      */
     public function works()
     {
-        return $this->belongsToMany('App\Work', 'work_tags')->using('App\WorkTag');
+        return $this->belongsToMany('App\Models\Work', 'work_tags')->using('App\Models\WorkTag');
     }
 }

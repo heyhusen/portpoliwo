@@ -19,6 +19,7 @@ Route::namespace('API')->name('api.')->group(function () {
 
         // Category
         Route::prefix('category')->name('category.')->group(function () {
+            Route::post('/list', 'CategoryController@list')->name('list');
             Route::delete('/', 'CategoryController@destroy')->name('destroy');
         });
         Route::apiResource('category', 'CategoryController')->except([
@@ -27,6 +28,7 @@ Route::namespace('API')->name('api.')->group(function () {
 
         // Tag
         Route::prefix('tag')->name('tag.')->group(function () {
+            Route::post('/list', 'TagController@list')->name('list');
             Route::delete('/', 'TagController@destroy')->name('destroy');
         });
         Route::apiResource('tag', 'TagController')->except([

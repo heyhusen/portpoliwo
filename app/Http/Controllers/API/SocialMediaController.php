@@ -53,7 +53,7 @@ class SocialMediaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\SocialMedia  $socialMedia
+     * @param  \App\Models\SocialMedia  $socialMedia
      * @return \Illuminate\Http\Response
      */
     public function show(SocialMedia $socialMedia)
@@ -66,7 +66,7 @@ class SocialMediaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\SocialMedia  $socialMedia
+     * @param  \App\Models\SocialMedia  $socialMedia
      * @return \Illuminate\Http\Response
      */
     public function update(StoreSocialMedia $request, SocialMedia $socialMedia)
@@ -80,7 +80,7 @@ class SocialMediaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\SocialMedia  $socialMedia
+     * @param  \App\Models\SocialMedia  $socialMedia
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)

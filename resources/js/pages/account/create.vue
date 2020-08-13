@@ -31,7 +31,6 @@
               label="Photo"
               name="photo"
               message="For best results, use an image with an aspect ratio of 1:1 with a minimum size of 256x256 px."
-              @change="selectPhoto"
             />
           </div>
         </div>
@@ -66,9 +65,6 @@ export default {
     }
   },
   methods: {
-    selectPhoto(event) {
-      this.user.photo = event.target.files[0]
-    },
     async onSubmit() {
       const data = new FormData()
       data.append('name', this.user.name)

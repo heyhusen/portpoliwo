@@ -57,7 +57,6 @@
                   label="Photo"
                   name="photo"
                   message="For best results, use an image with an aspect ratio of 1:1 with a minimum size of 256x256 px."
-                  @change="selectPhoto"
                 />
               </div>
             </div>
@@ -89,7 +88,7 @@ export default {
         email: '',
         password: '',
         passwordRepeat: '',
-        avatar: null,
+        photo: null,
       },
     }
   },
@@ -97,9 +96,6 @@ export default {
     this.fetchData()
   },
   methods: {
-    selectPhoto(event) {
-      this.user.photo = event.target.files[0]
-    },
     async fetchData() {
       await api
         .get(`/account/${this.$route.params.id}`)
@@ -112,7 +108,7 @@ export default {
             email: '',
             password: '',
             passwordRepeat: '',
-            avatar: null,
+            photo: null,
           }
         })
     },

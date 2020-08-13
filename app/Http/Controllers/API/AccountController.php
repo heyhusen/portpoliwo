@@ -88,8 +88,11 @@ class AccountController extends Controller
      */
     public function update(StoreUser $request, User $user)
     {
-        if ($request->has('password')) {
+        if ($request->filled('password')) {
             $request->merge(['password' => Hash::make($request->password)]);
+        }
+        if ($request->has('password') && empty($request->password)) {
+            $request->merge(['password' => $user->password]);
         }
         $user->fill($request->all());
         $user->photo = $this->uploadPhoto($request, $user, $user->photo);

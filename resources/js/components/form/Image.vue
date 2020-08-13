@@ -1,7 +1,7 @@
 <template>
   <ValidationProvider v-slot="{ errors, valid }" :name="name">
     <figure v-if="value" class="image is-128x128">
-      <img class="is-rounded" :src="value._url" />
+      <img class="is-rounded" :src="file.url" />
     </figure>
     <b-field
       :label="label"
@@ -10,7 +10,7 @@
       :horizontal="horizontal"
     >
       <b-field class="file">
-        <b-upload :ref="value" :value="value" @input="$emit('input', $event)">
+        <b-upload :value="value" @input="$emit('input', $event)">
           <a class="button is-primary">
             <b-icon icon="upload"></b-icon>
             <span><slot>Select an image</slot></span>
@@ -40,7 +40,7 @@ export default {
       default: 'photo',
     },
     value: {
-      type: [File],
+      type: [String, File],
       default: null,
     },
     message: {
@@ -52,9 +52,16 @@ export default {
       default: false,
     },
   },
+  data() {
+    return {
+      file: {
+        url: '',
+      },
+    }
+  },
   watch: {
-    value(val) {
-      val._url = URL.createObjectURL(val)
+    value(v) {
+      this.file.url = URL.createObjectURL(v)
     },
   },
 }

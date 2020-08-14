@@ -31,6 +31,7 @@
         "@mdi/font": "^5.4.55",
         "axios": "^0.19.2",
         "buefy": "^0.8.20",
+        "object-to-formdata": "^4.1.0",
         "vee-validate": "^3.3.8",
         "vue": "^2.6.11",
         "vue-router": "^3.3.4",

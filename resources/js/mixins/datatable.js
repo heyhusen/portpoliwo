@@ -33,9 +33,9 @@ export const datatableMixin = {
           per_page: this.perPage,
           page: this.page,
         })
-        .then(({ data }) => {
-          this.data = data.data.data
-          let currentTotal = data.data.total
+        .then(({ data: { data } }) => {
+          this.data = data.data
+          let currentTotal = data.total
           if (data.total / this.perPage > 1000) {
             currentTotal = this.perPage * 1000
           }
@@ -78,15 +78,15 @@ export const datatableMixin = {
               selectedData: selectData,
             },
           })
-            .then((response) => {
+            .then(({ data }) => {
               this.$buefy.toast.open({
-                message: response.data.message,
+                message: data.message,
                 type: 'is-danger',
               })
             })
-            .catch((error) => {
+            .catch(({ response: { data } }) => {
               this.$buefy.toast.open({
-                message: error.response.data.message,
+                message: data.message,
                 type: 'is-danger',
               })
             })

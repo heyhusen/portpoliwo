@@ -37,7 +37,7 @@
               </div>
               <div class="column is-12">
                 <FormInput
-                  v-model="user.password"
+                  v-model="my.password"
                   label="Password"
                   name="password"
                   type="password"
@@ -45,7 +45,7 @@
               </div>
               <div class="column is-12">
                 <FormInput
-                  v-model="user.passwordRepeat"
+                  v-model="my.passwordRepeat"
                   label="Repeat Password"
                   name="password_repeat"
                   type="password"
@@ -53,11 +53,10 @@
               </div>
               <div class="column is-12">
                 <FormImage
-                  v-model="photo"
+                  v-model="my.photo"
                   label="Photo"
                   name="photo"
                   message="For best results, use an image with an aspect ratio of 1:1 with a minimum size of 256x256 px."
-                  @change="selectPhoto"
                 />
               </div>
             </div>
@@ -73,6 +72,7 @@
 <script>
 import { userMixin } from '@/js/mixins/user'
 import { ValidationObserver } from 'vee-validate'
+import { serialize } from 'object-to-formdata'
 import { api } from '@/js/api'
 import { mapActions } from 'vuex'
 
@@ -87,47 +87,42 @@ export default {
   mixins: [userMixin],
   data() {
     return {
-      photo: null,
+      my: {
+        password: null,
+        passwordRepeat: null,
+        photo: null,
+      },
     }
   },
   methods: {
     ...mapActions({
       update: 'auth/me',
     }),
-    selectPhoto(event) {
-      this.photo = event.target.files[0]
-    },
     async onSubmit() {
-      const data = new FormData()
-      data.append('_method', 'PUT')
-      data.append('name', this.user.name)
-      data.append('email', this.user.email)
-      if (this.user.password) {
-        data.append('password', this.user.password)
-      }
-      if (this.user.passwordRepeat) {
-        data.append('password_repeat', this.user.passwordRepeat)
-      }
-      if (this.photo) {
-        data.append('photo', this.photo)
-      }
+      const { name: userName, email: userEmail } = this.user
+      const data = serialize(
+        { name: userName, email: userEmail, ...this.my, _method: 'PUT' },
+        {
+          nullsAsUndefineds: true,
+        }
+      )
       await api
         .post(`/account/${this.user.id}`, data)
-        .then((response) => {
-          if (response.data.success) {
+        .then(({ data }) => {
+          if (data.success) {
             this.$buefy.toast.open({
-              message: response.data.message,
+              message: data.message,
               type: 'is-success',
             })
           }
           this.update()
         })
-        .catch((error) => {
-          if (error.response.data.errors) {
-            this.$refs.form.setErrors(error.response.data.errors)
+        .catch(({ response: { data } }) => {
+          if (data.errors) {
+            this.$refs.form.setErrors(data.errors)
           }
           this.$buefy.toast.open({
-            message: error.response.data.message,
+            message: data.message,
             type: 'is-danger',
           })
         })

@@ -43,6 +43,7 @@
 
 <script>
 import { ValidationObserver } from 'vee-validate'
+import { serialize } from 'object-to-formdata'
 import { api } from '@/js/api'
 
 export default {
@@ -66,31 +67,26 @@ export default {
   },
   methods: {
     async onSubmit() {
-      const data = new FormData()
-      data.append('name', this.user.name)
-      data.append('email', this.user.email)
-      data.append('password', this.user.password)
-      data.append('password_repeat', this.user.passwordRepeat)
-      if (this.user.photo) {
-        data.append('photo', this.user.photo)
-      }
+      const data = serialize(this.user, {
+        nullsAsUndefineds: true,
+      })
       await api
         .post('/account', data)
-        .then((response) => {
-          if (response.data.success) {
+        .then(({ data }) => {
+          if (data.success) {
             this.$buefy.toast.open({
-              message: response.data.message,
+              message: data.message,
               type: 'is-success',
             })
           }
           this.$router.back()
         })
-        .catch((error) => {
-          if (error.response.data.errors) {
-            this.$refs.form.setErrors(error.response.data.errors)
+        .catch(({ response: { data } }) => {
+          if (data.errors) {
+            this.$refs.form.setErrors(data.errors)
           }
           this.$buefy.toast.open({
-            message: error.response.data.message,
+            message: data.message,
             type: 'is-danger',
           })
         })

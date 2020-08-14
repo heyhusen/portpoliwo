@@ -71,6 +71,7 @@
 
 <script>
 import { ValidationObserver } from 'vee-validate'
+import { serialize } from 'object-to-formdata'
 import { api } from '@/js/api'
 
 export default {
@@ -86,8 +87,8 @@ export default {
       user: {
         name: '',
         email: '',
-        password: '',
-        passwordRepeat: '',
+        password: null,
+        passwordRepeat: null,
         photo: null,
       },
     }
@@ -99,50 +100,43 @@ export default {
     async fetchData() {
       await api
         .get(`/account/${this.$route.params.id}`)
-        .then((response) => {
-          this.user = response.data.data
+        .then(({ data: { data } }) => {
+          this.user = data
         })
         .catch(() => {
           this.user = {
             name: '',
             email: '',
-            password: '',
-            passwordRepeat: '',
+            password: null,
+            passwordRepeat: null,
             photo: null,
           }
         })
     },
     async onSubmit() {
-      const data = new FormData()
-      data.append('_method', 'PUT')
-      data.append('name', this.user.name)
-      data.append('email', this.user.email)
-      if (this.user.password) {
-        data.append('password', this.user.password)
-      }
-      if (this.user.passwordRepeat) {
-        data.append('password_repeat', this.user.passwordRepeat)
-      }
-      if (this.user.photo) {
-        data.append('photo', this.user.photo)
-      }
+      const data = serialize(
+        { ...this.user, _method: 'PUT' },
+        {
+          nullsAsUndefineds: true,
+        }
+      )
       await api
         .post(`/account/${this.$route.params.id}`, data)
-        .then((response) => {
-          if (response.data.success) {
+        .then(({ data }) => {
+          if (data.success) {
             this.$buefy.toast.open({
-              message: response.data.message,
+              message: data.message,
               type: 'is-success',
             })
           }
           this.fetchData()
         })
-        .catch((error) => {
-          if (error.response.data.errors) {
-            this.$refs.form.setErrors(error.response.data.errors)
+        .catch(({ response: { data } }) => {
+          if (data.errors) {
+            this.$refs.form.setErrors(data.errors)
           }
           this.$buefy.toast.open({
-            message: error.response.data.message,
+            message: data.message,
             type: 'is-danger',
           })
         })

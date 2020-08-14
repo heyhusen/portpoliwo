@@ -44,9 +44,9 @@ export default {
     me({ commit }) {
       return api
         .get('/account/me')
-        .then((response) => {
+        .then(({ data: { data } }) => {
           commit('setAuthenticated', true)
-          commit('setUser', response.data.data)
+          commit('setUser', data)
         })
         .catch(() => {
           commit('setAuthenticated', false)

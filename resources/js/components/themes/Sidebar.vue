@@ -45,7 +45,7 @@ export default {
         {
           title: 'Home',
           icon: 'home',
-          to: { name: 'home' },
+          to: '/',
         },
         {
           title: 'Work',
@@ -54,29 +54,29 @@ export default {
             {
               title: 'All Works',
               icon: 'archive',
-              to: { name: 'work' },
+              to: '/work',
             },
             {
               title: 'Category',
               icon: 'folder-table',
-              to: { name: 'category' },
+              to: '/category',
             },
             {
               title: 'Tag',
               icon: 'label',
-              to: { name: 'tag' },
+              to: '/tag',
             },
           ],
         },
         {
           title: 'Social Media',
           icon: 'account-network',
-          to: { name: 'social-media' },
+          to: '/social-media',
         },
         {
           title: 'Account',
           icon: 'account',
-          to: { name: 'account' },
+          to: '/account',
         },
       ],
     }

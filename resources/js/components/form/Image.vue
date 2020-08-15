@@ -1,11 +1,11 @@
 <template>
-  <ValidationProvider v-slot="{ errors, valid }" :name="name">
+  <ValidationProvider v-slot="{ errors }" :name="name">
     <figure v-if="value" class="image is-128x128">
-      <img class="is-rounded" :src="file.url" />
+      <img :class="{ 'is-rounded': rounded }" :src="file.url" />
     </figure>
     <b-field
       :label="label"
-      :type="{ 'is-danger': errors[0], 'is-success': valid }"
+      :type="{ 'is-danger': errors[0] }"
       :message="[message, ...errors]"
       :horizontal="horizontal"
     >
@@ -50,6 +50,10 @@ export default {
     horizontal: {
       type: Boolean,
       default: false,
+    },
+    rounded: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {

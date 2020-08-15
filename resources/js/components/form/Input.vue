@@ -20,8 +20,13 @@
 </template>
 
 <script>
+import { ValidationProvider } from 'vee-validate'
+
 export default {
   name: 'FormInput',
+  components: {
+    ValidationProvider,
+  },
   props: {
     label: {
       type: String,

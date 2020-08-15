@@ -6,10 +6,19 @@
           v-for="(menu, key) of menus"
           :key="key"
           :icon="menu.icon"
-          tag="router-link"
+          :tag="menu.to ? 'router-link' : 'a'"
           :to="menu.to"
-          :label="menu.title"
+          :label="menu.to == '' ? '' : menu.title"
         >
+          <b-menu-item
+            v-for="(subMenu, subKey) of menu.sub"
+            :key="subKey"
+            :icon="subMenu.icon"
+            tag="router-link"
+            :to="subMenu.to"
+            :label="subMenu.title"
+          >
+          </b-menu-item>
         </b-menu-item>
       </b-menu-list>
       <b-menu-list label="Action">
@@ -39,14 +48,25 @@ export default {
           to: { name: 'home' },
         },
         {
-          title: 'Category',
-          icon: 'folder-table',
-          to: { name: 'category' },
-        },
-        {
-          title: 'Tag',
-          icon: 'label',
-          to: { name: 'tag' },
+          title: 'Work',
+          icon: 'archive',
+          sub: [
+            {
+              title: 'All Works',
+              icon: 'archive',
+              to: { name: 'work' },
+            },
+            {
+              title: 'Category',
+              icon: 'folder-table',
+              to: { name: 'category' },
+            },
+            {
+              title: 'Tag',
+              icon: 'label',
+              to: { name: 'tag' },
+            },
+          ],
         },
         {
           title: 'Social Media',

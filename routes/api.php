@@ -37,6 +37,7 @@ Route::namespace('API')->name('api.')->group(function () {
 
         // Work
         Route::prefix('work')->name('work.')->group(function () {
+            Route::post('/list', 'WorkController@list')->name('list');
             Route::delete('/', 'WorkController@destroy')->name('destroy');
         });
         Route::apiResource('work', 'WorkController')->except([

@@ -18,9 +18,9 @@ class Works extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'photo' => $this->photo,
+            'image' => $this->image,
             'url' => $this->url,
-            'category' => $this->category,
+            'categories' => $this->categories,
             'tags' => $this->tags,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at

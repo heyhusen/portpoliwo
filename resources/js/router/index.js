@@ -6,7 +6,6 @@ Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
-  linkExactActiveClass: 'is-active',
   routes: [
     {
       path: '/login',
@@ -61,6 +60,27 @@ const router = new Router({
               path: ':id',
               component: () => import('@/js/pages/tag/_id'),
               name: 'tag-show',
+            },
+          ],
+        },
+        {
+          path: '/work',
+          component: () => import('@/js/pages/work.vue'),
+          children: [
+            {
+              path: '',
+              component: () => import('@/js/pages/work/index'),
+              name: 'work',
+            },
+            {
+              path: 'create',
+              component: () => import('@/js/pages/work/create'),
+              name: 'work-create',
+            },
+            {
+              path: ':id',
+              component: () => import('@/js/pages/work/_id'),
+              name: 'work-show',
             },
           ],
         },

@@ -30,9 +30,14 @@ class Work extends Model
      *
      * @var array
      */
-    protected $hidden = [
-        'id',
-    ];
+    protected $hidden = [];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['image'];
 
     /**
      * Get the work category record associated with the work.
@@ -64,5 +69,15 @@ class Work extends Model
     public function tags()
     {
         return $this->belongsToMany('App\Models\Tag', 'work_tags')->using('App\Models\WorkTag')->withTimestamps();
+    }
+
+    /**
+     * Get the work's image.
+     *
+     * @return string
+     */
+    public function getImageAttribute()
+    {
+        return asset('storage/work/' . $this->photo);
     }
 }

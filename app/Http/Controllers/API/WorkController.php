@@ -22,6 +22,20 @@ class WorkController extends Controller
     }
 
     /**
+     * Display a listing of the resource for datatable
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function list(Request $request)
+    {
+        $data = Work::orderBy($request->sort_field, $request->sort_order)
+                    ->select('id', 'name', 'description', 'url', 'photo', 'created_at')
+                    ->paginate($request->per_page);
+        return $this->successResponse($data);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -30,9 +44,9 @@ class WorkController extends Controller
     public function store(StoreWork $request)
     {
         $work = Work::create($request->all());
-        $work->photo = $this->uploadPhoto($request);
+        $work->photo = $this->uploadPhoto($request, $work);
         $work->save();
-        $work->category()->attach($request->category_id);
+        $work->categories()->attach($request->category_id);
         $work->tags()->attach($request->tag_id);
         $data = collect(new WorkResource($work));
         return $this->dataCreated($data);
@@ -60,9 +74,9 @@ class WorkController extends Controller
     public function update(StoreWork $request, Work $work)
     {
         $work->fill($request->all());
-        $work->photo = $this->uploadPhoto($request, $work->photo);
+        $work->photo = $this->uploadPhoto($request, $work, $work->photo);
         $work->save();
-        $work->category()->sync($request->category_id);
+        $work->categories()->sync($request->category_id);
         $work->tags()->sync($request->tag_id);
         $data = collect(new WorkResource($work));
         return $this->dataUpdated($data);
@@ -75,13 +89,13 @@ class WorkController extends Controller
      * @param string $path
      * @return void
      */
-    public function uploadPhoto(Request $request, $path = null)
+    public function uploadPhoto(Request $request, $data, $name = null)
     {
         if ($request->hasFile('photo')) {
-            $path = $request->photo->store('public/work');
-            $path = \Illuminate\Support\Str::replaceFirst('public/', '', $path);
+            $name = $data->id . '/' . $request->photo->hashName();
+            $path = $request->photo->store('public/work/' . $data->id);
         }
-        return $path;
+        return $name;
     }
 
     /**

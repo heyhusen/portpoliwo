@@ -16,9 +16,13 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = collect(TagResource::collection(Tag::all()));
+        $tags = Tag::when($request->filled('search'), function ($search) use ($request)
+                    {
+                        $search->where('name', 'like', "%{$request->search}%");
+                    })->get();
+        $data = collect(TagResource::collection($tags));
         return $this->successResponse($data);
     }
 

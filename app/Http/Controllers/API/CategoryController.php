@@ -16,9 +16,13 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = collect(CategoryResource::collection(Category::all()));
+        $categories = Category::when($request->filled('search'), function ($search) use ($request)
+                        {
+                            $search->where('name', 'like', "%{$request->search}%");
+                        })->get();
+        $data = collect(CategoryResource::collection($categories));
         return $this->successResponse($data);
     }
 

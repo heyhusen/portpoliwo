@@ -27,6 +27,7 @@ class StoreWork extends FormRequest
         $rules = [
             'name' => ['required', 'unique:works,name'],
             'description' => ['required'],
+            'url' => ['url'],
             'photo' => [Rule::requiredIf($this->isMethod('post')), 'image'],
             'category_id' => [Rule::requiredIf($this->isMethod('post')), 'array', 'min:1'],
             'category_id.*' => ['required', 'min:1'],

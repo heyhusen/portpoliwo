@@ -1,7 +1,10 @@
 <template>
   <ValidationProvider v-slot="{ errors }" :name="name">
-    <figure v-if="value" class="image is-128x128">
-      <img :class="{ 'is-rounded': rounded }" :src="file.url" />
+    <figure v-if="value || preview" class="image is-128x128">
+      <img
+        :class="{ 'is-rounded': rounded }"
+        :src="file.url ? file.url : preview"
+      />
     </figure>
     <b-field
       :label="label"
@@ -54,6 +57,10 @@ export default {
     rounded: {
       type: Boolean,
       default: true,
+    },
+    preview: {
+      type: String,
+      default: '',
     },
   },
   data() {

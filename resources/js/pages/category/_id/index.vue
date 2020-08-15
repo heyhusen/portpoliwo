@@ -24,6 +24,7 @@
 <script>
 import { ValidationObserver } from 'vee-validate'
 import { api } from '@/js/api'
+import pick from 'lodash/pick'
 
 export default {
   name: 'CategoryDetail',
@@ -36,7 +37,7 @@ export default {
     return {
       category: {
         name: '',
-        slug: '',
+        slug: null,
       },
     }
   },
@@ -47,35 +48,34 @@ export default {
     async fetchData() {
       await api
         .get(`/category/${this.$route.params.id}`)
-        .then((response) => {
-          this.category.name = response.data.data.name
-          this.category.slug = response.data.data.slug
+        .then(({ data: { data } }) => {
+          this.category = pick(data, ['name', 'slug'])
         })
         .catch(() => {
           this.category = {
             name: '',
-            slug: '',
+            slug: null,
           }
         })
     },
     async onSubmit() {
       await api
         .put(`/category/${this.$route.params.id}`, this.category)
-        .then((response) => {
-          if (response.data.success) {
+        .then(({ data }) => {
+          if (data.success) {
             this.$buefy.toast.open({
-              message: response.data.message,
+              message: data.message,
               type: 'is-success',
             })
           }
           this.fetchData()
         })
-        .catch((error) => {
-          if (error.response.data.errors) {
-            this.$refs.form.setErrors(error.response.data.errors)
+        .catch(({ response: { data } }) => {
+          if (data.errors) {
+            this.$refs.form.setErrors(data.errors)
           }
           this.$buefy.toast.open({
-            message: error.response.data.message,
+            message: data.message,
             type: 'is-danger',
           })
         })

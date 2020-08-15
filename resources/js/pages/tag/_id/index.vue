@@ -20,6 +20,7 @@
 <script>
 import { ValidationObserver } from 'vee-validate'
 import { api } from '@/js/api'
+import pick from 'lodash/pick'
 
 export default {
   name: 'TagDetail',
@@ -43,9 +44,8 @@ export default {
     async fetchData() {
       await api
         .get(`/tag/${this.$route.params.id}`)
-        .then((response) => {
-          this.tag.name = response.data.data.name
-          this.tag.slug = response.data.data.slug
+        .then(({ data: { data } }) => {
+          this.tag = pick(data, ['name', 'slug'])
         })
         .catch(() => {
           this.tag = {
@@ -57,21 +57,21 @@ export default {
     async onSubmit() {
       await api
         .put(`/tag/${this.$route.params.id}`, this.tag)
-        .then((response) => {
-          if (response.data.success) {
+        .then(({ data }) => {
+          if (data.success) {
             this.$buefy.toast.open({
-              message: response.data.message,
+              message: data.message,
               type: 'is-success',
             })
           }
           this.fetchData()
         })
-        .catch((error) => {
-          if (error.response.data.errors) {
-            this.$refs.form.setErrors(error.response.data.errors)
+        .catch(({ response: { data } }) => {
+          if (data.errors) {
+            this.$refs.form.setErrors(data.errors)
           }
           this.$buefy.toast.open({
-            message: error.response.data.message,
+            message: data.message,
             type: 'is-danger',
           })
         })

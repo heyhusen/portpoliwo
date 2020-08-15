@@ -73,6 +73,7 @@
 import { ValidationObserver } from 'vee-validate'
 import { serialize } from 'object-to-formdata'
 import { api } from '@/js/api'
+import pick from 'lodash/pick'
 
 export default {
   name: 'AccountDetail',
@@ -101,7 +102,7 @@ export default {
       await api
         .get(`/account/${this.$route.params.id}`)
         .then(({ data: { data } }) => {
-          this.user = data
+          this.user = pick(data, ['name', 'email'])
         })
         .catch(() => {
           this.user = {

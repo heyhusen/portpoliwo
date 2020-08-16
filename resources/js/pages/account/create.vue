@@ -48,6 +48,9 @@ import { api } from '@/js/api'
 
 export default {
   name: 'CreateAccount',
+  metaInfo: {
+    title: 'Create Account',
+  },
   components: {
     ValidationObserver,
     FormInput: () => import('@/js/components/form/Input'),

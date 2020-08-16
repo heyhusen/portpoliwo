@@ -70,6 +70,9 @@ import { api } from '@/js/api'
 
 export default {
   name: 'WorkDetail',
+  metaInfo: {
+    title: 'Work Detail',
+  },
   components: {
     ValidationObserver,
     FormInput: () => import('@/js/components/form/Input'),

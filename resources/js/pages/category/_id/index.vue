@@ -28,6 +28,9 @@ import pick from 'lodash/pick'
 
 export default {
   name: 'CategoryDetail',
+  metaInfo: {
+    title: 'Category Detail',
+  },
   components: {
     ValidationObserver,
     FormInput: () => import('@/js/components/form/Input'),

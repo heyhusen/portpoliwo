@@ -80,6 +80,9 @@ import { datatableMixin } from '@/js/mixins/datatable'
 
 export default {
   name: 'SocialMediaIndex',
+  metaInfo: {
+    title: 'Social Media',
+  },
   mixins: [datatableMixin],
   data() {
     return {

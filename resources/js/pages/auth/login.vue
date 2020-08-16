@@ -58,6 +58,9 @@ import store from '@/js/store'
 
 export default {
   name: 'LogIn',
+  metaInfo: {
+    title: 'Log in',
+  },
   data() {
     return {
       user: {

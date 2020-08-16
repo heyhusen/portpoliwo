@@ -78,6 +78,9 @@ import { mapActions } from 'vuex'
 
 export default {
   name: 'MyAccount',
+  metaInfo: {
+    title: 'My Account',
+  },
   components: {
     ValidationObserver,
     FormInput: () => import('@/js/components/form/Input'),

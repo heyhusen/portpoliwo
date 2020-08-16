@@ -20,6 +20,9 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'Home',
+  metaInfo: {
+    title: 'Home',
+  },
   computed: {
     ...mapGetters({
       user: 'auth/user',

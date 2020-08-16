@@ -27,6 +27,9 @@ import { api } from '@/js/api'
 
 export default {
   name: 'CreateCategory',
+  metaInfo: {
+    title: 'Create Category',
+  },
   components: {
     ValidationObserver,
     FormInput: () => import('@/js/components/form/Input'),

@@ -31,6 +31,9 @@ import { api } from '@/js/api'
 
 export default {
   name: 'CreateSocialMedia',
+  metaInfo: {
+    title: 'Create Social Media',
+  },
   components: {
     ValidationObserver,
     FormInput: () => import('@/js/components/form/Input'),

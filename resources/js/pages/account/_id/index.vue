@@ -77,6 +77,9 @@ import pick from 'lodash/pick'
 
 export default {
   name: 'AccountDetail',
+  metaInfo: {
+    title: 'Account Detail',
+  },
   components: {
     ValidationObserver,
     FormInput: () => import('@/js/components/form/Input'),

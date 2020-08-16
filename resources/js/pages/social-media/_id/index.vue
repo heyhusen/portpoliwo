@@ -32,6 +32,9 @@ import pick from 'lodash/pick'
 
 export default {
   name: 'SocialMediaDetail',
+  metaInfo: {
+    title: 'Social Media Detail',
+  },
   components: {
     ValidationObserver,
     FormInput: () => import('@/js/components/form/Input'),

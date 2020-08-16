@@ -82,6 +82,9 @@ import { datatableMixin } from '@/js/mixins/datatable'
 
 export default {
   name: 'AccountIndex',
+  metaInfo: {
+    title: 'Account',
+  },
   mixins: [datatableMixin],
   data() {
     return {

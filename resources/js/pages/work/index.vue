@@ -86,6 +86,9 @@ import { datatableMixin } from '@/js/mixins/datatable'
 
 export default {
   name: 'WorkIndex',
+  metaInfo: {
+    title: 'Work',
+  },
   mixins: [datatableMixin],
   data() {
     return {

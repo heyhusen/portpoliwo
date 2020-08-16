@@ -80,6 +80,9 @@ import { datatableMixin } from '@/js/mixins/datatable'
 
 export default {
   name: 'CategoryIndex',
+  metaInfo: {
+    title: 'Category',
+  },
   mixins: [datatableMixin],
   data() {
     return {

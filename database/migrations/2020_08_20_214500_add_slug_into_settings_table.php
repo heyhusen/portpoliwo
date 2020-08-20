@@ -14,7 +14,10 @@ class AddSlugIntoSettingsTable extends Migration
     public function up()
     {
         Schema::table('settings', function (Blueprint $table) {
-            $table->string('slug')->after('name');
+            $table->renameColumn('name', 'slug');
+        });
+        Schema::table('settings', function (Blueprint $table) {
+            $table->string('name')->after('id');
         });
     }
 
@@ -26,7 +29,10 @@ class AddSlugIntoSettingsTable extends Migration
     public function down()
     {
         Schema::table('settings', function (Blueprint $table) {
-            $table->dropColumn('slug');
+            $table->dropColumn('name');
+        });
+        Schema::table('settings', function (Blueprint $table) {
+            $table->renameColumn('slug', 'name');
         });
     }
 }

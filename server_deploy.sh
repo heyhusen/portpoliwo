@@ -1,3 +1,4 @@
+#!/bin/sh
 set -e
 
 echo "Deploying application ..."
@@ -18,7 +19,7 @@ echo "Deploying application ..."
     # ...
 
     # Clear cache
-    php artisan optimize
+    # php artisan optimize
 
     # Reload PHP to update opcache
     # echo "" | sudo -S service php7.4-fpm reload

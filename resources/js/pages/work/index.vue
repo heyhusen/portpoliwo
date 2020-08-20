@@ -37,43 +37,52 @@
       <template slot="empty">
         <div class="has-text-centered">Empty</div>
       </template>
-      <template slot-scope="props">
-        <b-table-column field="created_at" label="Created At" sortable centered>
-          {{
-            props.row.created_at
-              ? new Date(props.row.created_at).toLocaleString()
-              : 'unknown'
-          }}
-        </b-table-column>
+      <b-table-column
+        v-slot="props"
+        field="created_at"
+        label="Created At"
+        sortable
+        centered
+      >
+        {{
+          props.row.created_at
+            ? new Date(props.row.created_at).toLocaleString()
+            : 'unknown'
+        }}
+      </b-table-column>
 
-        <b-table-column field="name" label="Name" sortable>
-          {{ props.row.name }}
-        </b-table-column>
+      <b-table-column v-slot="props" field="name" label="Name" sortable>
+        {{ props.row.name }}
+      </b-table-column>
 
-        <b-table-column field="description" label="Description" sortable>
-          {{ props.row.description }}
-        </b-table-column>
+      <b-table-column
+        v-slot="props"
+        field="description"
+        label="Description"
+        sortable
+      >
+        {{ props.row.description }}
+      </b-table-column>
 
-        <b-table-column field="url" label="URL" sortable>
-          <a :href="props.row.url" target="_blank">{{ props.row.url }}</a>
-        </b-table-column>
+      <b-table-column v-slot="props" field="url" label="URL" sortable>
+        <a :href="props.row.url" target="_blank">{{ props.row.url }}</a>
+      </b-table-column>
 
-        <b-table-column field="image" label="Photo">
-          <figure class="image is-32x32">
-            <img :src="props.row.image" />
-          </figure>
-        </b-table-column>
+      <b-table-column v-slot="props" field="image" label="Photo">
+        <figure class="image is-32x32">
+          <img :src="props.row.image" />
+        </figure>
+      </b-table-column>
 
-        <b-table-column field="action" label="Action">
-          <ActionButton
-            :edit="false"
-            :detail-to="{
-              name: 'work-show',
-              params: { id: props.row.id },
-            }"
-          />
-        </b-table-column>
-      </template>
+      <b-table-column v-slot="props" field="action" label="Action">
+        <ActionButton
+          :edit="false"
+          :detail-to="{
+            name: 'work-show',
+            params: { id: props.row.id },
+          }"
+        />
+      </b-table-column>
       <template slot="bottom-left">
         <b>Total checked</b>: {{ checkedRows.length }}
       </template>

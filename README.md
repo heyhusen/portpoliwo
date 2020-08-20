@@ -23,4 +23,4 @@ Portpoliwo is my simple personal portfolio application. This application uses [L
 
 ## License
 
-The Portfolio is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The Portpoliwo is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

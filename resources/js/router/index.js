@@ -107,6 +107,22 @@ const router = new Router({
           ],
         },
         {
+          path: '/setting',
+          component: () => import('@/js/pages/setting.vue'),
+          children: [
+            {
+              path: '',
+              component: () => import('@/js/pages/setting/index'),
+              name: 'setting',
+            },
+            {
+              path: 'token',
+              component: () => import('@/js/pages/setting/token'),
+              name: 'setting-token',
+            },
+          ],
+        },
+        {
           path: '/account',
           component: () => import('@/js/pages/account.vue'),
           children: [

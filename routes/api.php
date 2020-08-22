@@ -58,7 +58,16 @@ Route::namespace('API')->name('api.')->group(function () {
         ]);
 
         // Setting
-        Route::apiResource('setting', 'SettingController');
+        Route::namespace('Setting')->prefix('setting')->name('setting.')->group(function () {
+            Route::get('/', 'Site')->name('index');
+            Route::post('/', 'SaveSite')->name('save');
+            // :Token
+            Route::prefix('token')->name('token.')->group(function () {
+                Route::get('/', 'Token')->name('index');
+                Route::post('/', 'CreateToken')->name('create');
+                Route::delete('/{id}', 'DeleteToken')->name('delete');
+            });
+        });
 
         // Account
         Route::prefix('account')->name('account.')->group(function () {

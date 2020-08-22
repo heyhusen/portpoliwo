@@ -8,7 +8,7 @@
           :icon="menu.icon"
           :tag="menu.to ? 'router-link' : 'a'"
           :to="menu.to"
-          :label="menu.to == '' ? '' : menu.title"
+          :label="menu.to === '' ? '' : menu.title"
         >
           <b-menu-item
             v-for="(subMenu, subKey) of menu.sub"
@@ -53,17 +53,14 @@ export default {
           sub: [
             {
               title: 'All Works',
-              icon: 'archive',
               to: '/work',
             },
             {
               title: 'Category',
-              icon: 'folder-table',
               to: '/category',
             },
             {
               title: 'Tag',
-              icon: 'label',
               to: '/tag',
             },
           ],
@@ -72,6 +69,20 @@ export default {
           title: 'Social Media',
           icon: 'account-network',
           to: '/social-media',
+        },
+        {
+          title: 'Setting',
+          icon: 'cog',
+          sub: [
+            {
+              title: 'Site',
+              to: '/setting',
+            },
+            {
+              title: 'API Token',
+              to: '/setting/token',
+            },
+          ],
         },
         {
           title: 'Account',

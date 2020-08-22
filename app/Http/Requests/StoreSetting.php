@@ -25,15 +25,11 @@ class StoreSetting extends FormRequest
     public function rules()
     {
         $rules = [
-            'name' => ['required', 'unique:settings,name'],
-            'value' => ['required']
+            'name' => ['required', 'array', 'min:1'],
+            'name.*' => ['required', 'min:1'],
+            'value' => ['required', 'array', 'min:1'],
+            'value.*' => ['required', 'min:1'],
         ];
-        if ($this->isMethod('put')) {
-            $addonRules = [
-                'name' => ['required', Rule::unique('settings')->ignore($this->setting)]
-            ];
-            $rules = array_merge($rules, $addonRules);
-        }
         return $rules;
     }
 }

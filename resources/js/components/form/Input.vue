@@ -5,6 +5,7 @@
       :type="{ 'is-danger': errors[0] }"
       :message="errors[0]"
       :horizontal="horizontal"
+      :grouped="grouped"
     >
       <b-input
         :value="value"
@@ -13,8 +14,12 @@
         :icon-right="iconRight"
         :placeholder="placeholder ? placeholder : label"
         :password-reveal="type == 'password'"
+        :expanded="expanded"
         @input="$emit('input', $event)"
       ></b-input>
+      <p class="control">
+        <slot></slot>
+      </p>
     </b-field>
   </ValidationProvider>
 </template>
@@ -30,7 +35,7 @@ export default {
   props: {
     label: {
       type: String,
-      default: 'Name',
+      default: '',
     },
     name: {
       type: String,
@@ -55,6 +60,14 @@ export default {
     placeholder: {
       type: String,
       default: '',
+    },
+    expanded: {
+      type: Boolean,
+      default: true,
+    },
+    grouped: {
+      type: Boolean,
+      default: false,
     },
     horizontal: {
       type: Boolean,

@@ -36,6 +36,6 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         password: ${{ secrets.SSH_PASSWORD }}
         script: |
-          cd public_html/panel
+          cd public_html/cms
           php artisan app:deploy
 

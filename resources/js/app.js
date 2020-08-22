@@ -16,6 +16,8 @@ Vue.use(Buefy)
 Vue.component('ValidationObserver', ValidationObserver)
 Vue.component('FormInput', FormInput)
 
+Vue.config.productionTip = false
+
 store.dispatch('auth/me').then(() => {
   new Vue({
     store,

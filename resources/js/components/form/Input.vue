@@ -8,6 +8,7 @@
       :grouped="grouped"
     >
       <b-input
+        :size="size"
         :value="value"
         :type="type"
         :icon="icon"
@@ -34,6 +35,10 @@ export default {
   },
   props: {
     label: {
+      type: String,
+      default: '',
+    },
+    size: {
       type: String,
       default: '',
     },

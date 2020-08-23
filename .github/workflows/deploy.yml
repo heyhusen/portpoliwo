@@ -20,6 +20,8 @@ jobs:
         node-version: '12.x'
     - run: yarn install
     - run: yarn prod
+      env:
+        MIX_APP_NAME: Portpoliwo
     - name: Commit built assets
       run: |
         git config --local user.email "action@github.com"

@@ -4,7 +4,7 @@
     <b-navbar wrapper-class="container is-fullhd" type="is-white">
       <template slot="brand">
         <b-navbar-item tag="router-link" :to="{ name: 'home' }">
-          <strong>Portpoliwo</strong>
+          <strong>{{ title }}</strong>
         </b-navbar-item>
       </template>
       <template slot="end">
@@ -53,5 +53,10 @@ import { logOutMixin } from '@/js/mixins/logOut'
 export default {
   name: 'Navbar',
   mixins: [userMixin, logOutMixin],
+  data() {
+    return {
+      title: process.env.MIX_APP_NAME,
+    }
+  },
 }
 </script>

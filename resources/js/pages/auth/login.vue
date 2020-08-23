@@ -9,7 +9,7 @@
               <div class="box">
                 <div class="columns is-vcentered">
                   <div class="column is-half has-text-centered">
-                    <router-link :to="{ name: 'home' }" title="Portpoliwo"
+                    <router-link :to="{ name: 'home' }" :title="title"
                       ><h1 class="title is-size-1">{{ title }}</h1></router-link
                     >
                   </div>

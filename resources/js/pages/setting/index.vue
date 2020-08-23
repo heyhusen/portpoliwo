@@ -97,11 +97,8 @@ export default {
         })
     },
     async onSubmit() {
-      const data = {}
-      data.name = Object.keys(this.settings)
-      data.value = Object.values(this.settings)
       await api
-        .post(`/setting`, data)
+        .post(`/setting`, this.settings)
         .then(({ data }) => {
           if (data.success) {
             this.$buefy.toast.open({

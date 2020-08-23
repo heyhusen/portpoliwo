@@ -18,12 +18,11 @@ class SaveSite extends Controller
      */
     public function __invoke(StoreSetting $request)
     {
-        for ($i=0; $i < count($request->name); $i++) {
-            Setting::where('name', $request->name[$i])
-                ->update(['value' => $request->value[$i]]);
-        }
-        $settings = Setting::whereIn('name', $request->name)->get();
-        $data = collect(SettingResource::collection($settings));
+        Setting::get()->each(function ($item) use ($request)
+        {
+            Setting::where('name', $item->name)->update(['value' => $request->{$item->name}]);
+        });
+        $data = collect(SettingResource::collection(Setting::get()));
         return $this->dataCreated($data);
     }
 }

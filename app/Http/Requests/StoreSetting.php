@@ -25,10 +25,12 @@ class StoreSetting extends FormRequest
     public function rules()
     {
         $rules = [
-            'name' => ['required', 'array', 'min:1'],
-            'name.*' => ['required', 'min:1'],
-            'value' => ['required', 'array', 'min:1'],
-            'value.*' => ['required', 'min:1'],
+            'site_name' => ['required'],
+            'site_description' => ['required'],
+            'company_name' => ['required'],
+            'company_address' => ['required'],
+            'company_phone_number' => ['required'],
+            'company_email' => ['required', 'email'],
         ];
         return $rules;
     }

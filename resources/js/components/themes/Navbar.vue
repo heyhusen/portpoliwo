@@ -32,9 +32,11 @@
             </router-link>
           </b-dropdown-item>
           <hr class="dropdown-divider" aria-role="menuitem" />
-          <b-dropdown-item value="settings">
-            <b-icon icon="cog"></b-icon>
-            Settings
+          <b-dropdown-item has-link aria-role="menuitem">
+            <router-link :to="{ name: 'setting' }">
+              <b-icon icon="cog"></b-icon>
+              Setting
+            </router-link>
           </b-dropdown-item>
           <b-dropdown-item aria-role="menuitem" @click="signOut()">
             <b-icon icon="logout"></b-icon>

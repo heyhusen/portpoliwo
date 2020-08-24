@@ -17,7 +17,7 @@ class CreateBlogPostsTable extends Migration
             $table->uuid('id')->primary();
             $table->string('title');
             $table->string('slug');
-            $table->text('summary');
+            $table->text('summary')->nullable();
             $table->text('content');
             $table->string('image');
             $table->timestamps();

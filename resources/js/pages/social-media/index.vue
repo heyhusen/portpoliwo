@@ -67,7 +67,7 @@
         <ActionButton
           :edit="false"
           :detail-to="{
-            name: 'social-media-show',
+            name: 'social-media-id',
             params: { id: props.row.id },
           }"
         />

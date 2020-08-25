@@ -78,7 +78,7 @@
         <ActionButton
           :edit="false"
           :detail-to="{
-            name: 'work-show',
+            name: 'work-id',
             params: { id: props.row.id },
           }"
         />

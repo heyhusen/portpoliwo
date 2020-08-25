@@ -67,7 +67,7 @@
         <ActionButton
           :edit="false"
           :detail-to="{
-            name: 'category-show',
+            name: 'category-id',
             params: { id: props.row.id },
           }"
         />

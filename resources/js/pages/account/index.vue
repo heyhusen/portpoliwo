@@ -69,7 +69,7 @@
         <ActionButton
           :edit="false"
           :detail-to="{
-            name: 'account-show',
+            name: 'account-id',
             params: { id: props.row.id },
           }"
         />

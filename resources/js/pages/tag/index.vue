@@ -67,7 +67,7 @@
         <ActionButton
           :edit="false"
           :detail-to="{
-            name: 'tag-show',
+            name: 'tag-id',
             params: { id: props.row.id },
           }"
         />

@@ -28,6 +28,8 @@ class Tag extends Model
      */
     public function posts()
     {
-        return $this->belongsToMany('App\Models\Blog\Post', 'blog_post_tags')->using('App\Models\Blog\PostTag');
+        return $this
+                    ->belongsToMany('App\Models\Blog\Post', 'blog_post_tags', 'blog_tag_id', 'blog_post_id')
+                    ->using('App\Models\Blog\PostTag');
     }
 }

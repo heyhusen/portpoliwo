@@ -28,6 +28,8 @@ class Category extends Model
      */
     public function posts()
     {
-        return $this->belongsToMany('App\Models\Blog\Post', 'blog_post_categories')->using('App\Models\Blog\PostCategory');
+        return $this
+                    ->belongsToMany('App\Models\Blog\Post', 'blog_post_categories', 'blog_category_id', 'blog_post_id')
+                    ->using('App\Models\Blog\PostCategory');
     }
 }

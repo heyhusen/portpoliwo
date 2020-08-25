@@ -1,5 +1,7 @@
 <template>
-  <router-view />
+  <Layout>
+    <router-view />
+  </Layout>
 </template>
 
 <script>

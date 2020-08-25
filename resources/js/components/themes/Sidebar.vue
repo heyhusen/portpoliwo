@@ -66,6 +66,24 @@ export default {
           ],
         },
         {
+          title: 'Blog',
+          icon: 'blogger',
+          sub: [
+            {
+              title: 'Post',
+              to: '/blog',
+            },
+            {
+              title: 'Category',
+              to: '/blog/category',
+            },
+            {
+              title: 'Tag',
+              to: '/blog/tag',
+            },
+          ],
+        },
+        {
           title: 'Social Media',
           icon: 'account-network',
           to: '/social-media',

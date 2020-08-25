@@ -26,12 +26,12 @@
                       rounded
                       @click="$router.back()"
                     >
-                      <span><slot>Back</slot></span>
+                      <span>Back</span>
                     </b-button>
                   </b-tooltip>
                 </div>
                 <div class="column is-12">
-                  <router-view />
+                  <slot />
                 </div>
               </div>
             </section>

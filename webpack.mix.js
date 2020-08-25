@@ -1,4 +1,5 @@
 const mix = require('laravel-mix')
+const VueAutoRoutingPlugin = require('vue-auto-routing/lib/webpack-plugin')
 
 /*
  |--------------------------------------------------------------------------
@@ -32,6 +33,12 @@ mix.webpackConfig({
     publicPath: '/',
     chunkFilename: 'js/components/[name].js',
   },
+  plugins: [
+    new VueAutoRoutingPlugin({
+      pages: 'resources/js/pages',
+      importPrefix: '@/js/pages/',
+    }),
+  ],
 })
 
 mix

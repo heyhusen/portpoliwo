@@ -95,7 +95,7 @@ export default {
     async onSubmit() {
       try {
         await this.logIn(this.user)
-        this.$router.push({ name: 'home' })
+        this.$router.push({ name: 'index' })
       } catch (error) {
         if (error.response.data.errors) {
           this.$refs.form.setErrors(error.response.data.errors)
@@ -105,7 +105,7 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     if (store.getters['auth/authenticated']) {
-      return next({ name: 'home' })
+      return next({ name: 'index' })
     }
     next()
   },

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import routes from 'vue-auto-routing'
 import store from '@/js/store'
 
 Vue.use(Router)
@@ -7,6 +8,15 @@ Vue.use(Router)
 const router = new Router({
   mode: 'history',
   linkExactActiveClass: 'is-active',
+  routes: [
+    ...routes,
+    {
+      path: '*',
+      component: () => import('@/js/pages/404'),
+      name: '404',
+    },
+  ],
+  /**
   routes: [
     {
       path: '/login',
@@ -86,6 +96,59 @@ const router = new Router({
           ],
         },
         {
+          path: '/blog',
+          component: () => import('@/js/pages/blog.vue'),
+          children: [
+            {
+              path: '',
+              component: () => import('@/js/pages/blog/post/index'),
+              name: 'blog-post',
+            },
+            {
+              path: '/blog/category',
+              component: () => import('@/js/pages/blog/category.vue'),
+              children: [
+                {
+                  path: '',
+                  component: () => import('@/js/pages/blog/category/index'),
+                  name: 'blog-category',
+                },
+                {
+                  path: 'create',
+                  component: () => import('@/js/pages/blog/category/create'),
+                  name: 'blog-category-create',
+                },
+                {
+                  path: ':id',
+                  component: () => import('@/js/pages/blog/category/_id'),
+                  name: 'blog-category-show',
+                },
+              ],
+            },
+            {
+              path: '/blog/tag',
+              component: () => import('@/js/pages/blog/tag.vue'),
+              children: [
+                {
+                  path: '',
+                  component: () => import('@/js/pages/blog/tag/index'),
+                  name: 'blog-tag',
+                },
+                {
+                  path: 'create',
+                  component: () => import('@/js/pages/blog/tag/create'),
+                  name: 'blog-tag-create',
+                },
+                {
+                  path: ':id',
+                  component: () => import('@/js/pages/blog/tag/_id'),
+                  name: 'blog-tag-show',
+                },
+              ],
+            },
+          ],
+        },
+        {
           path: '/social-media',
           component: () => import('@/js/pages/social-media.vue'),
           children: [
@@ -156,6 +219,7 @@ const router = new Router({
       name: '404',
     },
   ],
+  **/
 })
 
 router.beforeEach((to, from, next) => {

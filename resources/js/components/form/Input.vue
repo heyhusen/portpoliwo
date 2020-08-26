@@ -3,7 +3,7 @@
     <b-field
       :label="label"
       :type="{ 'is-danger': errors[0] }"
-      :message="errors[0]"
+      :message="[message, ...errors]"
       :horizontal="horizontal"
       :grouped="grouped"
     >
@@ -77,6 +77,10 @@ export default {
     horizontal: {
       type: Boolean,
       default: false,
+    },
+    message: {
+      type: String,
+      default: '',
     },
   },
 }

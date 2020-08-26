@@ -3,7 +3,7 @@
     <b-field
       :label="label"
       :type="{ 'is-danger': errors[0] }"
-      :message="errors[0]"
+      :message="[message, ...errors]"
     >
       <b-taginput
         :value="value"
@@ -74,6 +74,10 @@ export default {
     beforeAdding: {
       type: Function,
       default: () => true,
+    },
+    message: {
+      type: String,
+      default: '',
     },
   },
 }

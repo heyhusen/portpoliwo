@@ -4,6 +4,7 @@ namespace App\Models\Blog;
 
 use Datakrama\Eloquid\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -11,7 +12,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Post extends Model implements HasMedia
 {
-    use Uuids, InteractsWithMedia;
+    use Uuids, InteractsWithMedia, SoftDeletes;
 
     /**
      * The table associated with the model.
@@ -53,7 +54,7 @@ class Post extends Model implements HasMedia
     public function categories()
     {
         return $this
-                    ->belongsToMany('App\Models\Blog\Category', 'blog_post_categories')
+                    ->belongsToMany('App\Models\Blog\Category', 'blog_post_categories', 'blog_post_id', 'blog_category_id')
                     ->using('App\Models\Blog\PostCategory');
     }
 
@@ -63,7 +64,7 @@ class Post extends Model implements HasMedia
     public function tags()
     {
         return $this
-                    ->belongsToMany('App\Models\Blog\Tag', 'blog_post_tags')
+                    ->belongsToMany('App\Models\Blog\Tag', 'blog_post_tags', 'blog_post_id', 'blog_tag_id')
                     ->using('App\Models\Blog\PostTag');
     }
 

@@ -13,7 +13,7 @@
               <div class="columns is-multiline">
                 <div class="column is-12">
                   <b-tooltip
-                    v-if="$route.name !== 'home'"
+                    v-if="$route.name !== 'index'"
                     label="Back to previous page"
                     type="is-dark"
                   >

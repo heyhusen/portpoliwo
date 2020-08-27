@@ -3,7 +3,7 @@
     <div class="has-background-primary pt-1"></div>
     <b-navbar wrapper-class="container is-fullhd" type="is-white">
       <template slot="brand">
-        <b-navbar-item tag="router-link" :to="{ name: 'home' }">
+        <b-navbar-item tag="router-link" :to="{ name: 'index' }">
           <strong>{{ title }}</strong>
         </b-navbar-item>
       </template>

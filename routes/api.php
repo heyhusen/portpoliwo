@@ -44,6 +44,48 @@ Route::namespace('API')->name('api.')->group(function () {
             'destroy'
         ]);
 
+        // Blog
+        Route::namespace('Blog')->group(function () {
+            Route::prefix('blog')->name('blog.')->group(function () {
+                // Post
+                Route::post('/list', 'ListPost')->name('list');
+                Route::delete('/', 'PostController@destroy')->name('destroy');
+
+                // Category
+                Route::prefix('category')->name('category.')->group(function () {
+                    Route::post('/list', 'ListCategory')->name('list');
+                    Route::delete('/', 'CategoryController@destroy')->name('destroy');
+                });
+                Route::apiResource('category', 'CategoryController')->except([
+                    'destroy'
+                ]);
+
+                // Tag
+                Route::prefix('tag')->name('tag.')->group(function () {
+                    Route::post('/list', 'ListTag')->name('list');
+                    Route::delete('/', 'TagController@destroy')->name('destroy');
+                });
+                Route::apiResource('tag', 'TagController')->except([
+                    'destroy'
+                ]);
+
+                // Page
+                Route::prefix('page')->name('page.')->group(function () {
+                    Route::post('/list', 'ListPage')->name('list');
+                    Route::delete('/', 'PageController@destroy')->name('destroy');
+                });
+                Route::apiResource('page', 'PageController')->except([
+                    'destroy'
+                ]);
+            });
+            // Post
+            Route::apiResource('blog', 'PostController')->parameters([
+                'blog' => 'post'
+            ])->except([
+                'destroy'
+            ]);
+        });
+
         // Social Media
         Route::prefix('social-media')->name('social-media.')->group(function () {
             Route::post('/list', 'SocialMediaController@list')->name('list');

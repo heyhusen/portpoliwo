@@ -81,6 +81,10 @@ export default {
               title: 'Tag',
               to: '/blog/tag',
             },
+            {
+              title: 'Page',
+              to: '/blog/page',
+            },
           ],
         },
         {

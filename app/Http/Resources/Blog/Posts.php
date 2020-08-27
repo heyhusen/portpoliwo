@@ -21,6 +21,8 @@ class Posts extends JsonResource
             'summary' => $this->summary,
             'content' => $this->content,
             'thumbnail' => $this->thumbnail,
+            'categories' => $this->categories,
+            'tags' => $this->tags,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

@@ -215,13 +215,16 @@ export default {
   data() {
     return {
       editor: null,
+      emitAfterOnUpdate: false,
     }
   },
   watch: {
     value(val) {
-      if (this.editor && val !== this.value) {
-        this.editor.setContent(val, true)
+      if (this.emitAfterOnUpdate) {
+        this.emitAfterOnUpdate = false
+        return
       }
+      if (this.editor) this.editor.setContent(val)
     },
   },
   mounted() {
@@ -245,17 +248,16 @@ export default {
         new Underline(),
         new History(),
       ],
-      content: this.value,
       onUpdate: ({ getHTML }) => {
+        this.emitAfterOnUpdate = true
         this.$emit('input', getHTML())
       },
+      content: this.value,
     })
     this.editor.setContent(this.value)
   },
   beforeDestroy() {
-    if (this.editor) {
-      this.editor.destroy()
-    }
+    if (this.editor) this.editor.destroy()
   },
 }
 </script>

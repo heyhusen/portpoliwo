@@ -9,11 +9,6 @@ jobs:
   tests:
 
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php: [7.2, 7.3, 7.4]
-
-    name: PHP ${{ matrix.php }}
 
     steps:
       - name: Checkout code
@@ -22,7 +17,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: 7.4
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
           tools: composer:v2
           coverage: none

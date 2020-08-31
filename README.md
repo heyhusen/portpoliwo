@@ -15,7 +15,14 @@ Portpoliwo is my simple personal portfolio application. This application uses [L
 2. Copy `.env.example` as `.env` and fill `APP_*`, `DB_*`, and `MAIL_*` settings.
 3. Run `php artisan app:install` in project terminal. 
 4. Run `yarn install` and `yarn dev` for Vue development.
-5. Run `php artisan serve` or direct access the app to `/public` folder.
+5. Finnaly, run `php artisan serve` or direct access the app to `/public` folder.
+
+## Testing
+### Laravel
+1. Run command `composer install` on terminal.
+2. Copy `.env.testing.example` to `.env.testing`.
+3. Run `php artisan app:install --env=testing` in project terminal.
+4. Finnaly, run `php artisan test` or `composer test` to running tests.
 
 ## Credits
 

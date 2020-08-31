@@ -10,7 +10,6 @@ jobs:
 
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: true
       matrix:
         php: [7.2, 7.3, 7.4]
 
@@ -33,10 +32,10 @@ jobs:
           composer install --prefer-dist --no-interaction --no-suggest
 
       - name: Copy .env.testing
-          run: php -r "file_exists('.env.testing') || copy('.env.testing.example', '.env.testing');"
+        run: php -r "file_exists('.env.testing') || copy('.env.testing.example', '.env.testing');"
 
       - name: App setup
-          run: php artisan app:install --env=testing
+        run: php artisan app:install --env=testing
 
       - name: Execute tests
         run: vendor/bin/phpunit --verbose

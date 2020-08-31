@@ -12,8 +12,12 @@ class AuthTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** test */
-    public function test_unauthorized_access()
+    /**
+     * Test unauthorized access
+     *
+     * @return void
+     */
+    public function testUnauthorizedAccess()
     {
         $response = $this->getJson('/api');
 
@@ -25,8 +29,13 @@ class AuthTest extends TestCase
             ]);
     }
 
-    /** test */
-    public function test_registered_user_can_login()
+    /**
+     * Test if registered user can log in
+     * This test is use Sanctum
+     *
+     * @return void
+     */
+    public function testRegisteredUserCanLogIn()
     {
         Sanctum::actingAs(
             factory(User::class)->create()

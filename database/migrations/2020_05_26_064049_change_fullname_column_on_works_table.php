@@ -14,11 +14,11 @@ class ChangeFullnameColumnOnWorksTable extends Migration
     public function up()
     {
         Schema::table('works', function (Blueprint $table) {
-            $table->string('owner')->after('name');
+            $table->string('owner')->nullable()->after('name');
         });
 
         DB::table('works')->update([
-            'owner' => DB::raw('fullname')   
+            'owner' => DB::raw('fullname')
         ]);
 
         Schema::table('works', function(Blueprint $table)
@@ -38,11 +38,11 @@ class ChangeFullnameColumnOnWorksTable extends Migration
             Schema::table('works', function (Blueprint $table) {
                 $table->string('fullname')->after('git');
             });
-    
+
             DB::table('works')->update([
-                'fullname' => DB::raw('owner')   
+                'fullname' => DB::raw('owner')
             ]);
-    
+
             Schema::table('works', function(Blueprint $table)
             {
                 $table->dropColumn('owner');

@@ -16,8 +16,8 @@ class ChangeColumnOnWorksTable extends Migration
         Schema::table('works', function (Blueprint $table) {
             $table->dropColumn(['owner', 'git']);
             $table->string('url')->nullable()->after('name');
-            $table->string('photo')->after('name');
-            $table->text('description')->after('name');
+            $table->string('photo')->nullable()->after('name');
+            $table->text('description')->nullable()->after('name');
         });
     }
 

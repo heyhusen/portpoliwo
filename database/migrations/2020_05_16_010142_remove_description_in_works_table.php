@@ -15,6 +15,9 @@ class RemoveDescriptionInWorksTable extends Migration
     {
         Schema::table('works', function (Blueprint $table) {
             $table->dropColumn('description');
+        });
+
+        Schema::table('works', function (Blueprint $table) {
             $table->renameColumn('git_url', 'fullname');
         });
     }

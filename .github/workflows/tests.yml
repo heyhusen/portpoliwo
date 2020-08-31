@@ -5,7 +5,7 @@ on:
     branches: [ master ]
 
 jobs:
-  
+
   tests:
 
     runs-on: ubuntu-latest
@@ -33,4 +33,4 @@ jobs:
         run: php artisan app:install --env=testing
 
       - name: Execute tests
-        run: vendor/bin/phpunit --verbose
+        run: php artisan test

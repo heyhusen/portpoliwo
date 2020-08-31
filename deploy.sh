@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-# vendor/bin/phpunit
+php artisan test
 
 (git push) || true
 

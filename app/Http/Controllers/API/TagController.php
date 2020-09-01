@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTag;
 use App\Http\Resources\Tags as TagResource;
-use App\Models\Tag;
+use App\Models\Portfolio\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 

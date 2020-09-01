@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategory;
 use App\Http\Resources\Categories as CategoryResource;
-use App\Models\Category;
+use App\Models\Portfolio\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 

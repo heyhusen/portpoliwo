@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Portfolio;
 
 use Datakrama\Eloquid\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 
-class Tag extends Model
+class Category extends Model
 {
     use Uuids;
 
@@ -24,10 +24,12 @@ class Tag extends Model
     protected $hidden = [];
 
     /**
-     * The work that belong to the tag.
+     * The work that belong to the category.
      */
     public function works()
     {
-        return $this->belongsToMany('App\Models\Work', 'work_tags')->using('App\Models\WorkTag');
+        return $this
+            ->belongsToMany('App\Models\Portfolio\Work', 'work_categories')
+            ->using('App\Models\Portfolio\WorkCategory');
     }
 }

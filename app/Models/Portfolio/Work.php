@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Portfolio;
 
 use Datakrama\Eloquid\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
@@ -44,7 +44,7 @@ class Work extends Model
      */
     public function workCategory()
     {
-        return $this->hasOne('App\Models\WorkCategory');
+        return $this->hasOne('App\Models\Portfolio\WorkCategory');
     }
 
     /**
@@ -52,7 +52,7 @@ class Work extends Model
      */
     public function workTags()
     {
-        return $this->hasMany('App\Models\WorkTag');
+        return $this->hasMany('App\Models\Portfolio\WorkTag');
     }
 
     /**
@@ -60,7 +60,10 @@ class Work extends Model
      */
     public function categories()
     {
-        return $this->belongsToMany('App\Models\Category', 'work_categories')->using('App\Models\WorkCategory')->withTimestamps();
+        return $this
+            ->belongsToMany('App\Models\Portfolio\Category', 'work_categories')
+            ->using('App\Models\Portfolio\WorkCategory')
+            ->withTimestamps();
     }
 
     /**
@@ -68,7 +71,10 @@ class Work extends Model
      */
     public function tags()
     {
-        return $this->belongsToMany('App\Models\Tag', 'work_tags')->using('App\Models\WorkTag')->withTimestamps();
+        return $this
+            ->belongsToMany('App\Models\Portfolio\Tag', 'work_tags')
+            ->using('App\Models\Portfolio\WorkTag')
+            ->withTimestamps();
     }
 
     /**

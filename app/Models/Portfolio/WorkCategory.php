@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Portfolio;
 
 use Datakrama\Eloquid\Traits\Uuids;
 use Illuminate\Database\Eloquent\Relations\Pivot;
@@ -14,6 +14,6 @@ class WorkCategory extends Pivot
      */
     public function work()
     {
-        return $this->belongsTo('App\Models\Work');
+        return $this->belongsTo('App\Models\Portfolio\Work');
     }
 }

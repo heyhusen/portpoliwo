@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreWork;
 use App\Http\Resources\Works as WorkResource;
-use App\Models\Work;
+use App\Models\Portfolio\Work;
 use Illuminate\Http\Request;
 
 class WorkController extends Controller

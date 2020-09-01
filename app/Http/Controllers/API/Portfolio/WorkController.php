@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\API\Portfolio\UploadWorkPhoto;
 use App\Http\Requests\Portfolio\StoreWork;
 use App\Http\Resources\Portfolio\Works;
 use App\Models\Portfolio\Work;
@@ -31,7 +30,11 @@ class WorkController extends Controller
     public function store(StoreWork $request)
     {
         $work = Work::create($request->all());
-        new UploadWorkPhoto($request, $work);
+        if ($request->hasFile('photo')) {
+            $work
+                ->addMedia($request->file('photo'))
+                ->toMediaCollection('photo');
+        }
         $work->categories()->attach($request->category_id);
         $work->tags()->attach($request->tag_id);
         $data = collect(new Works($work));
@@ -61,7 +64,11 @@ class WorkController extends Controller
     {
         $work->fill($request->all());
         $work->save();
-        new UploadWorkPhoto($request, $work);
+        if ($request->hasFile('photo')) {
+            $work
+                ->addMedia($request->file('photo'))
+                ->toMediaCollection('photo');
+        }
         $work->categories()->sync($request->category_id);
         $work->tags()->sync($request->tag_id);
         $data = collect(new Works($work));

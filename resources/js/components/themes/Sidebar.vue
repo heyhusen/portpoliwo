@@ -48,20 +48,20 @@ export default {
           to: '/',
         },
         {
-          title: 'Work',
+          title: 'Portfolio',
           icon: 'archive',
           sub: [
             {
-              title: 'All Works',
-              to: '/work',
+              title: 'Works',
+              to: '/portfolio',
             },
             {
               title: 'Category',
-              to: '/category',
+              to: '/portfolio/category',
             },
             {
               title: 'Tag',
-              to: '/tag',
+              to: '/portfolio/tag',
             },
           ],
         },

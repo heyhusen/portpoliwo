@@ -4,10 +4,14 @@
       <form @submit.prevent="passes(onSubmit)">
         <div class="columns is-multiline">
           <div class="column is-half-tablet">
-            <FormInput v-model="tag.name" label="Name" name="name" />
+            <FormInput v-model="category.name" label="Name" name="name" />
           </div>
           <div class="column is-half-tablet">
-            <FormInput v-model="tag.slug" label="Slug (Optional)" name="slug" />
+            <FormInput
+              v-model="category.slug"
+              label="Slug (Optional)"
+              name="slug"
+            />
           </div>
         </div>
         <hr />
@@ -20,9 +24,13 @@
 <script>
 import { ValidationObserver } from 'vee-validate'
 import { api } from '@/js/api'
+import pick from 'lodash/pick'
 
 export default {
-  name: 'CreateTag',
+  name: 'PortfolioCategoryDetail',
+  metaInfo: {
+    title: 'Portfolio: Category Detail',
+  },
   components: {
     ValidationObserver,
     FormInput: () => import('@/js/components/form/Input'),
@@ -30,16 +38,32 @@ export default {
   },
   data() {
     return {
-      tag: {
-        name: null,
+      category: {
+        name: '',
         slug: null,
       },
     }
   },
+  mounted() {
+    this.fetchData()
+  },
   methods: {
+    async fetchData() {
+      await api
+        .get(`/portfolio/category/${this.$route.params.id}`)
+        .then(({ data: { data } }) => {
+          this.category = pick(data, ['name', 'slug'])
+        })
+        .catch(() => {
+          this.category = {
+            name: '',
+            slug: null,
+          }
+        })
+    },
     async onSubmit() {
       await api
-        .post('/tag', this.tag)
+        .put(`/portfolio/category/${this.$route.params.id}`, this.category)
         .then(({ data }) => {
           if (data.success) {
             this.$buefy.toast.open({
@@ -47,7 +71,7 @@ export default {
               type: 'is-success',
             })
           }
-          this.$router.back()
+          this.fetchData()
         })
         .catch(({ response: { data } }) => {
           if (data.errors) {

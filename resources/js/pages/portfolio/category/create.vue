@@ -4,10 +4,14 @@
       <form @submit.prevent="passes(onSubmit)">
         <div class="columns is-multiline">
           <div class="column is-half-tablet">
-            <FormInput v-model="tag.name" label="Name" name="name" />
+            <FormInput v-model="category.name" label="Name" name="name" />
           </div>
           <div class="column is-half-tablet">
-            <FormInput v-model="tag.slug" label="Slug (Optional)" name="slug" />
+            <FormInput
+              v-model="category.slug"
+              label="Slug (Optional)"
+              name="slug"
+            />
           </div>
         </div>
         <hr />
@@ -20,10 +24,12 @@
 <script>
 import { ValidationObserver } from 'vee-validate'
 import { api } from '@/js/api'
-import pick from 'lodash/pick'
 
 export default {
-  name: 'TagDetail',
+  name: 'PortfolioCreateCategory',
+  metaInfo: {
+    title: 'Portfolio: Create Category',
+  },
   components: {
     ValidationObserver,
     FormInput: () => import('@/js/components/form/Input'),
@@ -31,32 +37,16 @@ export default {
   },
   data() {
     return {
-      tag: {
+      category: {
         name: '',
-        slug: '',
+        slug: null,
       },
     }
   },
-  mounted() {
-    this.fetchData()
-  },
   methods: {
-    async fetchData() {
-      await api
-        .get(`/tag/${this.$route.params.id}`)
-        .then(({ data: { data } }) => {
-          this.tag = pick(data, ['name', 'slug'])
-        })
-        .catch(() => {
-          this.tag = {
-            name: '',
-            slug: '',
-          }
-        })
-    },
     async onSubmit() {
       await api
-        .put(`/tag/${this.$route.params.id}`, this.tag)
+        .post('/portfolio/category', this.category)
         .then(({ data }) => {
           if (data.success) {
             this.$buefy.toast.open({
@@ -64,7 +54,7 @@ export default {
               type: 'is-success',
             })
           }
-          this.fetchData()
+          this.$router.back()
         })
         .catch(({ response: { data } }) => {
           if (data.errors) {

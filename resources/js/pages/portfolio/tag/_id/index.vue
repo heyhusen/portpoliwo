@@ -4,14 +4,10 @@
       <form @submit.prevent="passes(onSubmit)">
         <div class="columns is-multiline">
           <div class="column is-half-tablet">
-            <FormInput v-model="category.name" label="Name" name="name" />
+            <FormInput v-model="tag.name" label="Name" name="name" />
           </div>
           <div class="column is-half-tablet">
-            <FormInput
-              v-model="category.slug"
-              label="Slug (Optional)"
-              name="slug"
-            />
+            <FormInput v-model="tag.slug" label="Slug (Optional)" name="slug" />
           </div>
         </div>
         <hr />
@@ -27,9 +23,9 @@ import { api } from '@/js/api'
 import pick from 'lodash/pick'
 
 export default {
-  name: 'CategoryDetail',
+  name: 'PortfolioTagDetail',
   metaInfo: {
-    title: 'Category Detail',
+    title: 'Portfolio: Tag Detail',
   },
   components: {
     ValidationObserver,
@@ -38,9 +34,9 @@ export default {
   },
   data() {
     return {
-      category: {
+      tag: {
         name: '',
-        slug: null,
+        slug: '',
       },
     }
   },
@@ -50,20 +46,20 @@ export default {
   methods: {
     async fetchData() {
       await api
-        .get(`/category/${this.$route.params.id}`)
+        .get(`/portfolio/tag/${this.$route.params.id}`)
         .then(({ data: { data } }) => {
-          this.category = pick(data, ['name', 'slug'])
+          this.tag = pick(data, ['name', 'slug'])
         })
         .catch(() => {
-          this.category = {
+          this.tag = {
             name: '',
-            slug: null,
+            slug: '',
           }
         })
     },
     async onSubmit() {
       await api
-        .put(`/category/${this.$route.params.id}`, this.category)
+        .put(`/portfolio/tag/${this.$route.params.id}`, this.tag)
         .then(({ data }) => {
           if (data.success) {
             this.$buefy.toast.open({

@@ -4,14 +4,10 @@
       <form @submit.prevent="passes(onSubmit)">
         <div class="columns is-multiline">
           <div class="column is-half-tablet">
-            <FormInput v-model="category.name" label="Name" name="name" />
+            <FormInput v-model="tag.name" label="Name" name="name" />
           </div>
           <div class="column is-half-tablet">
-            <FormInput
-              v-model="category.slug"
-              label="Slug (Optional)"
-              name="slug"
-            />
+            <FormInput v-model="tag.slug" label="Slug (Optional)" name="slug" />
           </div>
         </div>
         <hr />
@@ -26,9 +22,9 @@ import { ValidationObserver } from 'vee-validate'
 import { api } from '@/js/api'
 
 export default {
-  name: 'CreateCategory',
+  name: 'PortfolioCreateTag',
   metaInfo: {
-    title: 'Create Category',
+    title: 'Portfolio: Create Tag',
   },
   components: {
     ValidationObserver,
@@ -37,8 +33,8 @@ export default {
   },
   data() {
     return {
-      category: {
-        name: '',
+      tag: {
+        name: null,
         slug: null,
       },
     }
@@ -46,7 +42,7 @@ export default {
   methods: {
     async onSubmit() {
       await api
-        .post('/category', this.category)
+        .post('/portfolio/tag', this.tag)
         .then(({ data }) => {
           if (data.success) {
             this.$buefy.toast.open({

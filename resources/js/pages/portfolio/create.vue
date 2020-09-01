@@ -23,7 +23,6 @@
               label="Photo"
               name="photo"
               message="For best results, use an image with an aspect ratio of 16:9."
-              :preview="work.image"
               :rounded="false"
             />
           </div>
@@ -64,14 +63,13 @@
 <script>
 import { ValidationObserver } from 'vee-validate'
 import { serialize } from 'object-to-formdata'
-import pick from 'lodash/pick'
 import map from 'lodash/map'
 import { api } from '@/js/api'
 
 export default {
-  name: 'WorkDetail',
+  name: 'CreatePortfolioWork',
   metaInfo: {
-    title: 'Work Detail',
+    title: 'Portfolio: Create Work',
   },
   components: {
     ValidationObserver,
@@ -100,29 +98,7 @@ export default {
       },
     }
   },
-  mounted() {
-    this.fetchData()
-  },
   methods: {
-    async fetchData() {
-      await api
-        .get(`/work/${this.$route.params.id}`)
-        .then(({ data: { data } }) => {
-          this.work = pick(data, ['name', 'description', 'url', 'image'])
-          this.work.category_id = data.categories
-          this.work.tag_id = data.tags
-        })
-        .catch(() => {
-          this.work = {
-            name: '',
-            description: '',
-            url: '',
-            photo: null,
-            category_id: [],
-            tag_id: [],
-          }
-        })
-    },
     async getFilteredCategories(name) {
       if (!name.length) {
         this.category.data = []
@@ -130,7 +106,7 @@ export default {
       }
       this.category.isFetching = true
       await api
-        .get(`/category?search=${name}`)
+        .get(`/portfolio/category?search=${name}`)
         .then(({ data }) => {
           this.category.data = []
           data.data.forEach((item) => this.category.data.push(item))
@@ -150,7 +126,7 @@ export default {
       }
       this.tag.isFetching = true
       await api
-        .get(`/tag?search=${name}`)
+        .get(`/portfolio/tag?search=${name}`)
         .then(({ data }) => {
           this.tag.data = []
           data.data.forEach((item) => this.tag.data.push(item))
@@ -169,29 +145,28 @@ export default {
           ...this.work,
           category_id: map(this.work.category_id, 'id'),
           tag_id: map(this.work.tag_id, 'id'),
-          _method: 'PUT',
         },
         {
           nullsAsUndefineds: true,
         }
       )
       await api
-        .post(`/work/${this.$route.params.id}`, data)
-        .then(({ data }) => {
-          if (data.success) {
+        .post('/portfolio', data)
+        .then((response) => {
+          if (response.data.success) {
             this.$buefy.toast.open({
-              message: data.message,
+              message: response.data.message,
               type: 'is-success',
             })
           }
-          this.fetchData()
+          this.$router.back()
         })
-        .catch(({ response: { data } }) => {
-          if (data.errors) {
-            this.$refs.form.setErrors(data.errors)
+        .catch((error) => {
+          if (error.response.data.errors) {
+            this.$refs.form.setErrors(error.response.data.errors)
           }
           this.$buefy.toast.open({
-            message: data.message,
+            message: error.response.data.message,
             type: 'is-danger',
           })
         })

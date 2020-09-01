@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <AddButton :to="{ name: 'work-create' }" />
+    <AddButton :to="{ name: 'portfolio-create' }" />
     <b-button
       v-if="checkedRows.length"
       type="is-danger"
@@ -78,7 +78,7 @@
         <ActionButton
           :edit="false"
           :detail-to="{
-            name: 'work-id',
+            name: 'portfolio-id',
             params: { id: props.row.id },
           }"
         />
@@ -94,14 +94,14 @@
 import { datatableMixin } from '@/js/mixins/datatable'
 
 export default {
-  name: 'WorkIndex',
+  name: 'PortfolioWorkIndex',
   metaInfo: {
-    title: 'Work',
+    title: 'Portfolio: Work',
   },
   mixins: [datatableMixin],
   data() {
     return {
-      url: 'work',
+      url: 'portfolio',
     }
   },
 }

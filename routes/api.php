@@ -17,32 +17,38 @@ Route::namespace('API')->name('api.')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/', 'HomeController@index')->name('home');
 
-        // Category
-        Route::prefix('category')->name('category.')->group(function () {
-            Route::post('/list', 'CategoryController@list')->name('list');
-            Route::delete('/', 'CategoryController@destroy')->name('destroy');
-        });
-        Route::apiResource('category', 'CategoryController')->except([
-            'destroy'
-        ]);
+        // Portfolio
+        Route::namespace('Portfolio')->group(function () {
+            Route::prefix('portfolio')->name('portfolio.')->group(function () {
+                // Work
+                Route::post('/list', 'ListWork')->name('list');
+                Route::delete('/', 'WorkController@destroy')->name('destroy');
 
-        // Tag
-        Route::prefix('tag')->name('tag.')->group(function () {
-            Route::post('/list', 'TagController@list')->name('list');
-            Route::delete('/', 'TagController@destroy')->name('destroy');
-        });
-        Route::apiResource('tag', 'TagController')->except([
-            'destroy'
-        ]);
+                // Category
+                Route::prefix('category')->name('category.')->group(function () {
+                    Route::post('/list', 'ListCategory')->name('list');
+                    Route::delete('/', 'CategoryController@destroy')->name('destroy');
+                });
+                Route::apiResource('category', 'CategoryController')->except([
+                    'destroy'
+                ]);
 
-        // Work
-        Route::prefix('work')->name('work.')->group(function () {
-            Route::post('/list', 'WorkController@list')->name('list');
-            Route::delete('/', 'WorkController@destroy')->name('destroy');
+                // Tag
+                Route::prefix('tag')->name('tag.')->group(function () {
+                    Route::post('/list', 'ListTag')->name('list');
+                    Route::delete('/', 'TagController@destroy')->name('destroy');
+                });
+                Route::apiResource('tag', 'TagController')->except([
+                    'destroy'
+                ]);
+            });
+            // Work
+            Route::apiResource('portfolio', 'WorkController')->parameters([
+                'portfolio' => 'work'
+            ])->except([
+                'destroy'
+            ]);
         });
-        Route::apiResource('work', 'WorkController')->except([
-            'destroy'
-        ]);
 
         // Blog
         Route::namespace('Blog')->group(function () {

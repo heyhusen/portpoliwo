@@ -45,7 +45,7 @@ class Page extends Model implements HasMedia
         if ($this->getFirstMedia('thumbnail')) {
             return $this->getFirstMediaUrl('thumbnail', 'thumb');
         }
-        return 'thumbnail';
+        return '';
     }
 
     /**

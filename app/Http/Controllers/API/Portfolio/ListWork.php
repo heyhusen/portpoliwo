@@ -17,7 +17,7 @@ class ListWork extends Controller
     public function __invoke(Request $request)
     {
         $data = Work::orderBy($request->sort_field, $request->sort_order)
-                    ->select('id', 'name', 'description', 'url', 'photo', 'created_at')
+                    ->select('id', 'name', 'description', 'url', 'created_at')
                     ->paginate($request->per_page);
         return $this->successResponse($data);
     }

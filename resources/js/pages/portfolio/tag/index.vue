@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <AddButton :to="{ name: 'tag-create' }" />
+    <AddButton :to="{ name: 'portfolio-tag-create' }" />
     <b-button
       v-if="checkedRows.length"
       type="is-danger"
@@ -67,7 +67,7 @@
         <ActionButton
           :edit="false"
           :detail-to="{
-            name: 'tag-id',
+            name: 'portfolio-tag-id',
             params: { id: props.row.id },
           }"
         />
@@ -83,11 +83,14 @@
 import { datatableMixin } from '@/js/mixins/datatable'
 
 export default {
-  name: 'TagIndex',
+  name: 'PortfolioTagIndex',
+  metaInfo: {
+    title: 'Portfolio: Tag',
+  },
   mixins: [datatableMixin],
   data() {
     return {
-      url: 'tag',
+      url: 'portfolio/tag',
     }
   },
 }

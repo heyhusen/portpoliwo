@@ -4,8 +4,10 @@ namespace App\Models\Portfolio;
 
 use Datakrama\Eloquid\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Work extends Model implements HasMedia
 {
@@ -48,8 +50,8 @@ class Work extends Model implements HasMedia
      */
     public function getImageAttribute()
     {
-        if ($this->getFirstMedia('image')) {
-            return $this->getFirstMediaUrl('image');
+        if ($this->getFirstMedia('photo')) {
+            return $this->getFirstMediaUrl('photo', 'thumb');
         }
         return '';
     }
@@ -100,7 +102,19 @@ class Work extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this
-            ->addMediaCollection('image')
+            ->addMediaCollection('photo')
             ->singleFile();
+    }
+
+    /**
+     * Register media conversions
+     *
+     * @param Media $media
+     * @return void
+     */
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+                ->fit(Manipulations::FIT_CROP, 1280, 720);
     }
 }

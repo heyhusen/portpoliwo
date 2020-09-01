@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreWork;
-use App\Http\Resources\Works as WorkResource;
+use App\Http\Resources\Portfolio\Works;
 use App\Models\Portfolio\Work;
 use Illuminate\Http\Request;
 
@@ -17,7 +17,7 @@ class WorkController extends Controller
      */
     public function index()
     {
-        $data = collect(WorkResource::collection(Work::all()));
+        $data = collect(Works::collection(Work::all()));
         return $this->successResponse($data);
     }
 
@@ -48,7 +48,7 @@ class WorkController extends Controller
         $work->save();
         $work->categories()->attach($request->category_id);
         $work->tags()->attach($request->tag_id);
-        $data = collect(new WorkResource($work));
+        $data = collect(new Works($work));
         return $this->dataCreated($data);
     }
 
@@ -60,7 +60,7 @@ class WorkController extends Controller
      */
     public function show(Work $work)
     {
-        $data = collect(new WorkResource($work));
+        $data = collect(new Works($work));
         return $this->successResponse($data);
     }
 
@@ -78,7 +78,7 @@ class WorkController extends Controller
         $work->save();
         $work->categories()->sync($request->category_id);
         $work->tags()->sync($request->tag_id);
-        $data = collect(new WorkResource($work));
+        $data = collect(new Works($work));
         return $this->dataUpdated($data);
     }
 

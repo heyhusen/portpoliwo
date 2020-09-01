@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategory;
-use App\Http\Resources\Categories as CategoryResource;
+use App\Http\Resources\Portfolio\Categories;
 use App\Models\Portfolio\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -22,7 +22,7 @@ class CategoryController extends Controller
                         {
                             $search->where('name', 'like', "%{$request->search}%");
                         })->get();
-        $data = collect(CategoryResource::collection($categories));
+        $data = collect(Categories::collection($categories));
         return $this->successResponse($data);
     }
 
@@ -57,7 +57,7 @@ class CategoryController extends Controller
         }
         $request->merge(['slug' => Str::slug($request->slug, '-')]);
         $category = Category::create($request->all());
-        $data = collect(new CategoryResource($category));
+        $data = collect(new Categories($category));
         return $this->dataCreated($data);
     }
 
@@ -69,7 +69,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        $data = collect(new CategoryResource($category));
+        $data = collect(new Categories($category));
         return $this->successResponse($data);
     }
 
@@ -91,7 +91,7 @@ class CategoryController extends Controller
         $request->merge(['slug' => Str::slug($request->slug, '-')]);
         $category->fill($request->all());
         $category->save();
-        $data = collect(new CategoryResource($category));
+        $data = collect(new Categories($category));
         return $this->dataUpdated($data);
     }
 

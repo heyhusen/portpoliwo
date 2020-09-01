@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTag;
-use App\Http\Resources\Tags as TagResource;
+use App\Http\Resources\Portfolio\Tags;
 use App\Models\Portfolio\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -22,7 +22,7 @@ class TagController extends Controller
                     {
                         $search->where('name', 'like', "%{$request->search}%");
                     })->get();
-        $data = collect(TagResource::collection($tags));
+        $data = collect(Tags::collection($tags));
         return $this->successResponse($data);
     }
 
@@ -57,7 +57,7 @@ class TagController extends Controller
         }
         $request->merge(['slug' => Str::slug($request->slug, '-')]);
         $tag = Tag::create($request->all());
-        $data = collect(new TagResource($tag));
+        $data = collect(new Tags($tag));
         return $this->dataCreated($data);
     }
 
@@ -69,7 +69,7 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
-        $data = collect(new TagResource($tag));
+        $data = collect(new Tags($tag));
         return $this->successResponse($data);
     }
 
@@ -91,7 +91,7 @@ class TagController extends Controller
         $request->merge(['slug' => Str::slug($request->slug, '-')]);
         $tag->fill($request->all());
         $tag->save();
-        $data = collect(new TagResource($tag));
+        $data = collect(new Tags($tag));
         return $this->dataUpdated($data);
     }
 

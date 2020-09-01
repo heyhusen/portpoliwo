@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Portfolio;
 
-use App\Http\Resources\Works as WorkResource;
+use App\Http\Resources\Portfolio\Works;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Tags extends JsonResource
@@ -19,7 +19,7 @@ class Tags extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
-            'works' => WorkResource::collection($this->works),
+            'works' => Works::collection($this->works),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Portfolio\StoreTag;
-use App\Http\Resources\Portfolio\Tags;
-use App\Models\Portfolio\Tag;
+use App\Http\Requests\Portfolio\StoreCategory;
+use App\Http\Resources\Portfolio\Categories;
+use App\Models\Portfolio\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class TagController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,26 +18,11 @@ class TagController extends Controller
      */
     public function index(Request $request)
     {
-        $tags = Tag::when($request->filled('search'), function ($search) use ($request)
-                    {
-                        $search->where('name', 'like', "%{$request->search}%");
-                    })->get();
-        $data = collect(Tags::collection($tags));
-        return $this->successResponse($data);
-    }
-
-    /**
-     * Display a listing of the resource for datatable
-     *
-     * @param Request $request
-     * @return void
-     */
-    public function list(Request $request)
-    {
-        $data = Tag::orderBy($request->sort_field, $request->sort_order)
-                    ->select('id', 'name', 'slug', 'created_at')
-                    ->withCount('works')
-                    ->paginate($request->per_page);
+        $categories = Category::when($request->filled('search'), function ($search) use ($request)
+                        {
+                            $search->where('name', 'like', "%{$request->search}%");
+                        })->get();
+        $data = collect(Categories::collection($categories));
         return $this->successResponse($data);
     }
 
@@ -47,7 +32,7 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTag $request)
+    public function store(StoreCategory $request)
     {
         if ($request->missing('slug')) {
             $request->request->add(['slug' => $request->name]);
@@ -56,20 +41,20 @@ class TagController extends Controller
             $request->merge(['slug' => $request->name]);
         }
         $request->merge(['slug' => Str::slug($request->slug, '-')]);
-        $tag = Tag::create($request->all());
-        $data = collect(new Tags($tag));
+        $category = Category::create($request->all());
+        $data = collect(new Categories($category));
         return $this->dataCreated($data);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Tag  $tag
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Tag $tag)
+    public function show(Category $category)
     {
-        $data = collect(new Tags($tag));
+        $data = collect(new Categories($category));
         return $this->successResponse($data);
     }
 
@@ -77,10 +62,10 @@ class TagController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Tag  $tag
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreTag $request, Tag $tag)
+    public function update(StoreCategory $request, Category $category)
     {
         if ($request->missing('slug')) {
             $request->request->add(['slug' => $request->name]);
@@ -89,21 +74,21 @@ class TagController extends Controller
             $request->merge(['slug' => $request->name]);
         }
         $request->merge(['slug' => Str::slug($request->slug, '-')]);
-        $tag->fill($request->all());
-        $tag->save();
-        $data = collect(new Tags($tag));
+        $category->fill($request->all());
+        $category->save();
+        $data = collect(new Categories($category));
         return $this->dataUpdated($data);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Tag  $tag
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)
     {
-        Tag::destroy($request->selectedData);
+        Category::destroy($request->selectedData);
         return $this->dataDeleted();
     }
 }

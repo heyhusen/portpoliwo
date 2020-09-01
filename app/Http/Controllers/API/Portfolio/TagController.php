@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Portfolio\StoreCategory;
-use App\Http\Resources\Portfolio\Categories;
-use App\Models\Portfolio\Category;
+use App\Http\Requests\Portfolio\StoreTag;
+use App\Http\Resources\Portfolio\Tags;
+use App\Models\Portfolio\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class CategoryController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,26 +18,11 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = Category::when($request->filled('search'), function ($search) use ($request)
-                        {
-                            $search->where('name', 'like', "%{$request->search}%");
-                        })->get();
-        $data = collect(Categories::collection($categories));
-        return $this->successResponse($data);
-    }
-
-    /**
-     * Display a listing of the resource for datatable
-     *
-     * @param Request $request
-     * @return void
-     */
-    public function list(Request $request)
-    {
-        $data = Category::orderBy($request->sort_field, $request->sort_order)
-                    ->select('id', 'name', 'slug', 'created_at')
-                    ->withCount('works')
-                    ->paginate($request->per_page);
+        $tags = Tag::when($request->filled('search'), function ($search) use ($request)
+                    {
+                        $search->where('name', 'like', "%{$request->search}%");
+                    })->get();
+        $data = collect(Tags::collection($tags));
         return $this->successResponse($data);
     }
 
@@ -47,7 +32,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCategory $request)
+    public function store(StoreTag $request)
     {
         if ($request->missing('slug')) {
             $request->request->add(['slug' => $request->name]);
@@ -56,20 +41,20 @@ class CategoryController extends Controller
             $request->merge(['slug' => $request->name]);
         }
         $request->merge(['slug' => Str::slug($request->slug, '-')]);
-        $category = Category::create($request->all());
-        $data = collect(new Categories($category));
+        $tag = Tag::create($request->all());
+        $data = collect(new Tags($tag));
         return $this->dataCreated($data);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Tag $tag)
     {
-        $data = collect(new Categories($category));
+        $data = collect(new Tags($tag));
         return $this->successResponse($data);
     }
 
@@ -77,10 +62,10 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreCategory $request, Category $category)
+    public function update(StoreTag $request, Tag $tag)
     {
         if ($request->missing('slug')) {
             $request->request->add(['slug' => $request->name]);
@@ -89,21 +74,21 @@ class CategoryController extends Controller
             $request->merge(['slug' => $request->name]);
         }
         $request->merge(['slug' => Str::slug($request->slug, '-')]);
-        $category->fill($request->all());
-        $category->save();
-        $data = collect(new Categories($category));
+        $tag->fill($request->all());
+        $tag->save();
+        $data = collect(new Tags($tag));
         return $this->dataUpdated($data);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)
     {
-        Category::destroy($request->selectedData);
+        Tag::destroy($request->selectedData);
         return $this->dataDeleted();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Portfolio;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Portfolio\StoreWork;
@@ -18,20 +18,6 @@ class WorkController extends Controller
     public function index()
     {
         $data = collect(Works::collection(Work::all()));
-        return $this->successResponse($data);
-    }
-
-    /**
-     * Display a listing of the resource for datatable
-     *
-     * @param Request $request
-     * @return void
-     */
-    public function list(Request $request)
-    {
-        $data = Work::orderBy($request->sort_field, $request->sort_order)
-                    ->select('id', 'name', 'description', 'url', 'photo', 'created_at')
-                    ->paginate($request->per_page);
         return $this->successResponse($data);
     }
 

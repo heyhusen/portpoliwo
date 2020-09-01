@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreWork;
+use App\Http\Requests\Portfolio\StoreWork;
 use App\Http\Resources\Portfolio\Works;
 use App\Models\Portfolio\Work;
 use Illuminate\Http\Request;

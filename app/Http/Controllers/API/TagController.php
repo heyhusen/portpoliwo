@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreTag;
+use App\Http\Requests\Portfolio\StoreTag;
 use App\Http\Resources\Portfolio\Tags;
 use App\Models\Portfolio\Tag;
 use Illuminate\Http\Request;

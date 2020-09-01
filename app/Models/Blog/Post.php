@@ -36,7 +36,7 @@ class Post extends Model implements HasMedia
     protected $appends = ['thumbnail'];
 
     /**
-     * Get the user's full name.
+     * Get the post's thumbnail.
      *
      * @return string
      */
@@ -45,7 +45,7 @@ class Post extends Model implements HasMedia
         if ($this->getFirstMedia('thumbnail')) {
             return $this->getFirstMediaUrl('thumbnail', 'thumb');
         }
-        return 'thumbnail';
+        return '';
     }
 
     /**

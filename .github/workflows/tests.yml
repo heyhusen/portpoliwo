@@ -33,4 +33,4 @@ jobs:
         run: php artisan app:install --env=testing
 
       - name: Execute tests
-        run: php artisan test
+        run: vendor/bin/phpunit --verbose

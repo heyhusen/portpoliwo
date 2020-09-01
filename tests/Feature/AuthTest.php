@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
+use RolesTableSeeder;
 use Tests\TestCase;
 
 class AuthTest extends TestCase
@@ -35,13 +36,26 @@ class AuthTest extends TestCase
      *
      * @return void
      */
-    public function testRegisteredUserCanLogIn()
+    public function testRegisteredUserCanLogInViaToken()
     {
-        Sanctum::actingAs(
-            factory(User::class)->create()
-        );
+        $this->seed(RolesTableSeeder::class);
+        $user = factory(User::class)
+           ->create([
+               'name' => 'Ahmad Husen'
+           ])
+           ->each(function ($user) {
+                $user->assignRole('user');
+            });
 
-        $response = $this->getJson('/api');
+        $user = User::first();
+
+        $token = $user->createToken('Portpoliwo');
+
+        $response = $this
+            ->withHeaders([
+                'Authorization' => 'Bearer ' . $token->plainTextToken,
+            ])
+            ->getJson('/api');
 
         $response
             ->assertOk()

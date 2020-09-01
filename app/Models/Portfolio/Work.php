@@ -4,10 +4,12 @@ namespace App\Models\Portfolio;
 
 use Datakrama\Eloquid\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Work extends Model
+class Work extends Model implements HasMedia
 {
-    use Uuids;
+    use Uuids, InteractsWithMedia;
 
     /**
      * The table associated with the model.
@@ -22,7 +24,7 @@ class Work extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'photo', 'url'
+        'name', 'description', 'url'
     ];
 
     /**
@@ -38,6 +40,19 @@ class Work extends Model
      * @var array
      */
     protected $appends = ['image'];
+
+    /**
+     * Get the work's image.
+     *
+     * @return string
+     */
+    public function getImageAttribute()
+    {
+        if ($this->getFirstMedia('image')) {
+            return $this->getFirstMediaUrl('image');
+        }
+        return '';
+    }
 
     /**
      * Get the work category record associated with the work.
@@ -78,12 +93,14 @@ class Work extends Model
     }
 
     /**
-     * Get the work's image.
+     * Register media collections
      *
-     * @return string
+     * @return void
      */
-    public function getImageAttribute()
+    public function registerMediaCollections(): void
     {
-        return asset('storage/work/' . $this->photo);
+        $this
+            ->addMediaCollection('image')
+            ->singleFile();
     }
 }

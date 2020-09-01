@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Portfolio;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\API\Portfolio\UploadWorkPhoto;
 use App\Http\Requests\Portfolio\StoreWork;
 use App\Http\Resources\Portfolio\Works;
 use App\Models\Portfolio\Work;
@@ -30,8 +31,7 @@ class WorkController extends Controller
     public function store(StoreWork $request)
     {
         $work = Work::create($request->all());
-        $work->photo = $this->uploadPhoto($request, $work);
-        $work->save();
+        new UploadWorkPhoto($request, $work);
         $work->categories()->attach($request->category_id);
         $work->tags()->attach($request->tag_id);
         $data = collect(new Works($work));
@@ -60,28 +60,12 @@ class WorkController extends Controller
     public function update(StoreWork $request, Work $work)
     {
         $work->fill($request->all());
-        $work->photo = $this->uploadPhoto($request, $work, $work->photo);
         $work->save();
+        new UploadWorkPhoto($request, $work);
         $work->categories()->sync($request->category_id);
         $work->tags()->sync($request->tag_id);
         $data = collect(new Works($work));
         return $this->dataUpdated($data);
-    }
-
-    /**
-     * Upload photo
-     *
-     * @param Request $request
-     * @param string $path
-     * @return void
-     */
-    public function uploadPhoto(Request $request, $data, $name = null)
-    {
-        if ($request->hasFile('photo')) {
-            $name = $data->id . '/' . $request->photo->hashName();
-            $path = $request->photo->store('public/work/' . $data->id);
-        }
-        return $name;
     }
 
     /**

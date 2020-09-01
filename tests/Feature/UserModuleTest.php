@@ -8,7 +8,6 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Laravel\Sanctum\Sanctum;
 use RolesTableSeeder;
 use Tests\Feature\Auth;
 use Tests\TestCase;
@@ -44,7 +43,7 @@ class UserModuleTest extends TestCase
     {
         $this->seed(RolesTableSeeder::class);
         $auth = new Auth();
-        $user = $auth
+        $auth
             ->createUser()
             ->each(function ($user) {
                 $user->assignRole('user');
@@ -68,7 +67,7 @@ class UserModuleTest extends TestCase
     {
         $this->seed(RolesTableSeeder::class);
         $auth = new Auth();
-        $user = $auth
+        $auth
            ->createUser()
            ->each(function ($user) {
                 $user->assignRole('user');

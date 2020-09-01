@@ -10,23 +10,12 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\Sanctum;
 use RolesTableSeeder;
+use Tests\Feature\Auth;
 use Tests\TestCase;
 
 class UserModuleTest extends TestCase
 {
     use RefreshDatabase;
-
-    public function createUser($data = [])
-    {
-        $user = factory(User::class)->create($data);
-        return $user;
-    }
-
-    public function createAuth($data = [])
-    {
-        $auth = Sanctum::actingAs($this->createUser($data));
-        return $auth;
-    }
 
     /**
      * Test create role with seeder
@@ -54,7 +43,8 @@ class UserModuleTest extends TestCase
     public function testCreateUser()
     {
         $this->seed(RolesTableSeeder::class);
-        $user = $this
+        $auth = new Auth();
+        $user = $auth
             ->createUser()
             ->each(function ($user) {
                 $user->assignRole('user');
@@ -77,8 +67,9 @@ class UserModuleTest extends TestCase
     public function testUpdateUser()
     {
         $this->seed(RolesTableSeeder::class);
-        $user = factory(User::class)
-           ->create()
+        $auth = new Auth();
+        $user = $auth
+           ->createUser()
            ->each(function ($user) {
                 $user->assignRole('user');
             });
@@ -109,10 +100,9 @@ class UserModuleTest extends TestCase
     public function testDeleteUser()
     {
         $this->seed(RolesTableSeeder::class);
-        $user = factory(User::class)
-           ->create([
-               'name' => 'Ahmad Husen'
-           ])
+        $auth = new Auth(['name' => 'Ahmad Husen']);
+        $user = $auth
+           ->createUser()
            ->each(function ($user) {
                 $user->assignRole('user');
             });
@@ -130,7 +120,8 @@ class UserModuleTest extends TestCase
      */
     public function testFailedCreateUserFromApi()
     {
-        $this->createAuth();
+        $auth = new Auth();
+        $auth->createAuth();
 
         $response = $this->postJson('/api/account');
 
@@ -155,7 +146,8 @@ class UserModuleTest extends TestCase
      */
     public function testSuccessfullCreateUserFromApi()
     {
-        $this->createAuth();
+        $auth = new Auth();
+        $auth->createAuth();
 
         $response = $this->postJson('/api/account', [
             'name' => 'Ahmad Husen',
@@ -185,7 +177,8 @@ class UserModuleTest extends TestCase
      */
     public function testSuccessfullCreateUserWithAvatarFromApi()
     {
-        $this->createAuth();
+        $auth = new Auth();
+        $auth->createAuth();
 
         Storage::fake('public/avatar');
 
@@ -220,7 +213,8 @@ class UserModuleTest extends TestCase
      */
     public function testFailedReadUserFromApi()
     {
-        $this->createAuth();
+        $auth = new Auth();
+        $auth->createAuth();
 
         $uuid = Str::uuid();
 
@@ -241,10 +235,11 @@ class UserModuleTest extends TestCase
      */
     public function testSuccessfullReadUserFromApi()
     {
-        $this->createAuth([
+        $auth = new Auth([
             'name' => 'Ahmad Husen',
             'email' => 'husen@portpoliwo.app'
         ]);
+        $auth->createAuth();
 
         $user = User::first();
 
@@ -270,7 +265,8 @@ class UserModuleTest extends TestCase
      */
     public function testFailedUpdateUserFromApi()
     {
-        $this->createAuth();
+        $auth = new Auth();
+        $auth->createAuth();
 
         $user = User::first();
 
@@ -302,7 +298,8 @@ class UserModuleTest extends TestCase
      */
     public function testSuccessfullyUpdateUserFromApi()
     {
-        $this->createAuth();
+        $auth = new Auth();
+        $auth->createAuth();
 
         $user = User::first();
 
@@ -330,7 +327,8 @@ class UserModuleTest extends TestCase
      */
     public function testSuccessfullyUpdateUserWithAvatarFromApi()
     {
-        $this->createAuth();
+        $auth = new Auth();
+        $auth->createAuth();
 
         $user = User::first();
 
@@ -366,9 +364,10 @@ class UserModuleTest extends TestCase
      */
     public function testDeleteUserFromApi()
     {
-        $this->createAuth();
+        $auth = new Auth();
+        $auth->createAuth();
 
-        $user = $this->createUser();
+        $user = $auth->createUser();
 
         $response = $this->deleteJson('/api/account/', [
             'selectedData' => [$user->id]
@@ -392,9 +391,10 @@ class UserModuleTest extends TestCase
      */
     public function testDeleteCurrentLoggedInUserFromApi()
     {
-        $this->createAuth([
+        $auth = new Auth([
             'name' => 'Ahmad Husen'
         ]);
+        $auth->createAuth();
 
         $user = User::first();
 

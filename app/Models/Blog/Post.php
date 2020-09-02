@@ -42,10 +42,7 @@ class Post extends Model implements HasMedia
      */
     public function getThumbnailAttribute()
     {
-        if ($this->getFirstMedia('thumbnail')) {
-            return $this->getFirstMediaUrl('thumbnail', 'thumb');
-        }
-        return '';
+        return $this->getFirstMediaUrl('thumbnail', 'thumb');
     }
 
     /**
@@ -77,6 +74,8 @@ class Post extends Model implements HasMedia
     {
         $this
             ->addMediaCollection('thumbnail')
+            ->useFallbackUrl('/assets/images/undraw_Photo_re_5blb.png')
+            ->useFallbackPath(public_path('/assets/images/undraw_Photo_re_5blb.png'))
             ->singleFile();
     }
 

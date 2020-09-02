@@ -18,7 +18,7 @@ class Work extends Model implements HasMedia
      *
      * @var string
      */
-    protected $table = 'works';
+    protected $table = 'portfolio_works';
 
     /**
      * The attributes that are mass assignable.
@@ -54,28 +54,12 @@ class Work extends Model implements HasMedia
     }
 
     /**
-     * Get the work category record associated with the work.
-     */
-    public function workCategory()
-    {
-        return $this->hasOne('App\Models\Portfolio\WorkCategory');
-    }
-
-    /**
-     * Get the work tag for the work.
-     */
-    public function workTags()
-    {
-        return $this->hasMany('App\Models\Portfolio\WorkTag');
-    }
-
-    /**
      * The category that belong to the work.
      */
     public function categories()
     {
         return $this
-            ->belongsToMany('App\Models\Portfolio\Category', 'work_categories')
+            ->belongsToMany('App\Models\Portfolio\Category', 'portpoliwo_work_categories', 'portfolio_work_id', 'portfolio_category_id')
             ->using('App\Models\Portfolio\WorkCategory')
             ->withTimestamps();
     }
@@ -86,7 +70,7 @@ class Work extends Model implements HasMedia
     public function tags()
     {
         return $this
-            ->belongsToMany('App\Models\Portfolio\Tag', 'work_tags')
+            ->belongsToMany('App\Models\Portfolio\Tag', 'portpoliwo_work_tags', 'portfolio_work_id', 'portfolio_tag_id')
             ->using('App\Models\Portfolio\WorkTag')
             ->withTimestamps();
     }

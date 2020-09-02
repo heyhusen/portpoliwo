@@ -10,6 +10,13 @@ class Category extends Model
     use Uuids;
 
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'portfolio_categories';
+
+    /**
      * The attributes that aren't mass assignable.
      *
      * @var array
@@ -29,7 +36,7 @@ class Category extends Model
     public function works()
     {
         return $this
-            ->belongsToMany('App\Models\Portfolio\Work', 'work_categories')
+            ->belongsToMany('App\Models\Portfolio\Work', 'portfolio_work_categories', 'portfolio_category_id', 'portfolio_work_id')
             ->using('App\Models\Portfolio\WorkCategory');
     }
 }

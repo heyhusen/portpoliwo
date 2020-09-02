@@ -10,6 +10,13 @@ class Tag extends Model
     use Uuids;
 
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'portfolio_tags';
+
+    /**
      * The attributes that aren't mass assignable.
      *
      * @var array
@@ -29,7 +36,7 @@ class Tag extends Model
     public function works()
     {
         return $this
-            ->belongsToMany('App\Models\Portfolio\Work', 'work_tags')
+            ->belongsToMany('App\Models\Portfolio\Work', 'portfolio_work_tags', 'portfolio_tag_id', 'portfolio_work_id')
             ->using('App\Models\Portfolio\WorkTag');
     }
 }

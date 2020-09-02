@@ -10,10 +10,9 @@ class WorkCategory extends Pivot
     use Uuids;
 
     /**
-     * Get the work that owns the work category.
+     * The table associated with the model.
+     *
+     * @var string
      */
-    public function work()
-    {
-        return $this->belongsTo('App\Models\Portfolio\Work');
-    }
+    protected $table = 'portfolio_work_categories';
 }

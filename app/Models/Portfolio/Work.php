@@ -50,10 +50,7 @@ class Work extends Model implements HasMedia
      */
     public function getImageAttribute()
     {
-        if ($this->getFirstMedia('photo')) {
-            return $this->getFirstMediaUrl('photo', 'thumb');
-        }
-        return '';
+        return $this->getFirstMediaUrl('photo', 'thumb');
     }
 
     /**
@@ -103,6 +100,8 @@ class Work extends Model implements HasMedia
     {
         $this
             ->addMediaCollection('photo')
+            ->useFallbackUrl('/assets/images/undraw_Portfolio_update_re_jqnp.png')
+            ->useFallbackPath(public_path('/assets/images/undraw_Portfolio_update_re_jqnp.png'))
             ->singleFile();
     }
 
@@ -114,7 +113,8 @@ class Work extends Model implements HasMedia
      */
     public function registerMediaConversions(Media $media = null): void
     {
-        $this->addMediaConversion('thumb')
-                ->fit(Manipulations::FIT_CROP, 1280, 720);
+        $this
+            ->addMediaConversion('thumb')
+            ->fit(Manipulations::FIT_CROP, 1280, 720);
     }
 }

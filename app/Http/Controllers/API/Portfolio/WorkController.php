@@ -32,7 +32,7 @@ class WorkController extends Controller
         $work = Work::create($request->all());
         if ($request->hasFile('photo')) {
             $work
-                ->addMedia($request->file('photo'))
+                ->addMediaFromRequest('photo')
                 ->toMediaCollection('photo');
         }
         $work->categories()->attach($request->category_id);
@@ -66,7 +66,7 @@ class WorkController extends Controller
         $work->save();
         if ($request->hasFile('photo')) {
             $work
-                ->addMedia($request->file('photo'))
+                ->addMediaFromRequest('photo')
                 ->toMediaCollection('photo');
         }
         $work->categories()->sync($request->category_id);

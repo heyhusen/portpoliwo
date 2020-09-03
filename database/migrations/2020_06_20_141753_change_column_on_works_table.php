@@ -15,6 +15,9 @@ class ChangeColumnOnWorksTable extends Migration
     {
         Schema::table('works', function (Blueprint $table) {
             $table->dropColumn(['owner', 'git']);
+        });
+
+        Schema::table('works', function (Blueprint $table) {
             $table->string('url')->nullable()->after('name');
             $table->string('photo')->nullable()->after('name');
             $table->text('description')->nullable()->after('name');
@@ -30,6 +33,9 @@ class ChangeColumnOnWorksTable extends Migration
     {
         Schema::table('works', function (Blueprint $table) {
             $table->dropColumn(['url', 'photo', 'description']);
+        });
+
+        Schema::table('works', function (Blueprint $table) {
             $table->string('git')->after('name');
             $table->string('owner')->after('name');
         });

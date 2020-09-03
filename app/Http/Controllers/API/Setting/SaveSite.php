@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API\Setting;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSetting;
-use App\Http\Resources\Settings as SettingResource;
+use App\Http\Resources\Settings;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 
@@ -22,7 +22,7 @@ class SaveSite extends Controller
         {
             Setting::where('name', $item->name)->update(['value' => $request->{$item->name}]);
         });
-        $data = collect(SettingResource::collection(Setting::get()));
+        $data = collect(Settings::collection(Setting::get()));
         return $this->dataCreated($data);
     }
 }

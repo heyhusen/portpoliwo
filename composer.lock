@@ -748,16 +748,16 @@
         },
         {
             "name": "egulias/email-validator",
-            "version": "2.1.19",
+            "version": "2.1.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egulias/EmailValidator.git",
-                "reference": "840d5603eb84cc81a6a0382adac3293e57c1c64c"
+                "reference": "f46887bc48db66c7f38f668eb7d6ae54583617ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/840d5603eb84cc81a6a0382adac3293e57c1c64c",
-                "reference": "840d5603eb84cc81a6a0382adac3293e57c1c64c",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/f46887bc48db66c7f38f668eb7d6ae54583617ff",
+                "reference": "f46887bc48db66c7f38f668eb7d6ae54583617ff",
                 "shasum": ""
             },
             "require": {
@@ -802,7 +802,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2020-08-08T21:28:19+00:00"
+            "time": "2020-09-06T13:44:32+00:00"
         },
         {
             "name": "fideloper/proxy",
@@ -860,33 +860,30 @@
         },
         {
             "name": "fruitcake/laravel-cors",
-            "version": "v2.0.1",
+            "version": "v2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fruitcake/laravel-cors.git",
-                "reference": "dbfc311b25d4873c3c2382b26860be3567492bd6"
+                "reference": "4b19bfc3bd422948af37a42a62fad7f49025894a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fruitcake/laravel-cors/zipball/dbfc311b25d4873c3c2382b26860be3567492bd6",
-                "reference": "dbfc311b25d4873c3c2382b26860be3567492bd6",
+                "url": "https://api.github.com/repos/fruitcake/laravel-cors/zipball/4b19bfc3bd422948af37a42a62fad7f49025894a",
+                "reference": "4b19bfc3bd422948af37a42a62fad7f49025894a",
                 "shasum": ""
             },
             "require": {
                 "asm89/stack-cors": "^2.0.1",
-                "illuminate/contracts": "^5.6|^6.0|^7.0|^8.0",
-                "illuminate/support": "^5.6|^6.0|^7.0|^8.0",
-                "php": ">=7.1",
-                "symfony/http-foundation": "^4.0|^5.0",
-                "symfony/http-kernel": "^4.0|^5.0"
+                "illuminate/contracts": "^6|^7|^8",
+                "illuminate/support": "^6|^7|^8",
+                "php": ">=7.2",
+                "symfony/http-foundation": "^4|^5",
+                "symfony/http-kernel": "^4.3.4|^5"
             },
             "require-dev": {
-                "laravel/framework": "^5.5|^6.0|^7.0|^8.0",
-                "orchestra/dusk-updater": "^1.2",
-                "orchestra/testbench": "^3.5|^4.0|^5.0|^6.0",
-                "orchestra/testbench-dusk": "^5.1",
-                "phpro/grumphp": "^0.16|^0.17",
-                "phpunit/phpunit": "^6.0|^7.0|^8.0",
+                "laravel/framework": "^6|^7|^8",
+                "orchestra/testbench-dusk": "^4|^5|^6",
+                "phpunit/phpunit": "^6|^7|^8",
                 "squizlabs/php_codesniffer": "^3.5"
             },
             "type": "library",
@@ -932,7 +929,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-05-31T07:30:16+00:00"
+            "time": "2020-09-07T11:48:52+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -1916,16 +1913,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.39.0",
+            "version": "2.39.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "0a41ea7f7fedacf307b7a339800e10356a042918"
+                "reference": "7af467873250583cc967a59ee9df29fabab193c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/0a41ea7f7fedacf307b7a339800e10356a042918",
-                "reference": "0a41ea7f7fedacf307b7a339800e10356a042918",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/7af467873250583cc967a59ee9df29fabab193c1",
+                "reference": "7af467873250583cc967a59ee9df29fabab193c1",
                 "shasum": ""
             },
             "require": {
@@ -1938,7 +1935,7 @@
                 "doctrine/orm": "^2.7",
                 "friendsofphp/php-cs-fixer": "^2.14 || ^3.0",
                 "kylekatarnls/multi-tester": "^2.0",
-                "phpmd/phpmd": "^2.8",
+                "phpmd/phpmd": "^2.9",
                 "phpstan/extension-installer": "^1.0",
                 "phpstan/phpstan": "^0.12.35",
                 "phpunit/phpunit": "^7.5 || ^8.0",
@@ -2001,7 +1998,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-08-24T12:35:58+00:00"
+            "time": "2020-09-04T13:11:37+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -2057,16 +2054,16 @@
         },
         {
             "name": "opis/closure",
-            "version": "3.5.6",
+            "version": "3.5.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/opis/closure.git",
-                "reference": "e8d34df855b0a0549a300cb8cb4db472556e8aa9"
+                "reference": "4531e53afe2fc660403e76fb7644e95998bff7bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/opis/closure/zipball/e8d34df855b0a0549a300cb8cb4db472556e8aa9",
-                "reference": "e8d34df855b0a0549a300cb8cb4db472556e8aa9",
+                "url": "https://api.github.com/repos/opis/closure/zipball/4531e53afe2fc660403e76fb7644e95998bff7bf",
+                "reference": "4531e53afe2fc660403e76fb7644e95998bff7bf",
                 "shasum": ""
             },
             "require": {
@@ -2114,7 +2111,7 @@
                 "serialization",
                 "serialize"
             ],
-            "time": "2020-08-11T08:46:50+00:00"
+            "time": "2020-09-06T17:02:15+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -3014,16 +3011,16 @@
         },
         {
             "name": "spatie/temporary-directory",
-            "version": "1.2.3",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/temporary-directory.git",
-                "reference": "eeb84a7a3543e90759cd852ccb468e3d3340d99d"
+                "reference": "8efe8e61e0ca943d84341f10e51ef3a9606af932"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/temporary-directory/zipball/eeb84a7a3543e90759cd852ccb468e3d3340d99d",
-                "reference": "eeb84a7a3543e90759cd852ccb468e3d3340d99d",
+                "url": "https://api.github.com/repos/spatie/temporary-directory/zipball/8efe8e61e0ca943d84341f10e51ef3a9606af932",
+                "reference": "8efe8e61e0ca943d84341f10e51ef3a9606af932",
                 "shasum": ""
             },
             "require": {
@@ -3056,7 +3053,7 @@
                 "spatie",
                 "temporary-directory"
             ],
-            "time": "2020-06-08T08:58:45+00:00"
+            "time": "2020-09-07T20:41:15+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -5588,16 +5585,16 @@
         },
         {
             "name": "facade/ignition",
-            "version": "2.3.6",
+            "version": "2.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/ignition.git",
-                "reference": "d7d05dba5a0bdbf018a2cb7be268f22f5d73eb81"
+                "reference": "b364db8860a63c1fb58b72b9718863c21df08762"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/ignition/zipball/d7d05dba5a0bdbf018a2cb7be268f22f5d73eb81",
-                "reference": "d7d05dba5a0bdbf018a2cb7be268f22f5d73eb81",
+                "url": "https://api.github.com/repos/facade/ignition/zipball/b364db8860a63c1fb58b72b9718863c21df08762",
+                "reference": "b364db8860a63c1fb58b72b9718863c21df08762",
                 "shasum": ""
             },
             "require": {
@@ -5616,7 +5613,7 @@
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.14",
                 "mockery/mockery": "^1.3",
-                "orchestra/testbench": "5.0",
+                "orchestra/testbench": "^5.0|^6.0",
                 "psalm/plugin-laravel": "^1.2"
             },
             "suggest": {
@@ -5656,7 +5653,7 @@
                 "laravel",
                 "page"
             ],
-            "time": "2020-08-10T13:50:38+00:00"
+            "time": "2020-09-06T19:26:27+00:00"
         },
         {
             "name": "facade/ignition-contracts",

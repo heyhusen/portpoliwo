@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\API\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Portfolio\StoreCategory;
 use App\Http\Resources\Portfolio\Categories;
 use App\Models\Portfolio\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
@@ -32,8 +32,12 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCategory $request)
+    public function store(Request $request)
     {
+        $request->validate([
+            'name' => ['required', 'unique:portfolio_categories,name'],
+            'slug' => ['unique:portfolio_categories,slug']
+        ]);
         if ($request->missing('slug')) {
             $request->request->add(['slug' => $request->name]);
         }
@@ -65,8 +69,12 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreCategory $request, Category $category)
+    public function update(Request $request, Category $category)
     {
+        $request->validate([
+            'name' => ['required', Rule::unique('portfolio_categories')->ignore($category)],
+            'slug' => [Rule::unique('portfolio_categories')->ignore($category)]
+        ]);
         if ($request->missing('slug')) {
             $request->request->add(['slug' => $request->name]);
         }

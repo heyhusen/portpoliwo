@@ -43,4 +43,15 @@ class Controller extends BaseController
     {
         return $this->successResponse(null, __('Data successfully deleted.'));
     }
+
+    /**
+     * Data updated response
+     *
+     * @param array $data
+     * @return void
+     */
+    public function dataRestored($data)
+    {
+        return $this->successResponse($data, __('Data successfully restored.'));
+    }
 }

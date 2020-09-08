@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\API\Blog;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Blog\StoreCategory;
 use App\Http\Resources\Blog\Categories;
 use App\Models\Blog\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
@@ -32,8 +32,12 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCategory $request)
+    public function store(Request $request)
     {
+        $request->validate([
+            'title' => ['required', 'unique:blog_categories,title'],
+            'slug' => ['unique:blog_categories,slug']
+        ]);
         if ($request->missing('slug')) {
             $request->request->add(['slug' => $request->title]);
         }
@@ -65,8 +69,12 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreCategory $request, Category $category)
+    public function update(Request $request, Category $category)
     {
+        $request->validate([
+            'title' => ['required', Rule::unique('blog_categories')->ignore($category)],
+            'slug' => [Rule::unique('blog_categories')->ignore($category)]
+        ]);
         if ($request->missing('slug')) {
             $request->request->add(['slug' => $request->name]);
         }

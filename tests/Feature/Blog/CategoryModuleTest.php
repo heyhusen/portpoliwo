@@ -17,25 +17,31 @@ class CategoryModuleTest extends TestCase
     protected $url = '/api/blog/category';
 
     /**
+     * Create dummy content
+     *
+     * @return void
+     */
+    public function dummyContent()
+    {
+        return [
+            'title' => 'Backend',
+            'slug' => 'backend',
+            'description' => 'A type of programmer who creates the logical back-end and core computational logic of a website, software or information system.'
+        ];
+    }
+
+    /**
      * Test creating a record
      *
      * @return void
      */
     public function testCreateBlogCategory()
     {
-        factory(Category::class)->create([
-            'title' => 'Backend',
-            'slug' => 'backend',
-            'description' => 'A type of programmer who creates the logical back-end and core computational logic of a website, software or information system.'
-        ]);
+        factory(Category::class)->create($this->dummyContent());
 
         $this
             ->assertDatabaseCount($this->table, 1)
-            ->assertDatabaseHas($this->table, [
-                'title' => 'Backend',
-                'slug' => 'backend',
-                'description' => 'A type of programmer who creates the logical back-end and core computational logic of a website, software or information system.'
-            ]);
+            ->assertDatabaseHas($this->table, $this->dummyContent());
     }
 
     /**
@@ -48,20 +54,12 @@ class CategoryModuleTest extends TestCase
         factory(Category::class)->create();
 
         $blogCategory = Category::first();
-        $blogCategory->fill([
-            'title' => 'Backend',
-            'slug' => 'backend',
-            'description' => 'A type of programmer who creates the logical back-end and core computational logic of a website, software or information system.'
-        ]);
+        $blogCategory->fill($this->dummyContent());
         $blogCategory->save();
 
         $this
             ->assertDatabaseCount($this->table, 1)
-            ->assertDatabaseHas($this->table, [
-                'title' => 'Backend',
-                'slug' => 'backend',
-                'description' => 'A type of programmer who creates the logical back-end and core computational logic of a website, software or information system.'
-            ]);
+            ->assertDatabaseHas($this->table, $this->dummyContent());
     }
 
     /**
@@ -86,8 +84,7 @@ class CategoryModuleTest extends TestCase
      */
     public function testFailedCreateBlogCategoryFromApi()
     {
-        $auth = new Auth();
-        $auth->createAuth();
+        (new Auth())->createAuth();
 
         $response = $this->postJson($this->url);
 
@@ -109,8 +106,7 @@ class CategoryModuleTest extends TestCase
      */
     public function testSuccessfullCreateBlogCategoryFromApi()
     {
-        $auth = new Auth();
-        $auth->createAuth();
+        (new Auth())->createAuth();
 
         $response = $this->postJson($this->url, [
             'title' => 'Frontend'
@@ -123,33 +119,21 @@ class CategoryModuleTest extends TestCase
                 'message' => 'Data successfully created.',
                 'data' => [
                     'title' => 'Frontend',
-                    // 'slug' => 'frontend'
+                    'slug' => 'frontend'
                 ]
             ]);
 
-        $response = $this->postJson($this->url, [
-            'title' => 'Backend',
-            'slug' => 'backend',
-            'description' => 'A type of programmer who creates the logical back-end and core computational logic of a website, software or information system.'
-        ]);
+        $response = $this->postJson($this->url, $this->dummyContent());
 
         $response
             ->assertCreated()
             ->assertJson([
                 'success' => true,
                 'message' => 'Data successfully created.',
-                'data' => [
-                    'title' => 'Backend',
-                    'slug' => 'backend',
-                    'description' => 'A type of programmer who creates the logical back-end and core computational logic of a website, software or information system.'
-                ]
+                'data' => $this->dummyContent()
             ]);
 
-        $response = $this->postJson($this->url, [
-            'title' => 'Backend',
-            'slug' => 'backend',
-            'description' => 'A type of programmer who creates the logical back-end and core computational logic of a website, software or information system.'
-        ]);
+        $response = $this->postJson($this->url, $this->dummyContent());
 
         $this->assertDatabaseCount($this->table, 2);
 
@@ -172,8 +156,7 @@ class CategoryModuleTest extends TestCase
      */
     public function testFailedReadBlogCategoryFromApi()
     {
-        $auth = new Auth();
-        $auth->createAuth();
+        (new Auth())->createAuth();
 
         $uuid = Str::uuid();
 
@@ -194,14 +177,9 @@ class CategoryModuleTest extends TestCase
      */
     public function testSuccessfullReadBlogCategoryFromApi()
     {
-        $auth = new Auth();
-        $auth->createAuth();
+        (new Auth())->createAuth();
 
-        factory(Category::class)->create([
-            'title' => 'Backend',
-            'slug' => 'backend',
-            'description' => 'A type of programmer who creates the logical back-end and core computational logic of a website, software or information system.'
-        ]);
+        factory(Category::class)->create($this->dummyContent());
         $blogCategory = Category::first();
 
         $response = $this->getJson($this->url . '/' . $blogCategory->id);
@@ -210,11 +188,7 @@ class CategoryModuleTest extends TestCase
             ->assertOk()
             ->assertJson([
                 'success' => true,
-                'data' => [
-                    'title' => 'Backend',
-                    'slug' => 'backend',
-                    'description' => 'A type of programmer who creates the logical back-end and core computational logic of a website, software or information system.'
-                ]
+                'data' => $this->dummyContent()
             ]);
     }
 
@@ -225,8 +199,7 @@ class CategoryModuleTest extends TestCase
      */
     public function testFailedUpdateBlogCategoryFromApi()
     {
-        $auth = new Auth();
-        $auth->createAuth();
+        (new Auth())->createAuth();
 
         factory(Category::class)->create();
         $blogCategory = Category::first();
@@ -255,28 +228,19 @@ class CategoryModuleTest extends TestCase
      */
     public function testSuccessfullyUpdateBlogCategoryFromApi()
     {
-        $auth = new Auth();
-        $auth->createAuth();
+        (new Auth())->createAuth();
 
         factory(Category::class)->create();
         $blogCategory = Category::first();
 
-        $response = $this->putJson($this->url . '/' . $blogCategory->id, [
-            'title' => 'Backend',
-            'slug' => 'backend',
-            'description' => 'A type of programmer who creates the logical back-end and core computational logic of a website, software or information system.'
-        ]);
+        $response = $this->putJson($this->url . '/' . $blogCategory->id, $this->dummyContent());
 
         $response
             ->assertOk()
             ->assertJson([
                 'success' => true,
                 'message' => 'Data successfully updated.',
-                'data' => [
-                    'title' => 'Backend',
-                    'slug' => 'backend',
-                    'description' => 'A type of programmer who creates the logical back-end and core computational logic of a website, software or information system.'
-                ]
+                'data' => $this->dummyContent()
             ]);
     }
 
@@ -287,8 +251,7 @@ class CategoryModuleTest extends TestCase
      */
     public function testDeleteBlogCategoryFromApi()
     {
-        $auth = new Auth();
-        $auth->createAuth();
+        (new Auth())->createAuth();
 
         factory(Category::class)->create();
         $blogCategory = Category::first();

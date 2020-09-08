@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\API\Blog;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Blog\StoreTag;
 use App\Http\Resources\Blog\Tags;
 use App\Models\Blog\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class TagController extends Controller
 {
@@ -32,8 +32,12 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTag $request)
+    public function store(Request $request)
     {
+        $request->validate([
+            'title' => ['required', 'unique:blog_tags,title'],
+            'slug' => ['unique:blog_tags,slug']
+        ]);
         if ($request->missing('slug')) {
             $request->request->add(['slug' => $request->title]);
         }
@@ -65,8 +69,12 @@ class TagController extends Controller
      * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreTag $request, Tag $tag)
+    public function update(Request $request, Tag $tag)
     {
+        $request->validate([
+            'title' => ['required', Rule::unique('blog_tags')->ignore($tag)],
+            'slug' => [Rule::unique('blog_tags')->ignore($tag)]
+        ]);
         if ($request->missing('slug')) {
             $request->request->add(['slug' => $request->name]);
         }

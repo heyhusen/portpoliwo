@@ -17,25 +17,31 @@ class TagModuleTest extends TestCase
     protected $url = '/api/blog/tag';
 
     /**
+     * Create dummy content
+     *
+     * @return void
+     */
+    public function dummyContent()
+    {
+        return [
+            'title' => 'Laravel',
+            'slug' => 'laravel',
+            'description' => 'Open-source PHP web framework, created by Taylor Otwell and intended for the development of web applications following the model–view–controller architectural pattern and based on Symfony.'
+        ];
+    }
+
+    /**
      * Test creating a record
      *
      * @return void
      */
     public function testCreateBlogTag()
     {
-        factory(Tag::class)->create([
-            'title' => 'Laravel',
-            'slug' => 'laravel',
-            'description' => 'Open-source PHP web framework, created by Taylor Otwell and intended for the development of web applications following the model–view–controller architectural pattern and based on Symfony.'
-        ]);
+        factory(Tag::class)->create($this->dummyContent());
 
         $this
             ->assertDatabaseCount($this->table, 1)
-            ->assertDatabaseHas($this->table, [
-                'title' => 'Laravel',
-                'slug' => 'laravel',
-                'description' => 'Open-source PHP web framework, created by Taylor Otwell and intended for the development of web applications following the model–view–controller architectural pattern and based on Symfony.'
-            ]);
+            ->assertDatabaseHas($this->table, $this->dummyContent());
     }
 
     /**
@@ -48,20 +54,12 @@ class TagModuleTest extends TestCase
         factory(Tag::class)->create();
 
         $blogTag = Tag::first();
-        $blogTag->fill([
-            'title' => 'Laravel',
-            'slug' => 'laravel',
-            'description' => 'Open-source PHP web framework, created by Taylor Otwell and intended for the development of web applications following the model–view–controller architectural pattern and based on Symfony.'
-        ]);
+        $blogTag->fill($this->dummyContent());
         $blogTag->save();
 
         $this
             ->assertDatabaseCount($this->table, 1)
-            ->assertDatabaseHas($this->table, [
-                'title' => 'Laravel',
-                'slug' => 'laravel',
-                'description' => 'Open-source PHP web framework, created by Taylor Otwell and intended for the development of web applications following the model–view–controller architectural pattern and based on Symfony.'
-            ]);
+            ->assertDatabaseHas($this->table, $this->dummyContent());
     }
 
     /**
@@ -86,8 +84,7 @@ class TagModuleTest extends TestCase
      */
     public function testFailedCreateBlogTagFromApi()
     {
-        $auth = new Auth();
-        $auth->createAuth();
+        (new Auth())->createAuth();
 
         $response = $this->postJson($this->url);
 
@@ -95,9 +92,9 @@ class TagModuleTest extends TestCase
             ->assertStatus(422)
             ->assertJson([
                 'success' => false,
-                'message' => 'The given data was invalid.',
+                'message' => __('The given data was invalid.'),
                 'errors' => [
-                    'title' => ['The title field is required.']
+                    'title' => [__('The title field is required.')]
                 ]
             ]);
     }
@@ -109,8 +106,7 @@ class TagModuleTest extends TestCase
      */
     public function testSuccessfullCreateBlogTagFromApi()
     {
-        $auth = new Auth();
-        $auth->createAuth();
+        (new Auth())->createAuth();
 
         $response = $this->postJson($this->url, [
             'title' => 'Vue.js'
@@ -123,33 +119,21 @@ class TagModuleTest extends TestCase
                 'message' => 'Data successfully created.',
                 'data' => [
                     'title' => 'Vue.js',
-                    // 'slug' => 'vuejs'
+                    'slug' => 'vuejs'
                 ]
             ]);
 
-        $response = $this->postJson($this->url, [
-            'title' => 'Laravel',
-            'slug' => 'laravel',
-            'description' => 'Open-source PHP web framework, created by Taylor Otwell and intended for the development of web applications following the model–view–controller architectural pattern and based on Symfony.'
-        ]);
+        $response = $this->postJson($this->url, $this->dummyContent());
 
         $response
             ->assertCreated()
             ->assertJson([
                 'success' => true,
-                'message' => 'Data successfully created.',
-                'data' => [
-                    'title' => 'Laravel',
-                    'slug' => 'laravel',
-                    'description' => 'Open-source PHP web framework, created by Taylor Otwell and intended for the development of web applications following the model–view–controller architectural pattern and based on Symfony.'
-                ]
+                'message' => __('Data successfully created.'),
+                'data' => $this->dummyContent()
             ]);
 
-        $response = $this->postJson($this->url, [
-            'title' => 'Laravel',
-            'slug' => 'laravel',
-            'description' => 'Open-source PHP web framework, created by Taylor Otwell and intended for the development of web applications following the model–view–controller architectural pattern and based on Symfony.'
-        ]);
+        $response = $this->postJson($this->url, $this->dummyContent());
 
         $this->assertDatabaseCount($this->table, 2);
 
@@ -157,10 +141,10 @@ class TagModuleTest extends TestCase
             ->assertStatus(422)
             ->assertJson([
                 'success' => false,
-                'message' => 'The given data was invalid.',
+                'message' => __('The given data was invalid.'),
                 'errors' => [
-                    'title' => ['The title has already been taken.'],
-                    'slug' => ['The slug has already been taken.']
+                    'title' => [__('The title has already been taken.')],
+                    'slug' => [__('The slug has already been taken.')]
                 ]
             ]);
     }
@@ -172,8 +156,7 @@ class TagModuleTest extends TestCase
      */
     public function testFailedReadBlogTagFromApi()
     {
-        $auth = new Auth();
-        $auth->createAuth();
+        (new Auth())->createAuth();
 
         $uuid = Str::uuid();
 
@@ -194,14 +177,9 @@ class TagModuleTest extends TestCase
      */
     public function testSuccessfullReadBlogTagFromApi()
     {
-        $auth = new Auth();
-        $auth->createAuth();
+        (new Auth())->createAuth();
 
-        factory(Tag::class)->create([
-            'title' => 'Laravel',
-            'slug' => 'laravel',
-            'description' => 'Open-source PHP web framework, created by Taylor Otwell and intended for the development of web applications following the model–view–controller architectural pattern and based on Symfony.'
-        ]);
+        factory(Tag::class)->create($this->dummyContent());
         $blogTag = Tag::first();
 
         $response = $this->getJson($this->url . '/' . $blogTag->id);
@@ -210,11 +188,7 @@ class TagModuleTest extends TestCase
             ->assertOk()
             ->assertJson([
                 'success' => true,
-                'data' => [
-                    'title' => 'Laravel',
-                    'slug' => 'laravel',
-                    'description' => 'Open-source PHP web framework, created by Taylor Otwell and intended for the development of web applications following the model–view–controller architectural pattern and based on Symfony.'
-                ]
+                'data' => $this->dummyContent()
             ]);
     }
 
@@ -225,8 +199,7 @@ class TagModuleTest extends TestCase
      */
     public function testFailedUpdateBlogTagFromApi()
     {
-        $auth = new Auth();
-        $auth->createAuth();
+        (new Auth())->createAuth();
 
         factory(Tag::class)->create();
         $blogTag = Tag::first();
@@ -241,9 +214,9 @@ class TagModuleTest extends TestCase
             ->assertStatus(422)
             ->assertJson([
                 'success' => false,
-                'message' => 'The given data was invalid.',
+                'message' => __('The given data was invalid.'),
                 'errors' => [
-                    'title' => ['The title field is required.'],
+                    'title' => [__('The title field is required.')],
                 ]
             ]);
     }
@@ -255,28 +228,19 @@ class TagModuleTest extends TestCase
      */
     public function testSuccessfullyUpdateBlogTagFromApi()
     {
-        $auth = new Auth();
-        $auth->createAuth();
+        (new Auth())->createAuth();
 
         factory(Tag::class)->create();
         $blogTag = Tag::first();
 
-        $response = $this->putJson($this->url . '/' . $blogTag->id, [
-            'title' => 'Laravel',
-            'slug' => 'laravel',
-            'description' => 'Open-source PHP web framework, created by Taylor Otwell and intended for the development of web applications following the model–view–controller architectural pattern and based on Symfony.'
-        ]);
+        $response = $this->putJson($this->url . '/' . $blogTag->id, $this->dummyContent());
 
         $response
             ->assertOk()
             ->assertJson([
                 'success' => true,
-                'message' => 'Data successfully updated.',
-                'data' => [
-                    'title' => 'Laravel',
-                    'slug' => 'laravel',
-                    'description' => 'Open-source PHP web framework, created by Taylor Otwell and intended for the development of web applications following the model–view–controller architectural pattern and based on Symfony.'
-                ]
+                'message' => __('Data successfully updated.'),
+                'data' => $this->dummyContent()
             ]);
     }
 
@@ -287,8 +251,7 @@ class TagModuleTest extends TestCase
      */
     public function testDeleteBlogTagFromApi()
     {
-        $auth = new Auth();
-        $auth->createAuth();
+        (new Auth())->createAuth();
 
         factory(Tag::class)->create();
         $blogTag = Tag::first();
@@ -301,7 +264,7 @@ class TagModuleTest extends TestCase
             ->assertOk()
             ->assertJson([
                 'success' => true,
-                'message' => 'Data successfully deleted.'
+                'message' => __('Data successfully deleted.')
             ]);
 
         $this->assertDeleted($blogTag);

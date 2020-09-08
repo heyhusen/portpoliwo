@@ -42,7 +42,10 @@ class Post extends Model implements HasMedia
      */
     public function getThumbnailAttribute()
     {
-        return $this->getFirstMediaUrl('thumbnail', 'thumb');
+        if ($this->image == 'default.png') {
+            return asset('assets/images/undraw_Photo_re_5blb.png');
+        }
+        return asset('storage/blog/' . $this->image);
     }
 
     /**

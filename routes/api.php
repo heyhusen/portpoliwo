@@ -56,6 +56,8 @@ Route::namespace('API')->name('api.')->group(function () {
                 // Post
                 Route::post('/list', 'ListPost')->name('list');
                 Route::delete('/', 'PostController@destroy')->name('destroy');
+                Route::post('/restore', 'RestorePost')->name('restore');
+                Route::delete('/delete', 'PermanentDestroyPost')->name('destroy.permanent');
 
                 // Category
                 Route::prefix('category')->name('category.')->group(function () {

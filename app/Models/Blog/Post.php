@@ -5,14 +5,10 @@ namespace App\Models\Blog;
 use Datakrama\Eloquid\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Image\Manipulations;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Post extends Model implements HasMedia
+class Post extends Model
 {
-    use Uuids, InteractsWithMedia, SoftDeletes;
+    use Uuids, SoftDeletes;
 
     /**
      * The table associated with the model.
@@ -66,31 +62,5 @@ class Post extends Model implements HasMedia
         return $this
                     ->belongsToMany('App\Models\Blog\Tag', 'blog_post_tags', 'blog_post_id', 'blog_tag_id')
                     ->using('App\Models\Blog\PostTag');
-    }
-
-    /**
-     * Register media collections
-     *
-     * @return void
-     */
-    public function registerMediaCollections(): void
-    {
-        $this
-            ->addMediaCollection('thumbnail')
-            ->useFallbackUrl('/assets/images/undraw_Photo_re_5blb.png')
-            ->useFallbackPath(public_path('/assets/images/undraw_Photo_re_5blb.png'))
-            ->singleFile();
-    }
-
-    /**
-     * Register media conversions
-     *
-     * @param Media $media
-     * @return void
-     */
-    public function registerMediaConversions(Media $media = null): void
-    {
-        $this->addMediaConversion('thumb')
-                ->fit(Manipulations::FIT_CROP, 512, 512);
     }
 }

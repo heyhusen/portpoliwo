@@ -29,6 +29,11 @@ jobs:
       - name: Copy .env.testing
         run: php -r "file_exists('.env.testing') || copy('.env.testing.example', '.env.testing');"
 
+      - name: Create Database
+        run: |
+          mkdir -p database
+          touch database/database.sqlite
+
       - name: App setup
         run: php artisan app:install --env=testing
 

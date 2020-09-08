@@ -8,6 +8,7 @@ use App\Http\Resources\Portfolio\Tags;
 use App\Models\Portfolio\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class TagController extends Controller
 {
@@ -32,8 +33,12 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTag $request)
+    public function store(Request $request)
     {
+        $request->validate([
+            'name' => ['required', 'unique:portfolio_tags,name'],
+            'slug' => ['unique:portfolio_tags,slug']
+        ]);
         if ($request->missing('slug')) {
             $request->request->add(['slug' => $request->name]);
         }
@@ -65,8 +70,12 @@ class TagController extends Controller
      * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreTag $request, Tag $tag)
+    public function update(Request $request, Tag $tag)
     {
+        $request->validate([
+            'name' => ['required', Rule::unique('portfolio_tags')->ignore($tag)],
+            'slug' => [Rule::unique('portfolio_tags')->ignore($tag)]
+        ]);
         if ($request->missing('slug')) {
             $request->request->add(['slug' => $request->name]);
         }

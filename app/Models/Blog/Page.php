@@ -5,14 +5,10 @@ namespace App\Models\Blog;
 use Datakrama\Eloquid\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Image\Manipulations;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Page extends Model implements HasMedia
+class Page extends Model
 {
-    use Uuids, InteractsWithMedia, SoftDeletes;
+    use Uuids, SoftDeletes;
 
     /**
      * The table associated with the model.
@@ -42,33 +38,9 @@ class Page extends Model implements HasMedia
      */
     public function getThumbnailAttribute()
     {
-        if ($this->getFirstMedia('thumbnail')) {
-            return $this->getFirstMediaUrl('thumbnail', 'thumb');
+        if ($this->image == 'default.png') {
+            return asset('assets/images/undraw_Photo_re_5blb.png');
         }
-        return '';
-    }
-
-    /**
-     * Register media collections
-     *
-     * @return void
-     */
-    public function registerMediaCollections(): void
-    {
-        $this
-            ->addMediaCollection('thumbnail')
-            ->singleFile();
-    }
-
-    /**
-     * Register media conversions
-     *
-     * @param Media $media
-     * @return void
-     */
-    public function registerMediaConversions(Media $media = null): void
-    {
-        $this->addMediaConversion('thumb')
-                ->fit(Manipulations::FIT_CROP, 512, 512);
+        return asset('storage/blog/page/' . $this->image);
     }
 }

@@ -17,7 +17,7 @@ class ListPage extends Controller
     public function __invoke(Request $request)
     {
         $data = Page::orderBy($request->sort_field, $request->sort_order)
-                    ->select('id', 'title', 'slug', 'content', 'created_at')
+                    ->select('id', 'title', 'slug', 'content', 'image', 'created_at')
                     ->paginate($request->per_page);
         return $this->successResponse($data);
     }

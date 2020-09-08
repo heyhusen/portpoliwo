@@ -81,6 +81,8 @@ Route::namespace('API')->name('api.')->group(function () {
                 Route::prefix('page')->name('page.')->group(function () {
                     Route::post('/list', 'ListPage')->name('list');
                     Route::delete('/', 'PageController@destroy')->name('destroy');
+                    Route::post('/restore', 'RestorePage')->name('restore');
+                    Route::delete('/delete', 'PermanentDestroyPage')->name('destroy.permanent');
                 });
                 Route::apiResource('page', 'PageController')->except([
                     'destroy'

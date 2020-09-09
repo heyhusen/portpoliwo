@@ -10,7 +10,7 @@
                 <figure class="image is-128x128">
                   <img
                     class="is-rounded"
-                    :src="user.avatar"
+                    :src="getUser.avatar"
                     :title="user.name"
                   />
                 </figure>
@@ -18,10 +18,10 @@
             </div>
           </div>
           <b-field label="Registered at">
-            {{ new Date(user.created_at).toLocaleString() }}
+            {{ new Date(getUser.created_at).toLocaleString() }}
           </b-field>
           <b-field label="Last updated at">
-            {{ new Date(user.updated_at).toLocaleString() }}
+            {{ new Date(getUser.updated_at).toLocaleString() }}
           </b-field>
         </div>
       </div>
@@ -95,6 +95,11 @@ export default {
         passwordRepeat: null,
         photo: null,
       },
+      getUser: {
+        avatar: null,
+        created_at: null,
+        updated_at: null,
+      },
     }
   },
   mounted() {
@@ -106,6 +111,7 @@ export default {
         .get(`/account/${this.$route.params.id}`)
         .then(({ data: { data } }) => {
           this.user = pick(data, ['name', 'email'])
+          this.getUser = pick(data, ['avatar', 'created_at', 'updated_at'])
         })
         .catch(() => {
           this.user = {

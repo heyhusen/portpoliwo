@@ -30,14 +30,3 @@ jobs:
         git add -f public/
         git commit -m "Build front-end assets"
         git push -f origin deploy
-    - name: Deploy to production
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        port: ${{ secrets.SSH_PORT }}
-        username: ${{ secrets.SSH_USERNAME }}
-        password: ${{ secrets.SSH_PASSWORD }}
-        script: |
-          cd public_html/cms
-          php artisan app:deploy
-

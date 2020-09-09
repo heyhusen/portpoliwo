@@ -165,7 +165,7 @@ class PostModuleTest extends TestCase
         $this->tag();
         $blogTag = Tag::pluck('id');
 
-        Storage::fake('public/blog');
+        Storage::fake('local');
         $thumbnail = UploadedFile::fake()->image('thumbnail.png');
 
         $response = $this->postJson($this->url, [
@@ -175,6 +175,8 @@ class PostModuleTest extends TestCase
             'blog_category_id' => $blogCategory,
             'blog_tag_id' => $blogTag
         ]);
+
+        Storage::disk('local')->assertExists('/public/blog/' . $response['data']['image']);
 
         $response
             ->assertCreated()
@@ -193,6 +195,8 @@ class PostModuleTest extends TestCase
             'blog_category_id' => $blogCategory,
             'blog_tag_id' => $blogTag
         ]));
+
+        Storage::disk('local')->assertExists('/public/blog/' . $response['data']['image']);
 
         $response
             ->assertCreated()
@@ -312,7 +316,7 @@ class PostModuleTest extends TestCase
         $this->tag();
         $blogTag = Tag::pluck('id');
 
-        Storage::fake('public/blog');
+        Storage::fake('local');
         $thumbnail = UploadedFile::fake()->image('thumbnail.png');
 
         $response = $this->putJson($this->url . '/' . $blogPost->id, array_merge($this->dummyContent(), [
@@ -320,6 +324,8 @@ class PostModuleTest extends TestCase
             'blog_category_id' => $blogCategory,
             'blog_tag_id' => $blogTag
         ]));
+
+        Storage::disk('local')->assertExists('/public/blog/' . $response['data']['image']);
 
         $response
             ->assertOk()

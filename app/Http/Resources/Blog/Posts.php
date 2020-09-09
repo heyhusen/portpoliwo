@@ -20,6 +20,7 @@ class Posts extends JsonResource
             'slug' => $this->slug,
             'summary' => $this->summary,
             'content' => $this->content,
+            'image' => $this->image,
             'thumbnail' => $this->thumbnail,
             'categories' => $this->categories,
             'tags' => $this->tags,

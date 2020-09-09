@@ -139,7 +139,7 @@ class PostController extends Controller
                 ->fit(Manipulations::FIT_CROP, 1280, 720)
                 ->save();
             $request->image->store('public/blog/' . $model->id);
-            $name = $model->id . '/' . $request->image->hashName() . $request->image->extension();
+            $name = $model->id . '/' . $request->image->hashName();
         }
         return $name;
     }

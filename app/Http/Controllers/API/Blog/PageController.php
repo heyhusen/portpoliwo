@@ -120,7 +120,7 @@ class PageController extends Controller
                 ->fit(Manipulations::FIT_CROP, 1280, 720)
                 ->save();
             $request->image->store('public/blog/page/' . $model->id);
-            $name = $model->id . '/' . $request->image->hashName() . $request->image->extension();
+            $name = $model->id . '/' . $request->image->hashName();
         }
         return $name;
     }

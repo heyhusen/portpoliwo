@@ -126,7 +126,7 @@ class PageModuleTest extends TestCase
     {
         (new Auth())->createAuth();
 
-        Storage::fake('public/page');
+        Storage::fake('local');
         $thumbnail = UploadedFile::fake()->image('thumbnail.png');
 
         $response = $this->postJson($this->url, [
@@ -150,6 +150,8 @@ class PageModuleTest extends TestCase
         $response = $this->postJson($this->url, array_merge($this->dummyContent(), [
             'image' => $thumbnail
         ]));
+
+        Storage::disk('local')->assertExists('/public/blog/page/' . $response['data']['image']);
 
         $response
             ->assertCreated()
@@ -261,12 +263,14 @@ class PageModuleTest extends TestCase
         $this->blogPage();
         $blogPage = Page::first();
 
-        Storage::fake('public/page');
+        Storage::fake('local');
         $thumbnail = UploadedFile::fake()->image('thumbnail.png');
 
         $response = $this->putJson($this->url . '/' . $blogPage->id, array_merge($this->dummyContent(), [
             'image' => $thumbnail,
         ]));
+
+        Storage::disk('local')->assertExists('/public/blog/page/' . $response['data']['image']);
 
         $response
             ->assertOk()

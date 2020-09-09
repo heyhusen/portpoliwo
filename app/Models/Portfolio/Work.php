@@ -4,10 +4,11 @@ namespace App\Models\Portfolio;
 
 use Datakrama\Eloquid\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Work extends Model
 {
-    use Uuids;
+    use Uuids, SoftDeletes;
 
     /**
      * The table associated with the model.

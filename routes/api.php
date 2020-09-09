@@ -23,6 +23,8 @@ Route::namespace('API')->name('api.')->group(function () {
                 // Work
                 Route::post('/list', 'ListWork')->name('list');
                 Route::delete('/', 'WorkController@destroy')->name('destroy');
+                Route::post('/restore', 'RestoreWork')->name('restore');
+                Route::delete('/delete', 'PermanentDestroyWork')->name('destroy.permanent');
 
                 // Category
                 Route::prefix('category')->name('category.')->group(function () {

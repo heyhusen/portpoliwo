@@ -4,14 +4,10 @@ namespace App\Models\Portfolio;
 
 use Datakrama\Eloquid\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Image\Manipulations;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Work extends Model implements HasMedia
+class Work extends Model
 {
-    use Uuids, InteractsWithMedia;
+    use Uuids;
 
     /**
      * The table associated with the model.
@@ -50,7 +46,10 @@ class Work extends Model implements HasMedia
      */
     public function getImageAttribute()
     {
-        return $this->getFirstMediaUrl('photo', 'thumb');
+        if ($this->photo == 'default.png') {
+            return asset('assets/images/undraw_Photo_re_5blb.png');
+        }
+        return asset('storage/portfolio/' . $this->photo);
     }
 
     /**
@@ -73,32 +72,5 @@ class Work extends Model implements HasMedia
             ->belongsToMany('App\Models\Portfolio\Tag', 'portpoliwo_work_tags', 'portfolio_work_id', 'portfolio_tag_id')
             ->using('App\Models\Portfolio\WorkTag')
             ->withTimestamps();
-    }
-
-    /**
-     * Register media collections
-     *
-     * @return void
-     */
-    public function registerMediaCollections(): void
-    {
-        $this
-            ->addMediaCollection('photo')
-            ->useFallbackUrl('/assets/images/undraw_Portfolio_update_re_jqnp.png')
-            ->useFallbackPath(public_path('/assets/images/undraw_Portfolio_update_re_jqnp.png'))
-            ->singleFile();
-    }
-
-    /**
-     * Register media conversions
-     *
-     * @param Media $media
-     * @return void
-     */
-    public function registerMediaConversions(Media $media = null): void
-    {
-        $this
-            ->addMediaConversion('thumb')
-            ->fit(Manipulations::FIT_CROP, 1280, 720);
     }
 }

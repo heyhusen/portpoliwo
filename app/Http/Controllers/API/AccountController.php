@@ -109,14 +109,14 @@ class AccountController extends Controller
      * @param string $name
      * @return void
      */
-    public function uploadPhoto($request, $data, $name = 'default.png')
+    public function uploadPhoto(Request $request, User $model, $name = 'default.png')
     {
         if ($request->hasFile('photo')) {
             Image::load($request->photo)
                 ->fit(Manipulations::FIT_CROP, 256, 256)
                 ->save();
-            $name = $data->id . '/avatar-' . md5($data->id)  . date('-Y-m-d-H-m-s.') . $request->photo->extension();
-            $request->photo->storeAs('public/avatar', $name);
+            $request->photo->store('public/avatar/' . $model->id);
+            $name = $model->id . '/' . $request->photo->hashName();
         }
         return $name;
     }

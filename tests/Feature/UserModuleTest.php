@@ -179,7 +179,7 @@ class UserModuleTest extends TestCase
         $auth = new Auth();
         $auth->createAuth();
 
-        Storage::fake('public/avatar');
+        Storage::fake('local');
 
         $avatar = UploadedFile::fake()->image('avatar.jpg');
 
@@ -190,6 +190,8 @@ class UserModuleTest extends TestCase
             'password_repeat' => 'EverybodyKnows',
             'photo' => $avatar
         ]);
+
+        Storage::disk('local')->assertExists('/public/avatar/' . $response['data']['photo']);
 
         $response
             ->assertCreated()
@@ -331,7 +333,7 @@ class UserModuleTest extends TestCase
 
         $user = User::first();
 
-        Storage::fake('public/avatar');
+        Storage::fake('local');
 
         $avatar = UploadedFile::fake()->image('avatar.jpg');
 
@@ -340,6 +342,8 @@ class UserModuleTest extends TestCase
             'email' => 'husen@portpoliwo.app',
             'photo' => $avatar
         ]);
+
+        Storage::disk('local')->assertExists('/public/avatar/' . $response['data']['photo']);
 
         $response
             ->assertOk()

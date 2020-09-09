@@ -7,6 +7,8 @@ use App\Http\Requests\Portfolio\StoreWork;
 use App\Http\Resources\Portfolio\Works;
 use App\Models\Portfolio\Work;
 use Illuminate\Http\Request;
+use Spatie\Image\Image;
+use Spatie\Image\Manipulations;
 
 class WorkController extends Controller
 {
@@ -30,11 +32,8 @@ class WorkController extends Controller
     public function store(StoreWork $request)
     {
         $work = Work::create($request->all());
-        if ($request->hasFile('photo')) {
-            $work
-                ->addMediaFromRequest('photo')
-                ->toMediaCollection('photo');
-        }
+        $work->photo = $this->uploadPhoto($request, $work);
+        $work->save();
         $work->categories()->attach($request->category_id);
         $work->tags()->attach($request->tag_id);
         $data = collect(new Works($work));
@@ -63,12 +62,8 @@ class WorkController extends Controller
     public function update(StoreWork $request, Work $work)
     {
         $work->fill($request->all());
+        $work->photo = $this->uploadPhoto($request, $work);
         $work->save();
-        if ($request->hasFile('photo')) {
-            $work
-                ->addMediaFromRequest('photo')
-                ->toMediaCollection('photo');
-        }
         $work->categories()->sync($request->category_id);
         $work->tags()->sync($request->tag_id);
         $data = collect(new Works($work));
@@ -85,5 +80,25 @@ class WorkController extends Controller
     {
         Work::destroy($request->selectedData);
         return $this->dataDeleted();
+    }
+
+    /**
+     * Upload photo
+     *
+     * @param Request $request
+     * @param Post $model
+     * @param string $name
+     * @return void
+     */
+    public function uploadPhoto(Request $request, Work $model, $name = 'default.jpg')
+    {
+        if ($request->hasFile('photo')) {
+            Image::load($request->photo)
+                ->fit(Manipulations::FIT_CROP, 1280, 720)
+                ->save();
+            $request->photo->store('public/portfolio/' . $model->id);
+            $name = $model->id . '/' . $request->photo->hashName() . $request->photo->extension();
+        }
+        return $name;
     }
 }

@@ -97,7 +97,7 @@ class WorkController extends Controller
                 ->fit(Manipulations::FIT_CROP, 1280, 720)
                 ->save();
             $request->photo->store('public/portfolio/' . $model->id);
-            $name = $model->id . '/' . $request->photo->hashName() . $request->photo->extension();
+            $name = $model->id . '/' . $request->photo->hashName();
         }
         return $name;
     }

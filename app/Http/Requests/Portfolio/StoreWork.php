@@ -25,18 +25,18 @@ class StoreWork extends FormRequest
     public function rules()
     {
         $rules = [
-            'name' => ['required', 'unique:works,name'],
+            'name' => ['required', 'unique:portfolio_works,name'],
             'description' => ['required'],
             'url' => ['url'],
             'photo' => [Rule::requiredIf($this->isMethod('post')), 'image'],
-            'category_id' => [Rule::requiredIf($this->isMethod('post')), 'array', 'min:1'],
-            'category_id.*' => ['required', 'min:1'],
-            'tag_id' => [Rule::requiredIf($this->isMethod('post')), 'array', 'min:1'],
-            'tag_id.*' => ['required', 'min:1'],
+            'portfolio_category_id' => [Rule::requiredIf($this->isMethod('post')), 'array', 'min:1'],
+            'portfolio_category_id.*' => ['required', 'min:1'],
+            'portfolio_tag_id' => [Rule::requiredIf($this->isMethod('post')), 'array', 'min:1'],
+            'portfolio_tag_id.*' => ['required', 'min:1'],
         ];
         if ($this->isMethod('put')) {
             $addonRules = [
-                'name' => ['required', Rule::unique('works')->ignore($this->work)],
+                'name' => ['required', Rule::unique('portfolio_works')->ignore($this->work)],
             ];
             $rules = array_merge($rules, $addonRules);
         }
@@ -51,8 +51,8 @@ class StoreWork extends FormRequest
     public function attributes()
     {
         return [
-            'category_id' => 'category',
-            'tag_id' => 'tag'
+            'portfolio_category_id' => 'category',
+            'portfolio_tag_id' => 'tag'
         ];
     }
 }

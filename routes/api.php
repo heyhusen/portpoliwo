@@ -100,7 +100,7 @@ Route::namespace('API')->name('api.')->group(function () {
 
         // Social Media
         Route::prefix('social-media')->name('social-media.')->group(function () {
-            Route::post('/list', 'SocialMediaController@list')->name('list');
+            Route::post('/list', 'ListSocialMedia')->name('list');
             Route::get('/{social_media}', 'SocialMediaController@show')->name('show');
             Route::match(['put', 'patch'], '/{social_media}', 'SocialMediaController@update')->name('update');
             Route::delete('/', 'SocialMediaController@destroy')->name('destroy');

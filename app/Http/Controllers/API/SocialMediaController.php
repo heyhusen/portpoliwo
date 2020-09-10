@@ -23,21 +23,6 @@ class SocialMediaController extends Controller
     }
 
     /**
-     * Display a listing of the resource for datatable
-     *
-     * @param Request $request
-     * @return void
-     */
-    public function list(Request $request)
-    {
-        $data = DB::table('social_medias')
-                    ->orderBy($request->sort_field, $request->sort_order)
-                    ->select('id', 'name', 'icon', 'url', 'created_at')
-                    ->paginate($request->per_page);
-        return $this->successResponse($data);
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

@@ -26,20 +26,6 @@ class AccountController extends Controller
     }
 
     /**
-     * Display a listing of the resource for datatable
-     *
-     * @param Request $request
-     * @return void
-     */
-    public function list(Request $request)
-    {
-        $data = User::orderBy($request->sort_field, $request->sort_order)
-                    ->select('id', 'name', 'email', 'photo', 'created_at')
-                    ->paginate($request->per_page);
-        return $this->successResponse($data);
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -64,18 +50,6 @@ class AccountController extends Controller
     public function show(User $user)
     {
         $data = collect(new UserResource($user));
-        return $this->successResponse($data);
-    }
-
-    /**
-     * Get authenticated user
-     *
-     * @param Request $request
-     * @return void
-     */
-    public function me(Request $request)
-    {
-        $data = $request->user('sanctum');
         return $this->successResponse($data);
     }
 

@@ -125,8 +125,8 @@ Route::namespace('API')->name('api.')->group(function () {
 
         // Account
         Route::prefix('account')->name('account.')->group(function () {
-            Route::get('/me', 'AccountController@me')->name('me');
-            Route::post('/list', 'AccountController@list')->name('list');
+            Route::get('/me', 'MyAccount')->name('me');
+            Route::post('/list', 'ListAccount')->name('list');
             Route::delete('/', 'AccountController@destroy')->name('destroy');
         });
         Route::apiResource('account', 'AccountController')->parameters([

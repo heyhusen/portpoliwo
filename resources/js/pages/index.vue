@@ -14,7 +14,7 @@
         </section>
       </div>
       <div class="column is-12">
-        <div class="tile is-ancestor">
+        <div v-if="!loading" class="tile is-ancestor">
           <div class="tile is-parent">
             <div class="tile is-child box has-text-centered">
               <router-link to="/portfolio" title="Portfolio">
@@ -64,7 +64,8 @@ export default {
   },
   data() {
     return {
-      dashboard: [],
+      dashboard: {},
+      loading: false,
     }
   },
   computed: {
@@ -72,18 +73,21 @@ export default {
       user: 'auth/user',
     }),
   },
-  mounted() {
+  created() {
     this.fetchData()
   },
   methods: {
     async fetchData() {
+      this.loading = true
       await api
         .get(`/`)
         .then(({ data: { data } }) => {
           this.dashboard = data
+          this.loading = false
         })
         .catch(() => {
-          this.dashboard = []
+          this.dashboard = {}
+          this.loading = false
         })
     },
   },

@@ -38,7 +38,12 @@ class Category extends Model
     public function works()
     {
         return $this
-            ->belongsToMany('App\Models\Portfolio\Work', 'portfolio_work_categories', 'portfolio_category_id', 'portfolio_work_id')
+            ->belongsToMany(
+                'App\Models\Portfolio\Work',
+                'portfolio_work_categories',
+                'portfolio_category_id',
+                'portfolio_work_id'
+            )
             ->using('App\Models\Portfolio\WorkCategory');
     }
 }

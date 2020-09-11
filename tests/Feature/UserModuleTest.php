@@ -71,7 +71,7 @@ class UserModuleTest extends TestCase
            ->createUser()
            ->each(function ($user) {
                 $user->assignRole('user');
-            });
+           });
 
         $user = User::first();
         $user->fill([
@@ -104,7 +104,7 @@ class UserModuleTest extends TestCase
            ->createUser()
            ->each(function ($user) {
                 $user->assignRole('user');
-            });
+           });
 
         $user = User::first();
         $user->delete();

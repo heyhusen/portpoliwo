@@ -18,8 +18,7 @@ class SaveSite extends Controller
      */
     public function __invoke(StoreSetting $request)
     {
-        Setting::get()->each(function ($item) use ($request)
-        {
+        Setting::get()->each(function ($item) use ($request) {
             Setting::where('name', $item->name)->update(['value' => $request->{$item->name}]);
         });
         $data = collect(Settings::collection(Setting::get()));

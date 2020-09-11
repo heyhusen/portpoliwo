@@ -45,7 +45,7 @@ class AuthTest extends TestCase
            ])
            ->each(function ($user) {
                 $user->assignRole('user');
-            });
+           });
 
         $user = User::first();
 

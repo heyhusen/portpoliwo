@@ -40,11 +40,11 @@ class AppInstall extends Command
         $this->info('Installing all required components.');
         $this->line(' ');
         $this->line(' ');
-        if ( ! file_exists(base_path('.env'))) {
+        if (! file_exists(base_path('.env'))) {
             copy(base_path('.env.example'), base_path('.env'));
         }
         $this->line('Create symbolic link.');
-        if ( ! is_dir(public_path('storage'))) {
+        if (! is_dir(public_path('storage'))) {
             $this->call('storage:link');
         }
         $this->line(' ');

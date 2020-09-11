@@ -39,6 +39,6 @@ class AppPush extends Command
     {
         $this->info('Push to master, then merge it with production and push it again to production.');
         exec('./deploy.sh', $output);
-        $this->comment( implode( PHP_EOL, $output ) );
+        $this->comment(implode(PHP_EOL, $output));
     }
 }

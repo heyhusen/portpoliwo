@@ -29,7 +29,22 @@ class WorkModuleTest extends TestCase
     {
         return [
             'name' => 'Aliquam lobortis tincidunt orci, et.',
-            'description' => '<p>Nulla sed nisi vitae justo faucibus luctus. Nulla ultricies sollicitudin sem, sed tincidunt lorem luctus et. Ut viverra imperdiet leo, id rutrum risus facilisis eget. Integer et lorem tincidunt, pellentesque augue quis, tristique arcu. Curabitur maximus ex eget diam suscipit facilisis. Cras tincidunt mauris mi, a vestibulum dolor euismod quis. Etiam iaculis blandit diam, vel condimentum felis lobortis quis. Duis lacus nisl, feugiat ut sem et, varius malesuada mi.</p><p>Curabitur egestas, eros nec maximus pretium, leo sapien suscipit sem, sed lacinia turpis felis varius est. Cras cursus, massa a imperdiet tempor, eros justo facilisis quam, quis dictum eros sapien interdum ex. Nunc sit amet sem vitae est euismod ullamcorper eget nec nunc. Vestibulum non orci a nisl laoreet pellentesque in ut diam. Integer molestie, mi ut fermentum facilisis, libero ipsum faucibus nisi, sed egestas lectus augue sit amet ex. Aenean et leo blandit, dapibus orci sit amet, placerat libero. Nulla interdum eu est in bibendum.</p><p>Nulla facilisi. Quisque vestibulum massa ut tellus viverra maximus. Vestibulum ultrices maximus congue. Maecenas varius eleifend ipsum, ornare porta dolor posuere at. Sed bibendum augue at ullamcorper consectetur. Duis at cursus erat. Nunc in sem nisi. Donec efficitur ipsum non tortor convallis, et interdum metus aliquet. Proin eu turpis mi.</p>',
+            'description' => '<p>Nulla sed nisi vitae justo faucibus luctus. Nulla ultricies sollicitudin sem,
+            sed tincidunt lorem luctus et. Ut viverra imperdiet leo, id rutrum risus facilisis eget.
+            Integer et lorem tincidunt, pellentesque augue quis, tristique arcu.
+            Curabitur maximus ex eget diam suscipit facilisis. Cras tincidunt mauris mi,
+            a vestibulum dolor euismod quis. Etiam iaculis blandit diam, vel condimentum felis lobortis quis.
+            Duis lacus nisl, feugiat ut sem et, varius malesuada mi.</p><p>Curabitur egestas,
+            eros nec maximus pretium, leo sapien suscipit sem, sed lacinia turpis felis varius est.
+            Cras cursus, massa a imperdiet tempor, eros justo facilisis quam, quis dictum eros sapien interdum ex.
+            Nunc sit amet sem vitae est euismod ullamcorper eget nec nunc.
+            Vestibulum non orci a nisl laoreet pellentesque in ut diam. Integer molestie,
+            mi ut fermentum facilisis, libero ipsum faucibus nisi, sed egestas lectus augue sit amet ex.
+            Aenean et leo blandit, dapibus orci sit amet, placerat libero. Nulla interdum eu est in bibendum.</p>
+            <p>Nulla facilisi. Quisque vestibulum massa ut tellus viverra maximus.
+            Vestibulum ultrices maximus congue. Maecenas varius eleifend ipsum, ornare porta dolor posuere at.
+            Sed bibendum augue at ullamcorper consectetur. Duis at cursus erat. Nunc in sem nisi.
+            Donec efficitur ipsum non tortor convallis, et interdum metus aliquet. Proin eu turpis mi.</p>',
             'url' => 'https://github.com/hapakaien/portpoliwo'
         ];
     }

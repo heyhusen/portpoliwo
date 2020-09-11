@@ -26,7 +26,8 @@ class CategoryModuleTest extends TestCase
         return [
             'title' => 'Backend',
             'slug' => 'backend',
-            'description' => 'A type of programmer who creates the logical back-end and core computational logic of a website, software or information system.'
+            'description' => 'A type of programmer who creates the logical back-end and
+            core computational logic of a website, software or information system.'
         ];
     }
 

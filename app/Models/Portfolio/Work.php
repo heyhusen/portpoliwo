@@ -59,7 +59,12 @@ class Work extends Model
     public function categories()
     {
         return $this
-            ->belongsToMany('App\Models\Portfolio\Category', 'portfolio_work_categories', 'portfolio_work_id', 'portfolio_category_id')
+            ->belongsToMany(
+                'App\Models\Portfolio\Category',
+                'portfolio_work_categories',
+                'portfolio_work_id',
+                'portfolio_category_id'
+            )
             ->using('App\Models\Portfolio\WorkCategory')
             ->withTimestamps();
     }

@@ -50,7 +50,12 @@ class Post extends Model
     public function categories()
     {
         return $this
-                    ->belongsToMany('App\Models\Blog\Category', 'blog_post_categories', 'blog_post_id', 'blog_category_id')
+                    ->belongsToMany(
+                        'App\Models\Blog\Category',
+                        'blog_post_categories',
+                        'blog_post_id',
+                        'blog_category_id'
+                    )
                     ->using('App\Models\Blog\PostCategory');
     }
 

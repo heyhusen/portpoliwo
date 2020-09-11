@@ -19,10 +19,9 @@ class TagController extends Controller
      */
     public function index(Request $request)
     {
-        $tags = Tag::when($request->filled('search'), function ($search) use ($request)
-                    {
+        $tags = Tag::when($request->filled('search'), function ($search) use ($request) {
                         $search->where('name', 'like', "%{$request->search}%");
-                    })->get();
+        })->get();
         $data = collect(Tags::collection($tags));
         return $this->successResponse($data);
     }

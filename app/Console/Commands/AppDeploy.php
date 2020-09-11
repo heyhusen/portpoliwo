@@ -39,6 +39,6 @@ class AppDeploy extends Command
     {
         $this->info('Deploy application.');
         exec('./server_deploy.sh', $output);
-        $this->comment( implode( PHP_EOL, $output ) );
+        $this->comment(implode(PHP_EOL, $output));
     }
 }

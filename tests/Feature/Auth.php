@@ -17,7 +17,8 @@ class Auth extends TestCase
      *
      * @param array $data
      */
-    public function __construct($data = []) {
+    public function __construct($data = [])
+    {
         parent::__construct();
         $this->data = $data;
     }

@@ -29,6 +29,9 @@ jobs:
       - name: Copy .env.testing
         run: php -r "file_exists('.env.testing') || copy('.env.testing.example', '.env.testing');"
 
+      - name: Code Sniffer
+        run: vendor/bin/phpcs
+
       - name: Create Database
         run: |
           mkdir -p database

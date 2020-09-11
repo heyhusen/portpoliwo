@@ -26,7 +26,9 @@ class TagModuleTest extends TestCase
         return [
             'title' => 'Laravel',
             'slug' => 'laravel',
-            'description' => 'Open-source PHP web framework, created by Taylor Otwell and intended for the development of web applications following the model–view–controller architectural pattern and based on Symfony.'
+            'description' => 'Open-source PHP web framework, created by Taylor Otwell and
+            intended for the development of web applications following the model–view–controller
+            architectural pattern and based on Symfony.'
         ];
     }
 

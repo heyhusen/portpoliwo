@@ -6,7 +6,6 @@ use App\Models\Portfolio\Category;
 use App\Models\Portfolio\Tag;
 use App\Models\Portfolio\Work;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -55,14 +54,14 @@ class WorkModuleTest extends TestCase
      * @param array $data
      * @return void
      */
-    public function createPortfolioWork($data = [])
+    public function createWork($data = [])
     {
-        return factory(Work::class)
+        return Work::factory()
         ->create($data)
         ->each(function ($work) {
-            $work->categories()->save(factory(Category::class)->make());
+            $work->categories()->save(Category::factory()->make());
             $work->tags()->createMany(
-                factory(Tag::class, 3)->make()->toArray()
+                Tag::factory(3)->make()->toArray()
             );
         });
     }
@@ -74,7 +73,7 @@ class WorkModuleTest extends TestCase
      */
     public function createCategory()
     {
-        return factory(Category::class)->create();
+        return Category::factory()->create();
     }
 
     /**
@@ -84,7 +83,7 @@ class WorkModuleTest extends TestCase
      */
     public function createTag()
     {
-        return factory(Tag::class)->create();
+        return Tag::factory()->create();
     }
 
     /**
@@ -92,9 +91,9 @@ class WorkModuleTest extends TestCase
      *
      * @return void
      */
-    public function testCreatePortfolioWork()
+    public function testCreateWork()
     {
-        $this->createPortfolioWork($this->dummyContent());
+        $this->createWork($this->dummyContent());
 
         $this
             ->assertDatabaseCount($this->table, 1)
@@ -106,13 +105,13 @@ class WorkModuleTest extends TestCase
      *
      * @return void
      */
-    public function testUpdatePortfolioWork()
+    public function testUpdateWork()
     {
-        $this->createPortfolioWork();
+        $this->createWork();
 
-        $portfolioWork = Work::first();
-        $portfolioWork->fill($this->dummyContent());
-        $portfolioWork->save();
+        $Work = Work::first();
+        $Work->fill($this->dummyContent());
+        $Work->save();
 
         $this
             ->assertDatabaseCount($this->table, 1)
@@ -124,18 +123,18 @@ class WorkModuleTest extends TestCase
      *
      * @return void
      */
-    public function testDeletePortfolioWork()
+    public function testDeleteWork()
     {
-        $portfolioWork = $this->createPortfolioWork();
+        $Work = $this->createWork();
 
-        $portfolioWork = Work::first();
-        $portfolioWork->delete();
+        $Work = Work::first();
+        $Work->delete();
 
-        $this->assertSoftDeleted($portfolioWork);
+        $this->assertSoftDeleted($Work);
 
-        $portfolioWork->forceDelete();
+        $Work->forceDelete();
 
-        $this->assertDeleted($portfolioWork);
+        $this->assertDeleted($Work);
     }
 
     /**
@@ -143,7 +142,7 @@ class WorkModuleTest extends TestCase
      *
      * @return void
      */
-    public function testFailedCreatePortfolioWorkFromApi()
+    public function testFailedCreateWorkFromApi()
     {
         (new Auth())->createAuth();
 
@@ -168,7 +167,7 @@ class WorkModuleTest extends TestCase
      *
      * @return void
      */
-    public function testSuccessfullCreatePortfolioWorkFromApi()
+    public function testSuccessfullCreateWorkFromApi()
     {
         (new Auth())->createAuth();
 
@@ -219,7 +218,7 @@ class WorkModuleTest extends TestCase
      *
      * @return void
      */
-    public function testFailedReadPortfolioWorkFromApi()
+    public function testFailedReadWorkFromApi()
     {
         (new Auth())->createAuth();
 
@@ -240,14 +239,14 @@ class WorkModuleTest extends TestCase
      *
      * @return void
      */
-    public function testSuccessfullReadPortfolioWorkFromApi()
+    public function testSuccessfullReadWorkFromApi()
     {
         (new Auth())->createAuth();
 
-        $this->createPortfolioWork($this->dummyContent());
-        $portfolioWork = Work::first();
+        $this->createWork($this->dummyContent());
+        $Work = Work::first();
 
-        $response = $this->getJson($this->url . '/' . $portfolioWork->id);
+        $response = $this->getJson($this->url . '/' . $Work->id);
 
         $response
             ->assertOk()
@@ -262,14 +261,14 @@ class WorkModuleTest extends TestCase
      *
      * @return void
      */
-    public function testFailedUpdatePortfolioWorkFromApi()
+    public function testFailedUpdateWorkFromApi()
     {
         (new Auth())->createAuth();
 
-        $this->createPortfolioWork();
-        $portfolioWork = Work::first();
+        $this->createWork();
+        $Work = Work::first();
 
-        $response = $this->putJson($this->url . '/' . $portfolioWork->id, [
+        $response = $this->putJson($this->url . '/' . $Work->id, [
             'name' => '',
             'description' => ''
         ]);
@@ -291,12 +290,12 @@ class WorkModuleTest extends TestCase
      *
      * @return void
      */
-    public function testSuccessfullyUpdatePortfolioWorkFromApi()
+    public function testSuccessfullyUpdateWorkFromApi()
     {
         (new Auth())->createAuth();
 
-        $this->createPortfolioWork();
-        $portfolioWork = Work::first();
+        $this->createWork();
+        $Work = Work::first();
 
         $this->createCategory();
         $portfolioCategory = Category::pluck('id');
@@ -307,7 +306,7 @@ class WorkModuleTest extends TestCase
         Storage::fake('local');
         $photo = UploadedFile::fake()->image('photo.png');
 
-        $response = $this->putJson($this->url . '/' . $portfolioWork->id, array_merge($this->dummyContent(), [
+        $response = $this->putJson($this->url . '/' . $Work->id, array_merge($this->dummyContent(), [
             'photo' => $photo,
             'portfolio_category_id' => $portfolioCategory,
             'portfolio_tag_id' => $portfolioTag
@@ -329,15 +328,15 @@ class WorkModuleTest extends TestCase
      *
      * @return void
      */
-    public function testDeletePortfolioWorkFromApi()
+    public function testDeleteWorkFromApi()
     {
         (new Auth())->createAuth();
 
-        $this->createPortfolioWork();
-        $portfolioWork = Work::first();
+        $this->createWork();
+        $Work = Work::first();
 
         $response = $this->deleteJson($this->url, [
-            'selectedData' => [$portfolioWork->id]
+            'selectedData' => [$Work->id]
         ]);
 
         $response
@@ -347,7 +346,7 @@ class WorkModuleTest extends TestCase
                 'message' => __('Data successfully deleted.')
             ]);
 
-        $this->assertSoftDeleted($portfolioWork);
+        $this->assertSoftDeleted($Work);
     }
 
     /**
@@ -355,15 +354,15 @@ class WorkModuleTest extends TestCase
      *
      * @return void
      */
-    public function testRestoreDeletedPortfolioWorkFromApi()
+    public function testRestoreDeletedWorkFromApi()
     {
         (new Auth())->createAuth();
 
-        $this->createPortfolioWork($this->dummyContent());
-        $portfolioWork = Work::first();
+        $this->createWork($this->dummyContent());
+        $Work = Work::first();
 
         $response = $this->deleteJson($this->url, [
-            'selectedData' => [$portfolioWork->id]
+            'selectedData' => [$Work->id]
         ]);
 
         $response
@@ -373,10 +372,10 @@ class WorkModuleTest extends TestCase
                 'message' => __('Data successfully deleted.')
             ]);
 
-        $this->assertSoftDeleted($portfolioWork);
+        $this->assertSoftDeleted($Work);
 
         $response = $this->postJson($this->url . '/restore', [
-            'selectedData' => [$portfolioWork->id]
+            'selectedData' => [$Work->id]
         ]);
 
         $response
@@ -393,15 +392,15 @@ class WorkModuleTest extends TestCase
      *
      * @return void
      */
-    public function testPermanentDeletePortfolioWorkFromApi()
+    public function testPermanentDeleteWorkFromApi()
     {
         (new Auth())->createAuth();
 
-        $this->createPortfolioWork();
-        $portfolioWork = Work::first();
+        $this->createWork();
+        $Work = Work::first();
 
         $response = $this->deleteJson($this->url . '/delete', [
-            'selectedData' => [$portfolioWork->id]
+            'selectedData' => [$Work->id]
         ]);
 
         $response
@@ -411,6 +410,6 @@ class WorkModuleTest extends TestCase
                 'message' => __('Data successfully deleted.')
             ]);
 
-        $this->assertDeleted($portfolioWork);
+        $this->assertDeleted($Work);
     }
 }

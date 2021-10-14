@@ -36,7 +36,7 @@ class CategoryModuleTest extends TestCase
      */
     public function testCreatePortfolioCategory()
     {
-        factory(Category::class)->create($this->dummyContent());
+        Category::factory()->create($this->dummyContent());
 
         $this
             ->assertDatabaseCount($this->table, 1)
@@ -50,7 +50,7 @@ class CategoryModuleTest extends TestCase
      */
     public function testUpdatePortfolioCategory()
     {
-        factory(Category::class)->create();
+        Category::factory()->create();
 
         $portfolioCategory = Category::first();
         $portfolioCategory->fill($this->dummyContent());
@@ -68,7 +68,7 @@ class CategoryModuleTest extends TestCase
      */
     public function testDeletePortfolioCategory()
     {
-        factory(Category::class)->create();
+        Category::factory()->create();
 
         $portfolioCategory = Category::first();
         $portfolioCategory->delete();
@@ -178,7 +178,7 @@ class CategoryModuleTest extends TestCase
     {
         (new Auth())->createAuth();
 
-        factory(Category::class)->create($this->dummyContent());
+        Category::factory()->create($this->dummyContent());
         $portfolioCategory = Category::first();
 
         $response = $this->getJson($this->url . '/' . $portfolioCategory->id);
@@ -200,7 +200,7 @@ class CategoryModuleTest extends TestCase
     {
         (new Auth())->createAuth();
 
-        factory(Category::class)->create();
+        Category::factory()->create();
         $portfolioCategory = Category::first();
 
         $response = $this->putJson($this->url . '/' . $portfolioCategory->id, [
@@ -228,7 +228,7 @@ class CategoryModuleTest extends TestCase
     {
         (new Auth())->createAuth();
 
-        factory(Category::class)->create();
+        Category::factory()->create();
         $portfolioCategory = Category::first();
 
         $response = $this->putJson($this->url . '/' . $portfolioCategory->id, $this->dummyContent());
@@ -251,7 +251,7 @@ class CategoryModuleTest extends TestCase
     {
         (new Auth())->createAuth();
 
-        factory(Category::class)->create();
+        Category::factory()->create();
         $portfolioCategory = Category::first();
 
         $response = $this->deleteJson($this->url, [

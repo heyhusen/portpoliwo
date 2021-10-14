@@ -25,6 +25,5 @@ class DeleteGitsTable extends Migration
      */
     public function down()
     {
-        
     }
 }

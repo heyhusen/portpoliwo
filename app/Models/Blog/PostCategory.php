@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 class PostCategory extends Pivot
 {
     use Uuids;
-    
+
     /**
      * The table associated with the model.
      *

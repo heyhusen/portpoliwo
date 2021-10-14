@@ -19,7 +19,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $categories = Category::when($request->filled('search'), function ($search) use ($request) {
-                            $search->where('title', 'like', "%{$request->search}%");
+            $search->where('title', 'like', "%{$request->search}%");
         })->get();
         $data = collect(Categories::collection($categories));
         return $this->successResponse($data);

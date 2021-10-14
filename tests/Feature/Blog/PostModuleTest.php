@@ -6,7 +6,6 @@ use App\Models\Blog\Category;
 use App\Models\Blog\Post;
 use App\Models\Blog\Tag;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -89,12 +88,12 @@ class PostModuleTest extends TestCase
      */
     public function blogPost($data = [])
     {
-        return factory(Post::class)
+        return Post::factory()
         ->create($data)
         ->each(function ($post) {
-            $post->categories()->save(factory(Category::class)->make());
+            $post->categories()->save(Category::factory()->make());
             $post->tags()->createMany(
-                factory(Tag::class, 3)->make()->toArray()
+                Tag::factory(3)->make()->toArray()
             );
         });
     }
@@ -106,7 +105,7 @@ class PostModuleTest extends TestCase
      */
     public function category()
     {
-        return factory(Category::class)->create();
+        return Category::factory()->create();
     }
 
     /**
@@ -116,7 +115,7 @@ class PostModuleTest extends TestCase
      */
     public function tag()
     {
-        return factory(Tag::class)->create();
+        return Tag::factory()->create();
     }
 
     /**

@@ -36,7 +36,7 @@ class TagModuleTest extends TestCase
      */
     public function testCreatePortfolioTag()
     {
-        factory(Tag::class)->create($this->dummyContent());
+        Tag::factory()->create($this->dummyContent());
 
         $this
             ->assertDatabaseCount($this->table, 1)
@@ -50,7 +50,7 @@ class TagModuleTest extends TestCase
      */
     public function testUpdatePortfolioTag()
     {
-        factory(Tag::class)->create();
+        Tag::factory()->create();
 
         $portfolioTag = Tag::first();
         $portfolioTag->fill($this->dummyContent());
@@ -68,7 +68,7 @@ class TagModuleTest extends TestCase
      */
     public function testDeletePortfolioTag()
     {
-        factory(Tag::class)->create();
+        Tag::factory()->create();
 
         $portfolioTag = Tag::first();
         $portfolioTag->delete();
@@ -178,7 +178,7 @@ class TagModuleTest extends TestCase
     {
         (new Auth())->createAuth();
 
-        factory(Tag::class)->create($this->dummyContent());
+        Tag::factory()->create($this->dummyContent());
         $portfolioTag = Tag::first();
 
         $response = $this->getJson($this->url . '/' . $portfolioTag->id);
@@ -200,7 +200,7 @@ class TagModuleTest extends TestCase
     {
         (new Auth())->createAuth();
 
-        factory(Tag::class)->create();
+        Tag::factory()->create();
         $portfolioTag = Tag::first();
 
         $response = $this->putJson($this->url . '/' . $portfolioTag->id, [
@@ -228,7 +228,7 @@ class TagModuleTest extends TestCase
     {
         (new Auth())->createAuth();
 
-        factory(Tag::class)->create();
+        Tag::factory()->create();
         $portfolioTag = Tag::first();
 
         $response = $this->putJson($this->url . '/' . $portfolioTag->id, $this->dummyContent());
@@ -251,7 +251,7 @@ class TagModuleTest extends TestCase
     {
         (new Auth())->createAuth();
 
-        factory(Tag::class)->create();
+        Tag::factory()->create();
         $portfolioTag = Tag::first();
 
         $response = $this->deleteJson($this->url, [

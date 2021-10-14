@@ -1,18 +1,18 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Portfolio;
 
-use App\Models\Setting;
+use App\Models\Portfolio\Work;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class SettingFactory extends Factory
+class WorkFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Setting::class;
+    protected $model = Work::class;
 
     /**
      * Define the model's default state.
@@ -22,8 +22,9 @@ class SettingFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->slug,
-            'value' => $this->faker->name
+            'name' => $this->faker->sentence(5, true),
+            'description' => $this->faker->text(300),
+            'url' => $this->faker->domainName
         ];
     }
 }

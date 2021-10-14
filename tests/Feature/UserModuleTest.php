@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -68,10 +67,10 @@ class UserModuleTest extends TestCase
         $this->seed(RolesTableSeeder::class);
         $auth = new Auth();
         $auth
-           ->createUser()
-           ->each(function ($user) {
+            ->createUser()
+            ->each(function ($user) {
                 $user->assignRole('user');
-           });
+            });
 
         $user = User::first();
         $user->fill([
@@ -101,10 +100,10 @@ class UserModuleTest extends TestCase
         $this->seed(RolesTableSeeder::class);
         $auth = new Auth(['name' => 'Ahmad Husen']);
         $user = $auth
-           ->createUser()
-           ->each(function ($user) {
+            ->createUser()
+            ->each(function ($user) {
                 $user->assignRole('user');
-           });
+            });
 
         $user = User::first();
         $user->delete();

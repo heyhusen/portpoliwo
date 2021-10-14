@@ -4,8 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\Setting;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Str;
 use Tests\Feature\Auth;
 use Tests\TestCase;
 
@@ -23,7 +21,7 @@ class SettingModuleTest extends TestCase
      */
     public function testCreateSetting()
     {
-        factory(Setting::class)->create([
+        Setting::factory()->create([
             'name' => 'site_name',
             'value' => 'My Portfolio'
         ]);
@@ -43,7 +41,7 @@ class SettingModuleTest extends TestCase
      */
     public function testUpdateSetting()
     {
-        factory(Setting::class)->create();
+        Setting::factory()->create();
 
         $setting = Setting::first();
         $setting->fill([
@@ -67,7 +65,7 @@ class SettingModuleTest extends TestCase
      */
     public function testDeleteSetting()
     {
-        factory(Setting::class)->create();
+        Setting::factory()->create();
 
         $setting = Setting::first();
         $setting->delete();

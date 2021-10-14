@@ -1,18 +1,18 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Portfolio;
 
-use App\Models\Setting;
+use App\Models\Portfolio\Tag;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class SettingFactory extends Factory
+class TagFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Setting::class;
+    protected $model = Tag::class;
 
     /**
      * Define the model's default state.
@@ -22,8 +22,8 @@ class SettingFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->slug,
-            'value' => $this->faker->name
+            'name' => $this->faker->name,
+            'slug' => $this->faker->domainWord
         ];
     }
 }

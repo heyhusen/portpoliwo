@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+          tools: composer
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --no-interaction
+
+      - name: Setup database
+        run: |
+          mkdir -p database
+          touch database/database.sqlite
+
+      - name: Run tests
+        run: |
+          php artisan config:clear
+          php artisan test

@@ -3,12 +3,17 @@
 namespace App\Models\Portfolio;
 
 use Datakrama\Eloquid\Traits\Uuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Work extends Model
 {
-    use Uuids, SoftDeletes;
+    use HasFactory;
+    use Uuids;
+    use SoftDeletes;
+
+    protected static $factoryNameResolver = 'PortfolioWork';
 
     /**
      * The table associated with the model.

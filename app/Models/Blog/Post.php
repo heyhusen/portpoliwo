@@ -3,12 +3,15 @@
 namespace App\Models\Blog;
 
 use Datakrama\Eloquid\Traits\Uuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-    use Uuids, SoftDeletes;
+    use HasFactory;
+    use Uuids;
+    use SoftDeletes;
 
     /**
      * The table associated with the model.

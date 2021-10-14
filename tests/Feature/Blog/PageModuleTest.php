@@ -4,7 +4,6 @@ namespace Tests\Feature\Blog;
 
 use App\Models\Blog\Page;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -76,7 +75,7 @@ class PageModuleTest extends TestCase
      */
     public function blogPage($data = [])
     {
-        return factory(Page::class)->create($data);
+        return Page::factory()->create($data);
     }
 
     /**

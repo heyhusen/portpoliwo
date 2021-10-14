@@ -21,8 +21,7 @@ class ChangeFullnameColumnOnWorksTable extends Migration
             'owner' => DB::raw('fullname')
         ]);
 
-        Schema::table('works', function(Blueprint $table)
-        {
+        Schema::table('works', function (Blueprint $table) {
             $table->dropColumn('fullname');
         });
     }
@@ -43,8 +42,7 @@ class ChangeFullnameColumnOnWorksTable extends Migration
                 'fullname' => DB::raw('owner')
             ]);
 
-            Schema::table('works', function(Blueprint $table)
-            {
+            Schema::table('works', function (Blueprint $table) {
                 $table->dropColumn('owner');
             });
         });

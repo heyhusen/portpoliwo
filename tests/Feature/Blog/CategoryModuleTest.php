@@ -4,7 +4,6 @@ namespace Tests\Feature\Blog;
 
 use App\Models\Blog\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
 use Tests\Feature\Auth;
 use Tests\TestCase;
@@ -38,7 +37,7 @@ class CategoryModuleTest extends TestCase
      */
     public function testCreateBlogCategory()
     {
-        factory(Category::class)->create($this->dummyContent());
+        Category::factory()->create($this->dummyContent());
 
         $this
             ->assertDatabaseCount($this->table, 1)
@@ -52,7 +51,7 @@ class CategoryModuleTest extends TestCase
      */
     public function testUpdateBlogCategory()
     {
-        factory(Category::class)->create();
+        Category::factory()->create();
 
         $blogCategory = Category::first();
         $blogCategory->fill($this->dummyContent());
@@ -70,7 +69,7 @@ class CategoryModuleTest extends TestCase
      */
     public function testDeleteBlogCategory()
     {
-        factory(Category::class)->create();
+        Category::factory()->create();
 
         $blogCategory = Category::first();
         $blogCategory->delete();
@@ -180,7 +179,7 @@ class CategoryModuleTest extends TestCase
     {
         (new Auth())->createAuth();
 
-        factory(Category::class)->create($this->dummyContent());
+        Category::factory()->create($this->dummyContent());
         $blogCategory = Category::first();
 
         $response = $this->getJson($this->url . '/' . $blogCategory->id);
@@ -202,7 +201,7 @@ class CategoryModuleTest extends TestCase
     {
         (new Auth())->createAuth();
 
-        factory(Category::class)->create();
+        Category::factory()->create();
         $blogCategory = Category::first();
 
         $response = $this->putJson($this->url . '/' . $blogCategory->id, [
@@ -231,7 +230,7 @@ class CategoryModuleTest extends TestCase
     {
         (new Auth())->createAuth();
 
-        factory(Category::class)->create();
+        Category::factory()->create();
         $blogCategory = Category::first();
 
         $response = $this->putJson($this->url . '/' . $blogCategory->id, $this->dummyContent());
@@ -254,7 +253,7 @@ class CategoryModuleTest extends TestCase
     {
         (new Auth())->createAuth();
 
-        factory(Category::class)->create();
+        Category::factory()->create();
         $blogCategory = Category::first();
 
         $response = $this->deleteJson($this->url, [

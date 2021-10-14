@@ -92,12 +92,12 @@ class RenamePortfolioTables extends Migration
         Schema::rename('portfolio_work_tags', 'work_tags');
         Schema::rename('portfolio_work_categories', 'work_categories');
         Schema::rename('portfolio_tags', 'tags');
-        Schema::rename('portfolio_categories' ,'categories');
-        Schema::rename('portfolio_works' ,'works');
+        Schema::rename('portfolio_categories', 'categories');
+        Schema::rename('portfolio_works', 'works');
 
         if (config('database.default') == 'mysql') {
             Schema::table('work_categories', function (Blueprint $table) {
-                $table->renameColumn('portfolio_work_id' ,'work_id');
+                $table->renameColumn('portfolio_work_id', 'work_id');
                 $table->foreign('work_id')->references('id')->on('works')->onDelete('cascade')->onUpdate('cascade');
                 $table->renameColumn('portfolio_category_id', 'category_id');
                 $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');

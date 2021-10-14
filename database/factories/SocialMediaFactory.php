@@ -1,14 +1,30 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Models\SocialMedia;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(SocialMedia::class, function (Faker $faker) {
-    return [
-        'name' => $faker->company,
-        'icon' => $faker->slug,
-        'url' => $faker->domainName
-    ];
-});
+class SocialMediaFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = SocialMedia::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->company,
+            'icon' => $this->faker->slug,
+            'url' => $this->faker->domainName
+        ];
+    }
+}

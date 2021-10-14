@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\SocialMedia;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
 use Tests\Feature\Auth;
 use Tests\TestCase;
@@ -20,7 +19,7 @@ class SocialMediaModuleTest extends TestCase
      */
     public function testCreateSocialMedia()
     {
-        factory(SocialMedia::class)->create([
+        SocialMedia::factory()->create([
             'name' => 'Github',
             'icon' => 'github',
             'url' => 'https://github.com/husenisme'
@@ -42,7 +41,7 @@ class SocialMediaModuleTest extends TestCase
      */
     public function testUpdateSocialMedia()
     {
-        factory(SocialMedia::class)->create();
+        SocialMedia::factory()->create();
 
         $socialMedia = SocialMedia::first();
         $socialMedia->fill([
@@ -68,7 +67,7 @@ class SocialMediaModuleTest extends TestCase
      */
     public function testDeleteSocialMedia()
     {
-        factory(SocialMedia::class)->create();
+        SocialMedia::factory()->create();
 
         $socialMedia = SocialMedia::first();
         $socialMedia->delete();
@@ -180,7 +179,7 @@ class SocialMediaModuleTest extends TestCase
         $auth = new Auth();
         $auth->createAuth();
 
-        factory(SocialMedia::class)->create([
+        SocialMedia::factory()->create([
             'name' => 'Github',
             'icon' => 'github',
             'url' => 'https://github.com/husenisme'
@@ -211,7 +210,7 @@ class SocialMediaModuleTest extends TestCase
         $auth = new Auth();
         $auth->createAuth();
 
-        factory(SocialMedia::class)->create();
+        SocialMedia::factory()->create();
         $socialMedia = SocialMedia::first();
 
         $response = $this->putJson('/api/social-media/' . $socialMedia->id, [
@@ -243,7 +242,7 @@ class SocialMediaModuleTest extends TestCase
         $auth = new Auth();
         $auth->createAuth();
 
-        factory(SocialMedia::class)->create();
+        SocialMedia::factory()->create();
         $socialMedia = SocialMedia::first();
 
         $response = $this->putJson('/api/social-media/' . $socialMedia->id, [
@@ -275,7 +274,7 @@ class SocialMediaModuleTest extends TestCase
         $auth = new Auth();
         $auth->createAuth();
 
-        factory(SocialMedia::class)->create();
+        SocialMedia::factory()->create();
         $socialMedia = SocialMedia::first();
 
         $response = $this->deleteJson('/api/social-media/', [

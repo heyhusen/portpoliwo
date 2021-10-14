@@ -3,10 +3,12 @@
 namespace App\Models\Blog;
 
 use Datakrama\Eloquid\Traits\Uuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
+    use HasFactory;
     use Uuids;
 
     /**

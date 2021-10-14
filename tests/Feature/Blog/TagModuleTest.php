@@ -4,7 +4,6 @@ namespace Tests\Feature\Blog;
 
 use App\Models\Blog\Tag;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
 use Tests\Feature\Auth;
 use Tests\TestCase;
@@ -39,7 +38,7 @@ class TagModuleTest extends TestCase
      */
     public function testCreateBlogTag()
     {
-        factory(Tag::class)->create($this->dummyContent());
+        Tag::factory()->create($this->dummyContent());
 
         $this
             ->assertDatabaseCount($this->table, 1)
@@ -53,7 +52,7 @@ class TagModuleTest extends TestCase
      */
     public function testUpdateBlogTag()
     {
-        factory(Tag::class)->create();
+        Tag::factory()->create();
 
         $blogTag = Tag::first();
         $blogTag->fill($this->dummyContent());
@@ -71,7 +70,7 @@ class TagModuleTest extends TestCase
      */
     public function testDeleteBlogTag()
     {
-        factory(Tag::class)->create();
+        Tag::factory()->create();
 
         $blogTag = Tag::first();
         $blogTag->delete();
@@ -181,7 +180,7 @@ class TagModuleTest extends TestCase
     {
         (new Auth())->createAuth();
 
-        factory(Tag::class)->create($this->dummyContent());
+        Tag::factory()->create($this->dummyContent());
         $blogTag = Tag::first();
 
         $response = $this->getJson($this->url . '/' . $blogTag->id);
@@ -203,7 +202,7 @@ class TagModuleTest extends TestCase
     {
         (new Auth())->createAuth();
 
-        factory(Tag::class)->create();
+        Tag::factory()->create();
         $blogTag = Tag::first();
 
         $response = $this->putJson($this->url . '/' . $blogTag->id, [
@@ -232,7 +231,7 @@ class TagModuleTest extends TestCase
     {
         (new Auth())->createAuth();
 
-        factory(Tag::class)->create();
+        Tag::factory()->create();
         $blogTag = Tag::first();
 
         $response = $this->putJson($this->url . '/' . $blogTag->id, $this->dummyContent());
@@ -255,7 +254,7 @@ class TagModuleTest extends TestCase
     {
         (new Auth())->createAuth();
 
-        factory(Tag::class)->create();
+        Tag::factory()->create();
         $blogTag = Tag::first();
 
         $response = $this->deleteJson($this->url, [

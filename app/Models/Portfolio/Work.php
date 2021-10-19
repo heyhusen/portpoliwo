@@ -6,6 +6,7 @@ use Datakrama\Eloquid\Traits\Uuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Work extends Model
 {
@@ -55,7 +56,7 @@ class Work extends Model
         if ($this->photo == 'default.png') {
             return asset('assets/images/undraw_Photo_re_5blb.png');
         }
-        return asset('storage/portfolio/' . $this->photo);
+        return Storage::url('public/portfolio/' . $this->photo);
     }
 
     /**

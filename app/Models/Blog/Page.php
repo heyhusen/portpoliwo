@@ -6,6 +6,7 @@ use Datakrama\Eloquid\Traits\Uuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Page extends Model
 {
@@ -44,6 +45,6 @@ class Page extends Model
         if ($this->image == 'default.png') {
             return asset('assets/images/undraw_Photo_re_5blb.png');
         }
-        return asset('storage/blog/page/' . $this->image);
+        return Storage::url('public/blog/page/' . $this->image);
     }
 }

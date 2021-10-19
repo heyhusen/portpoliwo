@@ -13,17 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Auth
-Route::post('login', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-
-Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
-
-Route::post('password/confirm', 'Auth\ConfirmPasswordController@confirm');
-
-Route::post('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
-
 // SPA
 Route::get('/{any}', function () {
     return view('layouts.vue');

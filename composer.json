@@ -11,7 +11,7 @@
         "php": "^7.3|^8.0",
         "datakrama/eloquid": "^2.0",
         "datakrama/lapires": "^2.0",
-        "doctrine/dbal": "^2.10",
+        "doctrine/dbal": "^3.1",
         "fideloper/proxy": "^4.0",
         "fruitcake/laravel-cors": "^2.0",
         "laravel/framework": "^8.0",

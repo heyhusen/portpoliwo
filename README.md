@@ -1,6 +1,10 @@
-## Portpoliwo
+# Portpoliwo
 
-Portpoliwo is my simple personal portfolio application. This application uses [Laravel](https://github.com/laravel/laravel "Laravel") as backend, and [Vue.js](https://github.com/vuejs/vue "Vue.js") as SPA.
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/hapakaien/portpoliwo/CI?label=CI&style=flat-square)](https://github.com/hapakaien/portpoliwo/actions) [![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/hapakaien/portpoliwo?label=version&style=flat-square)](https://github.com/hapakaien/portpoliwo/tags)
+
+Portpoliwo is a simple personal portfolio application. This application uses
+[Laravel](https://github.com/laravel/laravel "Laravel") as back-end, and
+[Vue.js](https://github.com/vuejs/vue "Vue.js") as SPA (front-end).
 
 > This is my first Vue.js project.
 
@@ -10,24 +14,59 @@ Portpoliwo is my simple personal portfolio application. This application uses [L
 - SPA Authentication from [Sanctum](https://laravel.com/docs/7.x/sanctum#spa-authentication "Sanctum")
 - Site settings, works, social media lists, etc.
 
-## Installation
-1. Run command `composer install` on terminal.
-2. Copy `.env.example` as `.env` and fill `APP_*`, `DB_*`, and `MAIL_*` settings.
-3. Run `php artisan app:install` in project terminal. 
-4. Run `yarn install` and `yarn dev` for Vue development.
-5. Finnaly, run `php artisan serve` or direct access the app to `/public` folder.
+## Setup
+
+### Local
+
+1. Clone this repository to your machine.
+
+   ```bash
+   git clone -b main --depth 1 --single-branch https://github.com/hapakaien/portpoliwo.git && cd portpoliwo 
+   ```
+
+2. Install dependencies.
+
+    ```bash
+    composer install && yarn
+    ```
+
+3. Run docker compose.
+
+   ```bash
+   docker-compose up -d
+   ```
+
+4. Set up application.
+
+   ```bash
+   php artisan app:install
+   ```
+
+5. Build Vue SPA.
+
+   ```bash
+   yarn dev
+   ```
+
+6. Run application, and visit <http://127.0.0.1:8000> in your web browser.
+
+   ```bash
+   php artisan serve
+   ```
 
 ## Testing
+
 ### Laravel
-1. Run command `composer install` on terminal.
-2. Copy `.env.testing.example` to `.env.testing`.
-3. Run `php artisan app:install --env=testing` in project terminal.
-4. Finnaly, run `php artisan test` or `composer test` to running tests.
 
-## Credits
+1. Install dependencies.
 
-- [Ahmad Husen](https://github.com/husenisme)
+   ```bash
+   composer install
+   ```
 
-## License
+2. Remove `.env` file, if it exists.
+3. Run test.
 
-The Portpoliwo is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+   ```bash
+   php artisan test
+   ```

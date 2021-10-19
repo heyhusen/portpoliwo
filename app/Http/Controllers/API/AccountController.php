@@ -7,8 +7,8 @@ use App\Http\Requests\StoreUser;
 use App\Http\Resources\Users as UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Image\Image;
 use Spatie\Image\Manipulations;
 
@@ -90,6 +90,9 @@ class AccountController extends Controller
                 ->fit(Manipulations::FIT_CROP, 256, 256)
                 ->save();
             $request->photo->store('public/avatar/' . $model->id);
+            if (Storage::exists('public/avatar/'.$model->photo)) {
+                Storage::delete('public/avatar/'.$model->photo);
+            }
             $name = $model->id . '/' . $request->photo->hashName();
         }
         return $name;

@@ -1,0 +1,50 @@
+version: "3"
+services:
+
+  redis:
+    image: docker.io/library/redis:6-alpine
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - "redisdata:/data"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      retries: 3
+      timeout: 5s
+
+  mariadb:
+    image: docker.io/jbergstroem/mariadb-alpine
+    ports:
+      - "127.0.0.1:3306:3306"
+    volumes:
+      - "mariadbdata:/var/lib/mysql"
+    environment:
+      - MYSQL_DATABASE=laravel
+      - MYSQL_ROOT_PASSWORD=secret
+
+  minio:
+    image: docker.io/minio/minio
+    ports:
+      - "127.0.0.1:9000:9000"
+      - "127.0.0.1:8900:8900"
+    environment:
+      MINIO_ROOT_USER: "laravel"
+      MINIO_ROOT_PASSWORD: "password"
+    volumes:
+      - "miniodata:/data/minio"
+    command: minio server /data/minio --console-address ":8900"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:9000/minio/health/live"]
+      retries: 3
+      timeout: 5s
+
+  mailhog:
+    image: mailhog/mailhog:v1.0.0
+    ports:
+      - "127.0.0.1:1025:1025"
+      - "127.0.0.1:8025:8025"
+
+volumes:
+  redisdata:
+  mariadbdata:
+  miniodata:

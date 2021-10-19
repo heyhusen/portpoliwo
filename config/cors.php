@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://husenis.me', 'https://husenis.me'],
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],
 

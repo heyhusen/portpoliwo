@@ -93,9 +93,9 @@ jobs:
           FILESYSTEM_DRIVER: s3
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ${{ AWS_DEFAULT_REGION }}
-          AWS_BUCKET: ${{ AWS_BUCKET }}
-          AWS_ENDPOINT: ${{ AWS_ENDPOINT }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+          AWS_BUCKET: ${{ secrets.AWS_BUCKET }}
+          AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
           AWS_USE_PATH_STYLE_ENDPOINT: true
           MIX_APP_NAME: ${{ github.event.repository.name }}
         with:

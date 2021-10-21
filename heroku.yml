@@ -1,3 +1,0 @@
-release:
-  command:
-    - php8 artisan app:release

@@ -10,284 +10,235 @@ use Tests\TestCase;
 
 class SocialMediaModuleTest extends TestCase
 {
-    use RefreshDatabase;
+	use RefreshDatabase;
 
-    /**
-     * Test creating a record
-     *
-     * @return void
-     */
-    public function testCreateSocialMedia()
-    {
-        SocialMedia::factory()->create([
-            'name' => 'Github',
-            'icon' => 'github',
-            'url' => 'https://github.com/husenisme'
-        ]);
+	public function testCreateSocialMedia()
+	{
+		SocialMedia::factory()->create([
+			'name' => 'Github',
+			'icon' => 'github',
+			'url' => 'https://github.com/hapakaien'
+		]);
 
-        $this
-            ->assertDatabaseCount('social_medias', 1)
-            ->assertDatabaseHas('social_medias', [
-                'name' => 'Github',
-                'icon' => 'github',
-                'url' => 'https://github.com/husenisme'
-            ]);
-    }
+		$this->assertDatabaseCount('social_medias', 1)
+			->assertDatabaseHas('social_medias', [
+				'name' => 'Github',
+				'icon' => 'github',
+				'url' => 'https://github.com/hapakaien'
+			]);
+	}
 
-    /**
-     * Test updating a record
-     *
-     * @return void
-     */
-    public function testUpdateSocialMedia()
-    {
-        SocialMedia::factory()->create();
+	public function testUpdateSocialMedia()
+	{
+		SocialMedia::factory()->create();
 
-        $socialMedia = SocialMedia::first();
-        $socialMedia->fill([
-            'name' => 'Github',
-            'icon' => 'github',
-            'url' => 'https://github.com/husenisme'
-        ]);
-        $socialMedia->save();
+		$socialMedia = SocialMedia::first();
+		$socialMedia->fill([
+			'name' => 'Github',
+			'icon' => 'github',
+			'url' => 'https://github.com/hapakaien'
+		]);
+		$socialMedia->save();
 
-        $this
-            ->assertDatabaseCount('social_medias', 1)
-            ->assertDatabaseHas('social_medias', [
-                'name' => 'Github',
-                'icon' => 'github',
-                'url' => 'https://github.com/husenisme'
-            ]);
-    }
+		$this->assertDatabaseCount('social_medias', 1)
+			->assertDatabaseHas('social_medias', [
+				'name' => 'Github',
+				'icon' => 'github',
+				'url' => 'https://github.com/hapakaien'
+			]);
+	}
 
-    /**
-     * Test deleting a record
-     *
-     * @return void
-     */
-    public function testDeleteSocialMedia()
-    {
-        SocialMedia::factory()->create();
+	public function testDeleteSocialMedia()
+	{
+		SocialMedia::factory()->create();
 
-        $socialMedia = SocialMedia::first();
-        $socialMedia->delete();
+		$socialMedia = SocialMedia::first();
+		$socialMedia->delete();
 
-        $this->assertDeleted($socialMedia);
-    }
+		$this->assertDeleted($socialMedia);
+	}
 
-    /**
-     * Test creating a record through API with validation
-     *
-     * @return void
-     */
-    public function testFailedCreateSocialMediaFromApi()
-    {
-        $auth = new Auth();
-        $auth->createAuth();
+	public function testFailedCreateSocialMediaFromApi()
+	{
+		(new Auth())->createAuth();
 
-        $response = $this->postJson('/api/social-media');
+		$response = $this->postJson('/api/social-media');
 
-        $response
-            ->assertStatus(422)
-            ->assertJson([
-                'success' => false,
-                'message' => 'The given data was invalid.',
-                'errors' => [
-                    'name' => ['The name field is required.'],
-                    'icon' => ['The icon field is required.'],
-                    'url' => ['The url field is required.']
-                ]
-            ]);
-    }
+		$response->assertUnprocessable()
+			->assertInvalid(['name', 'icon', 'url'])
+			->assertJson([
+				'success' => false,
+				'message' => trans($this->invalidMessage),
+				'errors' => [
+					'name' => [trans('validation.required', [
+						'attribute' => 'name'
+					])],
+					'icon' => [trans('validation.required', [
+						'attribute' => 'icon'
+					])],
+					'url' => [trans('validation.required', [
+						'attribute' => 'url'
+					])]
+				]
+			]);
+	}
 
-    /**
-     * Test creating a record through API
-     *
-     * @return void
-     */
-    public function testSuccessfullCreateSocialMediaFromApi()
-    {
-        $auth = new Auth();
-        $auth->createAuth();
+	public function testSuccessfullCreateSocialMediaFromApi()
+	{
+		(new Auth())->createAuth();
 
-        $response = $this->postJson('/api/social-media', [
-            'name' => 'Github',
-            'icon' => 'github',
-            'url' => 'https://github.com/husenisme'
-        ]);
+		$response = $this->postJson('/api/social-media', [
+			'name' => 'Github',
+			'icon' => 'github',
+			'url' => 'https://github.com/hapakaien'
+		]);
 
-        $response
-            ->assertCreated()
-            ->assertJson([
-                'success' => true,
-                'message' => 'Data successfully created.',
-                'data' => [
-                    'name' => 'Github',
-                    'icon' => 'github',
-                    'url' => 'https://github.com/husenisme'
-                ]
-            ]);
+		$response->assertCreated()
+			->assertValid()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->createdMessage),
+				'data' => [
+					'name' => 'Github',
+					'icon' => 'github',
+					'url' => 'https://github.com/hapakaien'
+				]
+			]);
 
-        $response = $this->postJson('/api/social-media', [
-            'name' => 'Github',
-            'icon' => 'github',
-            'url' => 'https://github.com/husenisme'
-        ]);
+		$response = $this->postJson('/api/social-media', [
+			'name' => 'Github',
+			'icon' => 'github',
+			'url' => 'https://github.com/hapakaien'
+		]);
 
-        $this->assertDatabaseCount('social_medias', 1);
+		$this->assertDatabaseCount('social_medias', 1);
 
-        $response
-            ->assertStatus(422)
-            ->assertJson([
-                'success' => false,
-                'message' => 'The given data was invalid.',
-                'errors' => [
-                    'name' => ['The name has already been taken.']
-                ]
-            ]);
-    }
+		$response->assertUnprocessable()
+			->assertInvalid(['name'])
+			->assertJson([
+				'success' => false,
+				'message' => trans($this->invalidMessage),
+				'errors' => [
+					'name' => [trans('validation.unique', [
+						'attribute' => 'name'
+					])]
+				]
+			]);
+	}
 
-    /**
-     * Test failed reading an existing record through API
-     *
-     * @return void
-     */
-    public function testFailedReadSocialMediaFromApi()
-    {
-        $auth = new Auth();
-        $auth->createAuth();
+	public function testFailedReadSocialMediaFromApi()
+	{
+		(new Auth())->createAuth();
 
-        $uuid = Str::uuid();
+		$uuid = Str::uuid();
 
-        $response = $this->getJson('/api/social-media/' . $uuid);
+		$response = $this->getJson('/api/social-media/' . $uuid);
 
-        $response
-            ->assertStatus(404)
-            ->assertJson([
-                'success' => false,
-                'message' => 'No query results for model [App\\Models\\SocialMedia] ' . $uuid
-            ]);
-    }
+		$response->assertNotFound()
+			->assertJson([
+				'success' => false,
+				'message' => 'No query results for model [App\\Models\\SocialMedia] ' . $uuid
+			]);
+	}
 
-    /**
-     * Test reading an existing record through API
-     *
-     * @return void
-     */
-    public function testSuccessfullReadSocialMediaFromApi()
-    {
-        $auth = new Auth();
-        $auth->createAuth();
+	public function testSuccessfullReadSocialMediaFromApi()
+	{
+		(new Auth())->createAuth();
 
-        SocialMedia::factory()->create([
-            'name' => 'Github',
-            'icon' => 'github',
-            'url' => 'https://github.com/husenisme'
-        ]);
-        $socialMedia = SocialMedia::first();
+		SocialMedia::factory()->create([
+			'name' => 'Github',
+			'icon' => 'github',
+			'url' => 'https://github.com/hapakaien'
+		]);
+		$socialMedia = SocialMedia::first();
 
-        $response = $this->getJson('/api/social-media/' . $socialMedia->id);
+		$response = $this->getJson('/api/social-media/' . $socialMedia->id);
 
-        $response
-            ->assertOk()
-            ->assertJson([
-                'success' => true,
-                'data' => [
-                    'name' => 'Github',
-                    'icon' => 'github',
-                    'url' => 'https://github.com/husenisme'
-                ]
-            ]);
-    }
+		$response->assertOk()
+			->assertJson([
+				'success' => true,
+				'data' => [
+					'name' => 'Github',
+					'icon' => 'github',
+					'url' => 'https://github.com/hapakaien'
+				]
+			]);
+	}
 
-    /**
-     * Test failed updating an existing record through API
-     *
-     * @return void
-     */
-    public function testFailedUpdateSocialMediaFromApi()
-    {
-        $auth = new Auth();
-        $auth->createAuth();
+	public function testFailedUpdateSocialMediaFromApi()
+	{
+		(new Auth())->createAuth();
 
-        SocialMedia::factory()->create();
-        $socialMedia = SocialMedia::first();
+		SocialMedia::factory()->create();
+		$socialMedia = SocialMedia::first();
 
-        $response = $this->putJson('/api/social-media/' . $socialMedia->id, [
-            'name' => '',
-            'icon' => '',
-            'url' => ''
-        ]);
+		$response = $this->putJson('/api/social-media/' . $socialMedia->id, [
+			'name' => '',
+			'icon' => '',
+			'url' => ''
+		]);
 
-        $response
-            ->assertStatus(422)
-            ->assertJson([
-                'success' => false,
-                'message' => 'The given data was invalid.',
-                'errors' => [
-                    'name' => ['The name field is required.'],
-                    'icon' => ['The icon field is required.'],
-                    'url' => ['The url field is required.'],
-                ]
-            ]);
-    }
+		$response->assertUnprocessable()
+			->assertInvalid(['name', 'icon', 'url'])
+			->assertJson([
+				'success' => false,
+				'message' => trans($this->invalidMessage),
+				'errors' => [
+					'name' => [trans('validation.required', [
+						'attribute' => 'name'
+					])],
+					'icon' => [trans('validation.required', [
+						'attribute' => 'icon'
+					])],
+					'url' => [trans('validation.required', [
+						'attribute' => 'url'
+					])],
+				]
+			]);
+	}
 
-    /**
-     * Test successfully updating an existing record through API
-     *
-     * @return void
-     */
-    public function testSuccessfullyUpdateSocialMediaFromApi()
-    {
-        $auth = new Auth();
-        $auth->createAuth();
+	public function testSuccessfullyUpdateSocialMediaFromApi()
+	{
+		(new Auth())->createAuth();
 
-        SocialMedia::factory()->create();
-        $socialMedia = SocialMedia::first();
+		SocialMedia::factory()->create();
+		$socialMedia = SocialMedia::first();
 
-        $response = $this->putJson('/api/social-media/' . $socialMedia->id, [
-            'name' => 'Github',
-            'icon' => 'github',
-            'url' => 'https://github.com/husenisme'
-        ]);
+		$response = $this->putJson('/api/social-media/' . $socialMedia->id, [
+			'name' => 'Github',
+			'icon' => 'github',
+			'url' => 'https://github.com/hapakaien'
+		]);
 
-        $response
-            ->assertOk()
-            ->assertJson([
-                'success' => true,
-                'message' => 'Data successfully updated.',
-                'data' => [
-                    'name' => 'Github',
-                    'icon' => 'github',
-                    'url' => 'https://github.com/husenisme'
-                ]
-            ]);
-    }
+		$response->assertOk()
+			->assertValid()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->updatedMessage),
+				'data' => [
+					'name' => 'Github',
+					'icon' => 'github',
+					'url' => 'https://github.com/hapakaien'
+				]
+			]);
+	}
 
-    /**
-     * Test delete a record
-     *
-     * @return void
-     */
-    public function testDeleteSocialMediaFromApi()
-    {
-        $auth = new Auth();
-        $auth->createAuth();
+	public function testDeleteSocialMediaFromApi()
+	{
+		(new Auth())->createAuth();
 
-        SocialMedia::factory()->create();
-        $socialMedia = SocialMedia::first();
+		SocialMedia::factory()->create();
+		$socialMedia = SocialMedia::first();
 
-        $response = $this->deleteJson('/api/social-media/', [
-            'selectedData' => [$socialMedia->id]
-        ]);
+		$response = $this->deleteJson('/api/social-media/', [
+			'selectedData' => [$socialMedia->id]
+		]);
 
-        $response
-            ->assertOk()
-            ->assertJson([
-                'success' => true,
-                'message' => 'Data successfully deleted.'
-            ]);
-
-        $this->assertDeleted($socialMedia);
-    }
+		$response->assertOk()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->deletedMessage)
+			]);
+		$this->assertDeleted($socialMedia);
+	}
 }

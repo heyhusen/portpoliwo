@@ -10,264 +10,212 @@ use Tests\TestCase;
 
 class TagModuleTest extends TestCase
 {
-    use RefreshDatabase;
+	use RefreshDatabase;
 
-    protected $table = 'blog_tags';
-    protected $url = '/api/blog/tag';
+	protected $table = 'blog_tags';
+	protected $url = '/api/blog/tag';
 
-    /**
-     * Create dummy content
-     *
-     * @return void
-     */
-    public function dummyContent()
-    {
-        return [
-            'title' => 'Laravel',
-            'slug' => 'laravel',
-            'description' => 'Open-source PHP web framework, created by Taylor Otwell and
+	public function dummyContent()
+	{
+		return [
+			'title' => 'Laravel',
+			'slug' => 'laravel',
+			'description' => 'Open-source PHP web framework, created by Taylor Otwell and
             intended for the development of web applications following the model–view–controller
             architectural pattern and based on Symfony.'
-        ];
-    }
+		];
+	}
 
-    /**
-     * Test creating a record
-     *
-     * @return void
-     */
-    public function testCreateBlogTag()
-    {
-        Tag::factory()->create($this->dummyContent());
+	public function testCreateBlogTag()
+	{
+		Tag::factory()->create($this->dummyContent());
 
-        $this
-            ->assertDatabaseCount($this->table, 1)
-            ->assertDatabaseHas($this->table, $this->dummyContent());
-    }
+		$this->assertDatabaseCount($this->table, 1)
+			->assertDatabaseHas($this->table, $this->dummyContent());
+	}
 
-    /**
-     * Test updating a record
-     *
-     * @return void
-     */
-    public function testUpdateBlogTag()
-    {
-        Tag::factory()->create();
+	public function testUpdateBlogTag()
+	{
+		Tag::factory()->create();
 
-        $blogTag = Tag::first();
-        $blogTag->fill($this->dummyContent());
-        $blogTag->save();
+		$blogTag = Tag::first();
+		$blogTag->fill($this->dummyContent());
+		$blogTag->save();
 
-        $this
-            ->assertDatabaseCount($this->table, 1)
-            ->assertDatabaseHas($this->table, $this->dummyContent());
-    }
+		$this->assertDatabaseCount($this->table, 1)
+			->assertDatabaseHas($this->table, $this->dummyContent());
+	}
 
-    /**
-     * Test deleting a record
-     *
-     * @return void
-     */
-    public function testDeleteBlogTag()
-    {
-        Tag::factory()->create();
+	public function testDeleteBlogTag()
+	{
+		Tag::factory()->create();
 
-        $blogTag = Tag::first();
-        $blogTag->delete();
+		$blogTag = Tag::first();
+		$blogTag->delete();
 
-        $this->assertDeleted($blogTag);
-    }
+		$this->assertDeleted($blogTag);
+	}
 
-    /**
-     * Test creating a record through API with validation
-     *
-     * @return void
-     */
-    public function testFailedCreateBlogTagFromApi()
-    {
-        (new Auth())->createAuth();
+	public function testFailedCreateBlogTagFromApi()
+	{
+		(new Auth())->createAuth();
 
-        $response = $this->postJson($this->url);
+		$response = $this->postJson($this->url);
 
-        $response
-            ->assertStatus(422)
-            ->assertJson([
-                'success' => false,
-                'message' => __('The given data was invalid.'),
-                'errors' => [
-                    'title' => [__('The title field is required.')]
-                ]
-            ]);
-    }
+		$response->assertUnprocessable()
+			->assertInvalid(['title'])
+			->assertJson([
+				'success' => false,
+				'message' => trans($this->invalidMessage),
+				'errors' => [
+					'title' => [trans('validation.required', [
+						'attribute' => 'title'
+					])]
+				]
+			]);
+	}
 
-    /**
-     * Test creating a record through API
-     *
-     * @return void
-     */
-    public function testSuccessfullCreateBlogTagFromApi()
-    {
-        (new Auth())->createAuth();
+	public function testSuccessfullCreateBlogTagFromApi()
+	{
+		(new Auth())->createAuth();
 
-        $response = $this->postJson($this->url, [
-            'title' => 'Vue.js'
-        ]);
+		$response = $this->postJson($this->url, [
+			'title' => 'Vue.js'
+		]);
 
-        $response
-            ->assertCreated()
-            ->assertJson([
-                'success' => true,
-                'message' => 'Data successfully created.',
-                'data' => [
-                    'title' => 'Vue.js',
-                    'slug' => 'vuejs'
-                ]
-            ]);
+		$response->assertCreated()
+			->assertValid()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->createdMessage),
+				'data' => [
+					'title' => 'Vue.js',
+					'slug' => 'vuejs'
+				]
+			]);
 
-        $response = $this->postJson($this->url, $this->dummyContent());
+		$response = $this->postJson($this->url, $this->dummyContent());
 
-        $response
-            ->assertCreated()
-            ->assertJson([
-                'success' => true,
-                'message' => __('Data successfully created.'),
-                'data' => $this->dummyContent()
-            ]);
+		$response->assertCreated()
+			->assertValid()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->createdMessage),
+				'data' => $this->dummyContent()
+			]);
 
-        $response = $this->postJson($this->url, $this->dummyContent());
+		$response = $this->postJson($this->url, $this->dummyContent());
 
-        $this->assertDatabaseCount($this->table, 2);
+		$this->assertDatabaseCount($this->table, 2);
 
-        $response
-            ->assertStatus(422)
-            ->assertJson([
-                'success' => false,
-                'message' => __('The given data was invalid.'),
-                'errors' => [
-                    'title' => [__('The title has already been taken.')],
-                    'slug' => [__('The slug has already been taken.')]
-                ]
-            ]);
-    }
+		$response->assertUnprocessable()
+			->assertInvalid(['title', 'slug'])
+			->assertJson([
+				'success' => false,
+				'message' => trans($this->invalidMessage),
+				'errors' => [
+					'title' => [trans('validation.unique', [
+						'attribute' => 'title'
+					])],
+					'slug' => [trans('validation.unique', [
+						'attribute' => 'slug'
+					])]
+				]
+			]);
+	}
 
-    /**
-     * Test failed reading an existing record through API
-     *
-     * @return void
-     */
-    public function testFailedReadBlogTagFromApi()
-    {
-        (new Auth())->createAuth();
+	public function testFailedReadBlogTagFromApi()
+	{
+		(new Auth())->createAuth();
 
-        $uuid = Str::uuid();
+		$uuid = Str::uuid();
 
-        $response = $this->getJson($this->url . '/' . $uuid);
+		$response = $this->getJson($this->url . '/' . $uuid);
 
-        $response
-            ->assertStatus(404)
-            ->assertJson([
-                'success' => false,
-                'message' => 'No query results for model [App\\Models\\Blog\Tag] ' . $uuid
-            ]);
-    }
+		$response->assertNotFound()
+			->assertJson([
+				'success' => false,
+				'message' => 'No query results for model [App\\Models\\Blog\Tag] ' . $uuid
+			]);
+	}
 
-    /**
-     * Test reading an existing record through API
-     *
-     * @return void
-     */
-    public function testSuccessfullReadBlogTagFromApi()
-    {
-        (new Auth())->createAuth();
+	public function testSuccessfullReadBlogTagFromApi()
+	{
+		(new Auth())->createAuth();
 
-        Tag::factory()->create($this->dummyContent());
-        $blogTag = Tag::first();
+		Tag::factory()->create($this->dummyContent());
+		$blogTag = Tag::first();
 
-        $response = $this->getJson($this->url . '/' . $blogTag->id);
+		$response = $this->getJson($this->url . '/' . $blogTag->id);
 
-        $response
-            ->assertOk()
-            ->assertJson([
-                'success' => true,
-                'data' => $this->dummyContent()
-            ]);
-    }
+		$response->assertOk()
+			->assertJson([
+				'success' => true,
+				'data' => $this->dummyContent()
+			]);
+	}
 
-    /**
-     * Test failed updating an existing record through API
-     *
-     * @return void
-     */
-    public function testFailedUpdateBlogTagFromApi()
-    {
-        (new Auth())->createAuth();
+	public function testFailedUpdateBlogTagFromApi()
+	{
+		(new Auth())->createAuth();
 
-        Tag::factory()->create();
-        $blogTag = Tag::first();
+		Tag::factory()->create();
+		$blogTag = Tag::first();
 
-        $response = $this->putJson($this->url . '/' . $blogTag->id, [
-            'title' => '',
-            'slug' => '',
-            'description' => ''
-        ]);
+		$response = $this->putJson($this->url . '/' . $blogTag->id, [
+			'title' => '',
+			'slug' => '',
+			'description' => ''
+		]);
 
-        $response
-            ->assertStatus(422)
-            ->assertJson([
-                'success' => false,
-                'message' => __('The given data was invalid.'),
-                'errors' => [
-                    'title' => [__('The title field is required.')],
-                ]
-            ]);
-    }
+		$response->assertUnprocessable()
+			->assertInvalid(['title'])
+			->assertJson([
+				'success' => false,
+				'message' => trans($this->invalidMessage),
+				'errors' => [
+					'title' => [trans('validation.required', [
+						'attribute' => 'title'
+					])],
+				]
+			]);
+	}
 
-    /**
-     * Test successfully updating an existing record through API
-     *
-     * @return void
-     */
-    public function testSuccessfullyUpdateBlogTagFromApi()
-    {
-        (new Auth())->createAuth();
+	public function testSuccessfullyUpdateBlogTagFromApi()
+	{
+		(new Auth())->createAuth();
 
-        Tag::factory()->create();
-        $blogTag = Tag::first();
+		Tag::factory()->create();
+		$blogTag = Tag::first();
 
-        $response = $this->putJson($this->url . '/' . $blogTag->id, $this->dummyContent());
+		$response = $this->putJson($this->url . '/' . $blogTag->id, $this->dummyContent());
 
-        $response
-            ->assertOk()
-            ->assertJson([
-                'success' => true,
-                'message' => __('Data successfully updated.'),
-                'data' => $this->dummyContent()
-            ]);
-    }
+		$response->assertOk()
+			->assertValid()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->updatedMessage),
+				'data' => $this->dummyContent()
+			]);
+	}
 
-    /**
-     * Test delete a record
-     *
-     * @return void
-     */
-    public function testDeleteBlogTagFromApi()
-    {
-        (new Auth())->createAuth();
+	public function testDeleteBlogTagFromApi()
+	{
+		(new Auth())->createAuth();
 
-        Tag::factory()->create();
-        $blogTag = Tag::first();
+		Tag::factory()->create();
+		$blogTag = Tag::first();
 
-        $response = $this->deleteJson($this->url, [
-            'selectedData' => [$blogTag->id]
-        ]);
+		$response = $this->deleteJson($this->url, [
+			'selectedData' => [$blogTag->id]
+		]);
 
-        $response
-            ->assertOk()
-            ->assertJson([
-                'success' => true,
-                'message' => __('Data successfully deleted.')
-            ]);
+		$response->assertOk()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->deletedMessage)
+			]);
 
-        $this->assertDeleted($blogTag);
-    }
+		$this->assertDeleted($blogTag);
+	}
 }

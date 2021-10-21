@@ -22,6 +22,6 @@ class SaveSite extends Controller
             Setting::where('name', $item->name)->update(['value' => $request->{$item->name}]);
         });
         $data = collect(Settings::collection(Setting::get()));
-        return $this->dataCreated($data);
+        return $this->dataUpdated($data);
     }
 }

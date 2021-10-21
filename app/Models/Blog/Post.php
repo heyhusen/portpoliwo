@@ -53,8 +53,7 @@ class Post extends Model
      */
     public function categories()
     {
-        return $this
-                    ->belongsToMany(
+        return $this->belongsToMany(
                         'App\Models\Blog\Category',
                         'blog_post_categories',
                         'blog_post_id',
@@ -68,8 +67,7 @@ class Post extends Model
      */
     public function tags()
     {
-        return $this
-                    ->belongsToMany('App\Models\Blog\Tag', 'blog_post_tags', 'blog_post_id', 'blog_tag_id')
+        return $this->belongsToMany('App\Models\Blog\Tag', 'blog_post_tags', 'blog_post_id', 'blog_tag_id')
                     ->using('App\Models\Blog\PostTag');
     }
 }

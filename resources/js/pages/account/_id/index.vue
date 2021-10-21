@@ -1,156 +1,187 @@
 <template>
-  <div class="box">
-    <div class="columns is-multiline">
-      <div class="column is-one-third-tablet">
-        <div class="box">
-          <div class="level">
-            <div class="level-item">
-              <div class="has-text-centered">
-                <strong>{{ user.name }}</strong>
-                <figure class="image is-128x128">
-                  <img
-                    class="is-rounded"
-                    :src="getUser.avatar"
-                    :title="user.name"
-                  />
-                </figure>
-              </div>
-            </div>
-          </div>
-          <b-field label="Registered at">
-            {{ new Date(getUser.created_at).toLocaleString() }}
-          </b-field>
-          <b-field label="Last updated at">
-            {{ new Date(getUser.updated_at).toLocaleString() }}
-          </b-field>
-        </div>
-      </div>
-      <div class="column">
-        <ValidationObserver ref="form" v-slot="{ passes }">
-          <form @submit.prevent="passes(onSubmit)">
-            <div class="columns is-multiline">
-              <div class="column is-12">
-                <FormInput v-model="user.name" label="Name" name="name" />
-              </div>
-              <div class="column is-12">
-                <FormInput v-model="user.email" label="E-Mail" name="email" />
-              </div>
-              <div class="column is-12">
-                <FormInput
-                  v-model="user.password"
-                  label="Password"
-                  name="password"
-                  type="password"
-                />
-              </div>
-              <div class="column is-12">
-                <FormInput
-                  v-model="user.passwordRepeat"
-                  label="Repeat Password"
-                  name="password_repeat"
-                  type="password"
-                />
-              </div>
-              <div class="column is-12">
-                <FormImage
-                  v-model="user.photo"
-                  label="Photo"
-                  name="photo"
-                  message="For best results, use an image with an aspect ratio of 1:1 with a minimum size of 256x256 px."
-                />
-              </div>
-            </div>
-            <hr />
-            <SaveButton />
-          </form>
-        </ValidationObserver>
-      </div>
-    </div>
-  </div>
+	<header class="py-2">
+		<h1 class="font-bold text-2xl sm:text-3xl">Account Detail</h1>
+	</header>
+
+	<section class="flex flex-col sm:flex-row gap-6 md:gap-8">
+		<header class="space-y-1 sm:max-w-2/5">
+			<h3 class="font-medium text-lg">Personal Information</h3>
+			<small class="text-sm text-gray-500">
+				Use a valid email address where you can receive emails.
+			</small>
+		</header>
+
+		<form
+			@submit="onSubmit"
+			class="bg-white rounded-md shadow overflow-hidden flex-1"
+		>
+			<div class="space-y-6 px-4 py-5 sm:p-6">
+				<oc-field
+					label="Name"
+					:variant="nameError ? 'danger' : ''"
+					:message="nameError"
+				>
+					<oc-input v-model="name" name="name" />
+				</oc-field>
+				<oc-field
+					label="E-Mail"
+					:variant="emailError ? 'danger' : ''"
+					:message="emailError"
+				>
+					<oc-input v-model="email" type="email" name="email" />
+				</oc-field>
+				<oc-field
+					label="Password"
+					:variant="passwordError ? 'danger' : ''"
+					:message="passwordError"
+				>
+					<oc-input
+						v-model="password"
+						type="password"
+						name="password"
+						password-reveal
+					/>
+				</oc-field>
+				<oc-field
+					label="Repeat Password"
+					:variant="repeatPasswordError ? 'danger' : ''"
+					:message="repeatPasswordError"
+				>
+					<oc-input
+						v-model="repeatPassword"
+						type="password"
+						name="password_repeat"
+						password-reveal
+					/>
+				</oc-field>
+				<oc-field
+					label="Photo"
+					addons-class="flex gap-2 items-center"
+					:variant="photoError ? 'danger' : ''"
+					:message="photoError"
+				>
+					<o-upload v-model="photo" name="photo" root-class="cursor-pointer">
+						<img
+							:src="
+								photo && photo.type.includes('image') ? tempUrl() : user.avatar
+							"
+							alt="Avatar"
+							class="rounded-full h-32 w-32 object-cover"
+						/>
+					</o-upload>
+				</oc-field>
+			</div>
+
+			<div class="bg-gray-50 px-4 py-3 sm:px-6 text-right">
+				<oc-button native-type="submit" variant="primary">
+					<div class="inline-flex gap-2 items-center">
+						<o-loading
+							v-model:active="loading"
+							:full-page="false"
+							:overlay="false"
+							root-class="static"
+						/>
+						<span>Save</span>
+					</div>
+				</oc-button>
+			</div>
+		</form>
+	</section>
 </template>
 
-<script>
-import { ValidationObserver } from 'vee-validate'
-import { serialize } from 'object-to-formdata'
-import { api } from '@/js/api'
-import pick from 'lodash/pick'
+<script setup>
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { useForm, useField, defineRule } from 'vee-validate';
+import { image } from '@vee-validate/rules';
+import { useProgrammatic } from '@oruga-ui/oruga-next';
+import { serialize } from 'object-to-formdata';
 
+import api from '@/plugins/api';
+import OcField from '@/components/Field.vue';
+import OcInput from '@/components/Input.vue';
+import OcButton from '@/components/Button.vue';
+
+defineRule('image', image);
+
+const user = ref({});
+const loading = ref(false);
+const route = useRoute();
+const { handleSubmit, setErrors } = useForm({ initialValues: user });
+const { value: name, errorMessage: nameError } = useField('name');
+const { value: email, errorMessage: emailError } = useField('email');
+const { value: password, errorMessage: passwordError } = useField('password');
+const { value: repeatPassword, errorMessage: repeatPasswordError } =
+	useField('password_repeat');
+const { value: photo, errorMessage: photoError } = useField(
+	'photo',
+	{
+		image: true,
+	},
+	{
+		label: 'The photo',
+	},
+);
+const { oruga } = useProgrammatic();
+
+const fetchData = () => {
+	api
+		.get(`/account/${route.params.id}`)
+		.then(({ data: { data } }) => {
+			const { name, email, avatar, created_at, updated_at } = data;
+			user.value = { name, email, avatar, created_at, updated_at };
+		})
+		.catch(() => {
+			user.value = {};
+		});
+};
+fetchData();
+
+const onSubmit = handleSubmit((values) => {
+	loading.value = true;
+	api
+		.post(
+			`/account/${route.params.id}`,
+			serialize(
+				{ ...values, _method: 'PUT' },
+				{
+					nullsAsUndefineds: true,
+				},
+			),
+		)
+		.then(({ data: success }) => {
+			fetchData();
+			oruga.notification.open({
+				message: success.message,
+				rootClass: 'rounded-md p-4 text-sm bg-emerald-100 text-success',
+				position: 'top',
+				duration: 3000,
+			});
+		})
+		.catch(({ response: { data: failed } }) => {
+			oruga.notification.open({
+				message: failed.message,
+				rootClass: 'rounded-md p-4 text-sm bg-red-100 text-error',
+				position: 'top',
+				duration: 3000,
+			});
+			setErrors(failed.errors);
+		})
+		.finally(() => {
+			loading.value = false;
+		});
+});
+
+const tempUrl = () => {
+	return URL.createObjectURL(photo.value);
+};
+</script>
+
+<script>
 export default {
-  name: 'AccountDetail',
-  metaInfo: {
-    title: 'Account Detail',
-  },
-  components: {
-    ValidationObserver,
-    FormInput: () => import('@/js/components/form/Input'),
-    FormImage: () => import('@/js/components/form/Image'),
-    SaveButton: () => import('@/js/components/SaveButton'),
-  },
-  data() {
-    return {
-      user: {
-        name: '',
-        email: '',
-        password: null,
-        passwordRepeat: null,
-        photo: null,
-      },
-      getUser: {
-        avatar: null,
-        created_at: null,
-        updated_at: null,
-      },
-    }
-  },
-  mounted() {
-    this.fetchData()
-  },
-  methods: {
-    async fetchData() {
-      await api
-        .get(`/account/${this.$route.params.id}`)
-        .then(({ data: { data } }) => {
-          this.user = pick(data, ['name', 'email'])
-          this.getUser = pick(data, ['avatar', 'created_at', 'updated_at'])
-        })
-        .catch(() => {
-          this.user = {
-            name: '',
-            email: '',
-            password: null,
-            passwordRepeat: null,
-            photo: null,
-          }
-        })
-    },
-    async onSubmit() {
-      const data = serialize(
-        { ...this.user, _method: 'PUT' },
-        {
-          nullsAsUndefineds: true,
-        }
-      )
-      await api
-        .post(`/account/${this.$route.params.id}`, data)
-        .then(({ data }) => {
-          if (data.success) {
-            this.$buefy.toast.open({
-              message: data.message,
-              type: 'is-success',
-            })
-          }
-          this.fetchData()
-        })
-        .catch(({ response: { data } }) => {
-          if (data.errors) {
-            this.$refs.form.setErrors(data.errors)
-          }
-          this.$buefy.toast.open({
-            message: data.message,
-            type: 'is-danger',
-          })
-        })
-    },
-  },
-}
+	name: 'AccountDetail',
+	metaInfo: {
+		title: 'Account Detail',
+	},
+};
 </script>

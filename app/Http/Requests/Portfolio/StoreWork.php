@@ -29,10 +29,10 @@ class StoreWork extends FormRequest
             'description' => ['required'],
             'url' => ['url'],
             'photo' => [Rule::requiredIf($this->isMethod('post')), 'image'],
-            'portfolio_category_id' => [Rule::requiredIf($this->isMethod('post')), 'array', 'min:1'],
-            'portfolio_category_id.*' => ['required', 'min:1'],
-            'portfolio_tag_id' => [Rule::requiredIf($this->isMethod('post')), 'array', 'min:1'],
-            'portfolio_tag_id.*' => ['required', 'min:1'],
+            'category_id' => [Rule::requiredIf($this->isMethod('post')), 'array', 'min:1'],
+            'category_id.*' => ['required', 'min:1'],
+            'tag_id' => [Rule::requiredIf($this->isMethod('post')), 'array', 'min:1'],
+            'tag_id.*' => ['required', 'min:1'],
         ];
         if ($this->isMethod('put')) {
             $addonRules = [
@@ -51,8 +51,8 @@ class StoreWork extends FormRequest
     public function attributes()
     {
         return [
-            'portfolio_category_id' => 'category',
-            'portfolio_tag_id' => 'tag'
+            'category_id' => 'category',
+            'tag_id' => 'tag'
         ];
     }
 }

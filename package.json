@@ -1,43 +1,45 @@
 {
-    "private": true,
-    "scripts": {
-        "dev": "yarn development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "yarn development -- --watch",
-        "watch-poll": "yarn watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "yarn production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "eslint": "./node_modules/.bin/eslint resources/assets/js/ test/ --ext .js,.vue"
-    },
-    "devDependencies": {
-        "babel-eslint": "^10.1.0",
-        "cross-env": "^7.0.2",
-        "eslint": "^7.6.0",
-        "eslint-config-prettier": "^6.11.0",
-        "eslint-loader": "^4.0.2",
-        "eslint-plugin-prettier": "^3.1.4",
-        "eslint-plugin-vue": "^6.2.2",
-        "laravel-mix": "^5.0.4",
-        "prettier": "^2.0.5",
-        "resolve-url-loader": "^3.1.1",
-        "sass": "^1.43.2",
-        "sass-loader": "^8.0.0",
-        "vue-auto-routing": "^1.0.1",
-        "vue-template-compiler": "^2.6.14"
-    },
-    "dependencies": {
-        "@mdi/font": "^5.4.55",
-        "axios": "^0.23.0",
-        "buefy": "^0.9.2",
-        "lodash": "^4.17.21",
-        "object-to-formdata": "^4.1.0",
-        "tiptap": "^1.29.6",
-        "tiptap-extensions": "^1.32.5",
-        "vee-validate": "^3.3.8",
-        "vue": "^2.6.14",
-        "vue-meta": "^2.4.0",
-        "vue-router": "^3.5.2",
-        "vuex": "^3.5.1"
-    }
+	"private": true,
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"format": "run-s format:*",
+		"format:eslint": "eslint --ext .js,.vue --ignore-path .gitignore --fix .",
+		"format:prettier": "prettier --ignore-path .gitignore  --write ."
+	},
+	"devDependencies": {
+		"@vitejs/plugin-vue": "^1.9.4",
+		"daisyui": "^1.16.2",
+		"eslint": "^8.2.0",
+		"eslint-config-airbnb-base": "^14.2.1",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-import": "^2.25.3",
+		"eslint-plugin-prettier": "^4.0.0",
+		"eslint-plugin-vue": "^7.20.0",
+		"npm-run-all": "^4.1.5",
+		"prettier": "^2.4.1",
+		"sass": "^1.43.4",
+		"vite": "^2.6.14",
+		"vite-plugin-windicss": "^1.5.1",
+		"windicss": "^3.2.1"
+	},
+	"dependencies": {
+		"@fortawesome/fontawesome-svg-core": "^1.2.36",
+		"@fortawesome/free-brands-svg-icons": "^5.15.4",
+		"@fortawesome/free-solid-svg-icons": "^5.15.4",
+		"@fortawesome/vue-fontawesome": "^3.0.0-5",
+		"@headlessui/vue": "^1.4.2",
+		"@heroicons/vue": "^1.0.5",
+		"@oruga-ui/oruga-next": "^0.4.7",
+		"@tiptap/starter-kit": "^2.0.0-beta.144",
+		"@tiptap/vue-3": "^2.0.0-beta.81",
+		"@vee-validate/rules": "^4.5.6",
+		"axios": "^0.23.0",
+		"object-to-formdata": "^4.1.0",
+		"redaxios": "^0.4.1",
+		"vee-validate": "^4.5.6",
+		"vue": "^3.2.22",
+		"vue-router": "^4.0.12",
+		"vuex": "^4.0.2"
+	}
 }

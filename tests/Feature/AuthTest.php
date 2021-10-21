@@ -9,56 +9,38 @@ use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
-    use RefreshDatabase;
+	use RefreshDatabase;
 
-    /**
-     * Test unauthorized access
-     *
-     * @return void
-     */
-    public function testUnauthorizedAccess()
-    {
-        $response = $this->getJson('/api');
+	public function testUnauthorizedAccess()
+	{
+		$response = $this->getJson('/api');
+		$response->assertUnauthorized()
+			->assertJson([
+				'success' => false,
+				'message' => 'Unauthenticated.'
+			]);
+	}
 
-        $response
-            ->assertUnauthorized()
-            ->assertJson([
-                'success' => false,
-                'message' => 'Unauthenticated.'
-            ]);
-    }
+	public function testRegisteredUserCanLogInViaToken()
+	{
+		$this->seed(RolesTableSeeder::class);
+		$user = User::factory()->create([
+			'name' => 'Ahmad Husen'
+		])
+			->each(function ($user) {
+				$user->assignRole('user');
+			});
 
-    /**
-     * Test if registered user can log in
-     * This test is use Sanctum
-     *
-     * @return void
-     */
-    public function testRegisteredUserCanLogInViaToken()
-    {
-        $this->seed(RolesTableSeeder::class);
-        $user = User::factory()
-           ->create([
-               'name' => 'Ahmad Husen'
-           ])
-           ->each(function ($user) {
-               $user->assignRole('user');
-           });
+		$user = User::first();
+		$token = $user->createToken('Portpoliwo');
 
-        $user = User::first();
-
-        $token = $user->createToken('Portpoliwo');
-
-        $response = $this
-            ->withHeaders([
-                'Authorization' => 'Bearer ' . $token->plainTextToken,
-            ])
-            ->getJson('/api');
-
-        $response
-            ->assertOk()
-            ->assertJson([
-                'success' => true,
-            ]);
-    }
+		$response = $this->withHeaders([
+			'Authorization' => 'Bearer ' . $token->plainTextToken,
+		])
+			->getJson('/api');
+		$response->assertOk()
+			->assertJson([
+				'success' => true,
+			]);
+	}
 }

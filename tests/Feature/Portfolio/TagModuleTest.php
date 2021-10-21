@@ -4,267 +4,214 @@ namespace Tests\Feature\Portfolio;
 
 use App\Models\Portfolio\Tag;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
 use Tests\Feature\Auth;
 use Tests\TestCase;
 
 class TagModuleTest extends TestCase
 {
-    use RefreshDatabase;
+	use RefreshDatabase;
 
-    protected $table = 'portfolio_tags';
-    protected $url = '/api/portfolio/tag';
+	protected $table = 'portfolio_tags';
+	protected $url = '/api/portfolio/tag';
 
-    /**
-     * Create dummy content
-     *
-     * @return void
-     */
-    public function dummyContent()
-    {
-        return [
-            'name' => 'Laravel',
-            'slug' => 'laravel'
-        ];
-    }
+	public function dummyContent()
+	{
+		return [
+			'name' => 'Laravel',
+			'slug' => 'laravel'
+		];
+	}
 
-    /**
-     * Test creating a record
-     *
-     * @return void
-     */
-    public function testCreatePortfolioTag()
-    {
-        Tag::factory()->create($this->dummyContent());
+	public function testCreatePortfolioTag()
+	{
+		Tag::factory()->create($this->dummyContent());
 
-        $this
-            ->assertDatabaseCount($this->table, 1)
-            ->assertDatabaseHas($this->table, $this->dummyContent());
-    }
+		$this->assertDatabaseCount($this->table, 1)
+			->assertDatabaseHas($this->table, $this->dummyContent());
+	}
 
-    /**
-     * Test updating a record
-     *
-     * @return void
-     */
-    public function testUpdatePortfolioTag()
-    {
-        Tag::factory()->create();
+	public function testUpdatePortfolioTag()
+	{
+		Tag::factory()->create();
 
-        $portfolioTag = Tag::first();
-        $portfolioTag->fill($this->dummyContent());
-        $portfolioTag->save();
+		$portfolioTag = Tag::first();
+		$portfolioTag->fill($this->dummyContent());
+		$portfolioTag->save();
 
-        $this
-            ->assertDatabaseCount($this->table, 1)
-            ->assertDatabaseHas($this->table, $this->dummyContent());
-    }
+		$this->assertDatabaseCount($this->table, 1)
+			->assertDatabaseHas($this->table, $this->dummyContent());
+	}
 
-    /**
-     * Test deleting a record
-     *
-     * @return void
-     */
-    public function testDeletePortfolioTag()
-    {
-        Tag::factory()->create();
+	public function testDeletePortfolioTag()
+	{
+		Tag::factory()->create();
 
-        $portfolioTag = Tag::first();
-        $portfolioTag->delete();
+		$portfolioTag = Tag::first();
+		$portfolioTag->delete();
 
-        $this->assertDeleted($portfolioTag);
-    }
+		$this->assertDeleted($portfolioTag);
+	}
 
-    /**
-     * Test creating a record through API with validation
-     *
-     * @return void
-     */
-    public function testFailedCreatePortfolioTagFromApi()
-    {
-        (new Auth())->createAuth();
+	public function testFailedCreatePortfolioTagFromApi()
+	{
+		(new Auth())->createAuth();
 
-        $response = $this->postJson($this->url);
+		$response = $this->postJson($this->url);
 
-        $response
-            ->assertStatus(422)
-            ->assertJson([
-                'success' => false,
-                'message' => 'The given data was invalid.',
-                'errors' => [
-                    'name' => ['The name field is required.']
-                ]
-            ]);
-    }
+		$response->assertUnprocessable()
+			->assertInvalid(['name'])
+			->assertJson([
+				'success' => false,
+				'message' => trans($this->invalidMessage),
+				'errors' => [
+					'name' => [trans('validation.required', [
+						'attribute' => 'name'
+					])]
+				]
+			]);
+	}
 
-    /**
-     * Test creating a record through API
-     *
-     * @return void
-     */
-    public function testSuccessfullCreatePortfolioTagFromApi()
-    {
-        (new Auth())->createAuth();
+	public function testSuccessfullCreatePortfolioTagFromApi()
+	{
+		(new Auth())->createAuth();
 
-        $response = $this->postJson($this->url, [
-            'name' => 'Vue.js'
-        ]);
+		$response = $this->postJson($this->url, [
+			'name' => 'Vue.js'
+		]);
 
-        $response
-            ->assertCreated()
-            ->assertJson([
-                'success' => true,
-                'message' => 'Data successfully created.',
-                'data' => [
-                    'name' => 'Vue.js',
-                    'slug' => 'vuejs'
-                ]
-            ]);
+		$response->assertCreated()
+			->assertValid()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->createdMessage),
+				'data' => [
+					'name' => 'Vue.js',
+					'slug' => 'vuejs'
+				]
+			]);
 
-        $response = $this->postJson($this->url, $this->dummyContent());
+		$response = $this->postJson($this->url, $this->dummyContent());
 
-        $response
-            ->assertCreated()
-            ->assertJson([
-                'success' => true,
-                'message' => 'Data successfully created.',
-                'data' => $this->dummyContent()
-            ]);
+		$response->assertCreated()
+			->assertValid()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->createdMessage),
+				'data' => $this->dummyContent()
+			]);
 
-        $response = $this->postJson($this->url, $this->dummyContent());
+		$response = $this->postJson($this->url, $this->dummyContent());
 
-        $this->assertDatabaseCount($this->table, 2);
+		$this->assertDatabaseCount($this->table, 2);
 
-        $response
-            ->assertStatus(422)
-            ->assertJson([
-                'success' => false,
-                'message' => 'The given data was invalid.',
-                'errors' => [
-                    'name' => ['The name has already been taken.'],
-                    'slug' => ['The slug has already been taken.']
-                ]
-            ]);
-    }
+		$response->assertUnprocessable()
+			->assertInvalid(['name', 'slug'])
+			->assertJson([
+				'success' => false,
+				'message' => trans($this->invalidMessage),
+				'errors' => [
+					'name' => [trans('validation.unique', [
+						'attribute' => 'name'
+					])],
+					'slug' => [trans('validation.unique', [
+						'attribute' => 'slug'
+					])]
+				]
+			]);
+	}
 
-    /**
-     * Test failed reading an existing record through API
-     *
-     * @return void
-     */
-    public function testFailedReadPortfolioTagFromApi()
-    {
-        (new Auth())->createAuth();
+	public function testFailedReadPortfolioTagFromApi()
+	{
+		(new Auth())->createAuth();
 
-        $uuid = Str::uuid();
+		$uuid = Str::uuid();
 
-        $response = $this->getJson($this->url . '/' . $uuid);
+		$response = $this->getJson($this->url . '/' . $uuid);
 
-        $response
-            ->assertStatus(404)
-            ->assertJson([
-                'success' => false,
-                'message' => 'No query results for model [App\\Models\\Portfolio\Tag] ' . $uuid
-            ]);
-    }
+		$response->assertNotFound()
+			->assertJson([
+				'success' => false,
+				'message' => 'No query results for model [App\\Models\\Portfolio\Tag] ' . $uuid
+			]);
+	}
 
-    /**
-     * Test reading an existing record through API
-     *
-     * @return void
-     */
-    public function testSuccessfullReadPortfolioTagFromApi()
-    {
-        (new Auth())->createAuth();
+	public function testSuccessfullReadPortfolioTagFromApi()
+	{
+		(new Auth())->createAuth();
 
-        Tag::factory()->create($this->dummyContent());
-        $portfolioTag = Tag::first();
+		Tag::factory()->create($this->dummyContent());
+		$portfolioTag = Tag::first();
 
-        $response = $this->getJson($this->url . '/' . $portfolioTag->id);
+		$response = $this->getJson($this->url . '/' . $portfolioTag->id);
 
-        $response
-            ->assertOk()
-            ->assertJson([
-                'success' => true,
-                'data' => $this->dummyContent()
-            ]);
-    }
+		$response->assertOk()
+			->assertJson([
+				'success' => true,
+				'data' => $this->dummyContent()
+			]);
+	}
 
-    /**
-     * Test failed updating an existing record through API
-     *
-     * @return void
-     */
-    public function testFailedUpdatePortfolioTagFromApi()
-    {
-        (new Auth())->createAuth();
+	public function testFailedUpdatePortfolioTagFromApi()
+	{
+		(new Auth())->createAuth();
 
-        Tag::factory()->create();
-        $portfolioTag = Tag::first();
+		Tag::factory()->create();
+		$portfolioTag = Tag::first();
 
-        $response = $this->putJson($this->url . '/' . $portfolioTag->id, [
-            'name' => '',
-            'slug' => ''
-        ]);
+		$response = $this->putJson($this->url . '/' . $portfolioTag->id, [
+			'name' => '',
+			'slug' => ''
+		]);
 
-        $response
-            ->assertStatus(422)
-            ->assertJson([
-                'success' => false,
-                'message' => 'The given data was invalid.',
-                'errors' => [
-                    'name' => ['The name field is required.'],
-                ]
-            ]);
-    }
+		$response->assertUnprocessable()
+			->assertInvalid(['name'])
+			->assertJson([
+				'success' => false,
+				'message' => trans($this->invalidMessage),
+				'errors' => [
+					'name' => [trans('validation.required', [
+						'attribute' => 'name'
+					])],
+				]
+			]);
+	}
 
-    /**
-     * Test successfully updating an existing record through API
-     *
-     * @return void
-     */
-    public function testSuccessfullyUpdatePortfolioTagFromApi()
-    {
-        (new Auth())->createAuth();
+	public function testSuccessfullyUpdatePortfolioTagFromApi()
+	{
+		(new Auth())->createAuth();
 
-        Tag::factory()->create();
-        $portfolioTag = Tag::first();
+		Tag::factory()->create();
+		$portfolioTag = Tag::first();
 
-        $response = $this->putJson($this->url . '/' . $portfolioTag->id, $this->dummyContent());
+		$response = $this->putJson($this->url . '/' . $portfolioTag->id, $this->dummyContent());
 
-        $response
-            ->assertOk()
-            ->assertJson([
-                'success' => true,
-                'message' => 'Data successfully updated.',
-                'data' => $this->dummyContent()
-            ]);
-    }
+		$response->assertOk()
+			->assertValid()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->updatedMessage),
+				'data' => $this->dummyContent()
+			]);
+	}
 
-    /**
-     * Test delete a record
-     *
-     * @return void
-     */
-    public function testDeletePortfolioTagFromApi()
-    {
-        (new Auth())->createAuth();
+	public function testDeletePortfolioTagFromApi()
+	{
+		(new Auth())->createAuth();
 
-        Tag::factory()->create();
-        $portfolioTag = Tag::first();
+		Tag::factory()->create();
+		$portfolioTag = Tag::first();
 
-        $response = $this->deleteJson($this->url, [
-            'selectedData' => [$portfolioTag->id]
-        ]);
+		$response = $this->deleteJson($this->url, [
+			'selectedData' => [$portfolioTag->id]
+		]);
 
-        $response
-            ->assertOk()
-            ->assertJson([
-                'success' => true,
-                'message' => 'Data successfully deleted.'
-            ]);
+		$response->assertOk()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->deletedMessage)
+			]);
 
-        $this->assertDeleted($portfolioTag);
-    }
+		$this->assertDeleted($portfolioTag);
+	}
 }

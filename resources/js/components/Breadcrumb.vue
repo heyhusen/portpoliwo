@@ -1,62 +1,66 @@
 <template>
-  <nav class="level">
-    <div class="level-left">
-      <div class="level-item">
-        <h1 class="title is-capitalized">{{ title }}</h1>
-      </div>
-    </div>
-    <div class="level-right">
-      <div class="level-item">
-        <nav class="breadcrumb is-right" aria-label="breadcrumbs">
-          <ul>
-            <li>
-              <router-link to="/">Home</router-link>
-            </li>
-            <li v-for="(item, i) in breadcrumbs" :key="i" :class="item.classes">
-              <router-link :to="item.path" class="is-capitalized">{{
-                item.name
-              }}</router-link>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-  </nav>
+	<nav>
+		<ul class="inline-flex gap-2">
+			<li class="inline-flex items-center gap-2">
+				<router-link
+					:to="{ path: '/' }"
+					class="text-gray-600 hover:text-gray-800"
+				>
+					<span class="sr-only">Home</span>
+					<home-icon class="h-6 w-6 fill-current" />
+				</router-link>
+				<chevron-right-icon class="h-5 w-5 stroke-current text-gray-400" />
+			</li>
+			<li
+				v-for="(item, key) of breadcrumbs()"
+				:key="key"
+				class="inline-flex items-center gap-2"
+			>
+				<router-link
+					:to="{ path: item.path }"
+					class="text-gray-600 hover:text-gray-800"
+				>
+					{{ item.name }}
+				</router-link>
+				<chevron-right-icon
+					v-if="key !== breadcrumbs().length - 1"
+					class="h-5 w-5 stroke-current text-gray-400"
+				/>
+			</li>
+		</ul>
+	</nav>
 </template>
 
-<script>
-export default {
-  name: 'Breadcrumb',
-  computed: {
-    title() {
-      return this.$route.name
-    },
-    breadcrumbs() {
-      const breadcrumbs = []
-      this.$route.matched.map((item, i, { length }) => {
-        const breadcrumb = {}
-        breadcrumb.path = item.path
-        breadcrumb.name = item.name || item.path
+<script setup>
+import { useRoute } from 'vue-router';
+import { HomeIcon } from '@heroicons/vue/solid';
+import { ChevronRightIcon } from '@heroicons/vue/outline';
 
-        // is last item?
-        if (i === length - 1) {
-          // is param route? .../.../:id
-          if (item.regex.keys.length > 0) {
-            breadcrumbs.push({
-              path: item.path.replace(/\/:[^/:]*$/, ''),
-              name: item.name.replace(/-[^-]*$/, ''),
-            })
-            breadcrumb.path = this.$route.path
-            breadcrumb.name = this.$route.name
-          }
-          breadcrumb.classes = 'is-active'
-        }
+const route = useRoute();
 
-        breadcrumbs.push(breadcrumb)
-      })
+const breadcrumbs = () => {
+	const breadcrumbLists = [];
+	route.matched.forEach((item, i, { length }) => {
+		const breadcrumb = {};
+		breadcrumb.path = item.path;
+		breadcrumb.name = item.path
+			.split('/')
+			.pop()
+			.replace('-', ' ')
+			.replace(/(^\w|\s\w)/g, (m) => m.toUpperCase());
 
-      return breadcrumbs
-    },
-  },
-}
+		if (i === length - 1) {
+			breadcrumb.path = route.path;
+		}
+		if (item.path.includes(':id')) {
+			breadcrumb.name = 'Detail';
+		}
+
+		breadcrumbLists.push(breadcrumb);
+		if (i === length - 1 && item.path === route.matched[i - 1].path) {
+			breadcrumbLists.pop();
+		}
+	});
+	return breadcrumbLists;
+};
 </script>

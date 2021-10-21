@@ -13,408 +13,325 @@ use Tests\TestCase;
 
 class UserModuleTest extends TestCase
 {
-    use RefreshDatabase;
+	use RefreshDatabase;
 
-    /**
-     * Test create role with seeder
-     *
-     * @return void
-     */
-    public function testCreateRole()
-    {
-        $this->seed(RolesTableSeeder::class);
-        $this
-            ->assertDatabaseCount('roles', 3)
-            ->assertDatabaseHas('roles', [
-                'name' => 'supersu',
-                'name' => 'admin',
-                'name' => 'user'
-            ]);
-    }
+	public function testCreateRole()
+	{
+		$this->seed(RolesTableSeeder::class);
+		$this->assertDatabaseCount('roles', 3)
+			->assertDatabaseHas('roles', [
+				'name' => 'supersu',
+				'name' => 'admin',
+				'name' => 'user'
+			]);
+	}
 
-    /**
-     * Test creating an user with role using factory
-     * Roles are created using seeder
-     *
-     * @return void
-     */
-    public function testCreateUser()
-    {
-        $this->seed(RolesTableSeeder::class);
-        $auth = new Auth();
-        $auth
-            ->createUser()
-            ->each(function ($user) {
-                $user->assignRole('user');
-            });
+	public function testCreateUser()
+	{
+		$this->seed(RolesTableSeeder::class);
+		(new Auth())->createUser()->each(function ($user) {
+			$user->assignRole('user');
+		});
 
-        $this
-            ->assertDatabaseCount('users', 1)
-            ->assertDatabaseCount('model_has_roles', 1)
-            ->assertDatabaseHas('model_has_roles', [
-                'model_type' => 'App\Models\User'
-            ]);
-    }
+		$this->assertDatabaseCount('users', 1)
+			->assertDatabaseCount('model_has_roles', 1)
+			->assertDatabaseHas('model_has_roles', [
+				'model_type' => 'App\Models\User'
+			]);
+	}
 
-    /**
-     * Test updating a created user with role
-     * Roles are created using seeder
-     *
-     * @return void
-     */
-    public function testUpdateUser()
-    {
-        $this->seed(RolesTableSeeder::class);
-        $auth = new Auth();
-        $auth
-            ->createUser()
-            ->each(function ($user) {
-                $user->assignRole('user');
-            });
+	public function testUpdateUser()
+	{
+		$this->seed(RolesTableSeeder::class);
+		(new Auth())->createUser()->each(function ($user) {
+			$user->assignRole('user');
+		});
 
-        $user = User::first();
-        $user->fill([
-            'name' => 'Ahmad Husen',
-        ]);
-        $user->save();
+		$user = User::first();
+		$user->fill([
+			'name' => 'Ahmad Husen',
+		]);
+		$user->save();
 
-        $this
-            ->assertDatabaseCount('users', 1)
-            ->assertDatabaseHas('users', [
-                'name' => 'Ahmad Husen'
-            ])
-            ->assertDatabaseCount('model_has_roles', 1)
-            ->assertDatabaseHas('model_has_roles', [
-                'model_type' => 'App\Models\User'
-            ]);
-    }
+		$this->assertDatabaseCount('users', 1)
+			->assertDatabaseHas('users', [
+				'name' => 'Ahmad Husen'
+			])->assertDatabaseCount('model_has_roles', 1)
+			->assertDatabaseHas('model_has_roles', [
+				'model_type' => 'App\Models\User'
+			]);
+	}
 
-    /**
-     * Test deleting a created user with role
-     * Roles are created using seeder
-     *
-     * @return void
-     */
-    public function testDeleteUser()
-    {
-        $this->seed(RolesTableSeeder::class);
-        $auth = new Auth(['name' => 'Ahmad Husen']);
-        $user = $auth
-            ->createUser()
-            ->each(function ($user) {
-                $user->assignRole('user');
-            });
+	public function testDeleteUser()
+	{
+		$this->seed(RolesTableSeeder::class);
+		(new Auth(['name' => 'Ahmad Husen']))->createUser()
+			->each(function ($user) {
+				$user->assignRole('user');
+			});
 
-        $user = User::first();
-        $user->delete();
+		$user = User::first();
+		$user->delete();
 
-        $this->assertDeleted($user);
-    }
+		$this->assertDeleted($user);
+	}
 
-    /**
-     * Test creating an user through API with validation
-     *
-     * @return void
-     */
-    public function testFailedCreateUserFromApi()
-    {
-        $auth = new Auth();
-        $auth->createAuth();
+	public function testFailedCreateUserFromApi()
+	{
+		(new Auth())->createAuth();
 
-        $response = $this->postJson('/api/account');
+		$response = $this->postJson('/api/account');
 
-        $response
-            ->assertStatus(422)
-            ->assertJson([
-                'success' => false,
-                'message' => 'The given data was invalid.',
-                'errors' => [
-                    'name' => ['The name field is required.'],
-                    'email' => ['The email field is required.'],
-                    'password' => ['The password field is required.'],
-                    'password_repeat' => ['The password repeat field is required.']
-                ]
-            ]);
-    }
+		$response->assertUnprocessable()
+			->assertInvalid(['name', 'email', 'password', 'password_repeat'])
+			->assertJson([
+				'success' => false,
+				'message' => trans($this->invalidMessage),
+				'errors' => [
+					'name' => [trans('validation.required', [
+						'attribute' => 'name'
+					])],
+					'email' => [trans('validation.required', [
+						'attribute' => 'email'
+					])],
+					'password' => [trans('validation.required', [
+						'attribute' => 'password'
+					])],
+					'password_repeat' => [trans('validation.required', [
+						'attribute' => 'password repeat'
+					])]
+				]
+			]);
+	}
 
-    /**
-     * Test creating an user through API
-     *
-     * @return void
-     */
-    public function testSuccessfullCreateUserFromApi()
-    {
-        $auth = new Auth();
-        $auth->createAuth();
+	public function testSuccessfullCreateUserFromApi()
+	{
+		(new Auth())->createAuth();
 
-        $response = $this->postJson('/api/account', [
-            'name' => 'Ahmad Husen',
-            'email' => 'husen@portpoliwo.app',
-            'password' => 'EverybodyKnows',
-            'password_repeat' => 'EverybodyKnows'
-        ]);
+		$response = $this->postJson('/api/account', [
+			'name' => 'Ahmad Husen',
+			'email' => 'husen@portpoliwo.app',
+			'password' => 'EverybodyKnows',
+			'password_repeat' => 'EverybodyKnows'
+		]);
 
-        $response
-            ->assertCreated()
-            ->assertJson([
-                'success' => true,
-                'message' => 'Data successfully created.',
-                'data' => [
-                    'name' => 'Ahmad Husen',
-                    'email' => 'husen@portpoliwo.app'
-                ]
-            ]);
-        // Check default avatar (gravatar)
-        $this->assertStringContainsString('gravatar', $response['data']['avatar']);
-    }
+		$response->assertCreated()
+			->assertValid()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->createdMessage),
+				'data' => [
+					'name' => 'Ahmad Husen',
+					'email' => 'husen@portpoliwo.app'
+				]
+			]);
+		// Check default avatar (gravatar)
+		$this->assertStringContainsString('gravatar', $response['data']['avatar']);
+	}
 
-    /**
-     * Test creating an user with avatar through API
-     *
-     * @return void
-     */
-    public function testSuccessfullCreateUserWithAvatarFromApi()
-    {
-        $auth = new Auth();
-        $auth->createAuth();
+	public function testSuccessfullCreateUserWithAvatarFromApi()
+	{
+		(new Auth())->createAuth();
 
-        Storage::fake('local');
+		Storage::fake('local');
 
-        $avatar = UploadedFile::fake()->image('avatar.jpg');
+		$avatar = UploadedFile::fake()->image('avatar.jpg');
 
-        $response = $this->postJson('/api/account', [
-            'name' => 'Ahmad Husen',
-            'email' => 'husen@portpoliwo.app',
-            'password' => 'EverybodyKnows',
-            'password_repeat' => 'EverybodyKnows',
-            'photo' => $avatar
-        ]);
+		$response = $this->postJson('/api/account', [
+			'name' => 'Ahmad Husen',
+			'email' => 'husen@portpoliwo.app',
+			'password' => 'EverybodyKnows',
+			'password_repeat' => 'EverybodyKnows',
+			'photo' => $avatar
+		]);
 
-        Storage::disk('local')->assertExists('/public/avatar/' . $response['data']['photo']);
+		Storage::disk('local')->assertExists('/public/avatar/' . $response['data']['photo']);
 
-        $response
-            ->assertCreated()
-            ->assertJson([
-                'success' => true,
-                'message' => 'Data successfully created.',
-                'data' => [
-                    'name' => 'Ahmad Husen',
-                    'email' => 'husen@portpoliwo.app'
-                ]
-            ]);
-        // Check custom avatar
-        $this->assertStringNotContainsString('gravatar', $response['data']['avatar']);
-    }
+		$response->assertCreated()
+			->assertValid()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->createdMessage),
+				'data' => [
+					'name' => 'Ahmad Husen',
+					'email' => 'husen@portpoliwo.app'
+				]
+			]);
+		// Check custom avatar
+		$this->assertStringNotContainsString('gravatar', $response['data']['avatar']);
+	}
 
-    /**
-     * Test failed reading an existing user through API
-     *
-     * @return void
-     */
-    public function testFailedReadUserFromApi()
-    {
-        $auth = new Auth();
-        $auth->createAuth();
+	public function testFailedReadUserFromApi()
+	{
+		(new Auth())->createAuth();
 
-        $uuid = Str::uuid();
+		$uuid = Str::uuid();
 
-        $response = $this->getJson('/api/account/' . $uuid);
+		$response = $this->getJson('/api/account/' . $uuid);
 
-        $response
-            ->assertStatus(404)
-            ->assertJson([
-                'success' => false,
-                'message' => 'No query results for model [App\\Models\\User] ' . $uuid
-            ]);
-    }
+		$response->assertNotFound()
+			->assertJson([
+				'success' => false,
+				'message' => 'No query results for model [App\\Models\\User] ' . $uuid
+			]);
+	}
 
-    /**
-     * Test reading an existing user through API
-     *
-     * @return void
-     */
-    public function testSuccessfullReadUserFromApi()
-    {
-        $auth = new Auth([
-            'name' => 'Ahmad Husen',
-            'email' => 'husen@portpoliwo.app'
-        ]);
-        $auth->createAuth();
+	public function testSuccessfullReadUserFromApi()
+	{
+		(new Auth([
+			'name' => 'Ahmad Husen',
+			'email' => 'husen@portpoliwo.app'
+		]))->createAuth();
 
-        $user = User::first();
+		$user = User::first();
 
-        $response = $this->getJson('/api/account/' . $user->id);
+		$response = $this->getJson('/api/account/' . $user->id);
 
-        $response
-            ->assertOk()
-            ->assertJson([
-                'success' => true,
-                'data' => [
-                    'name' => 'Ahmad Husen',
-                    'email' => 'husen@portpoliwo.app'
-                ]
-            ]);
-        // Check default avatar (gravatar)
-        $this->assertStringContainsString('gravatar', $response['data']['avatar']);
-    }
+		$response->assertOk()
+			->assertJson([
+				'success' => true,
+				'data' => [
+					'name' => 'Ahmad Husen',
+					'email' => 'husen@portpoliwo.app'
+				]
+			]);
+		// Check default avatar (gravatar)
+		$this->assertStringContainsString('gravatar', $response['data']['avatar']);
+	}
 
-    /**
-     * Test failed updating an existing user through API
-     *
-     * @return void
-     */
-    public function testFailedUpdateUserFromApi()
-    {
-        $auth = new Auth();
-        $auth->createAuth();
+	public function testFailedUpdateUserFromApi()
+	{
+		(new Auth())->createAuth();
 
-        $user = User::first();
+		$user = User::first();
 
-        $response = $this->putJson('/api/account/' . $user->id, [
-            'name' => '',
-            'email' => '',
-            'password' => '',
-            'password_repeat' => ''
-        ]);
+		$response = $this->putJson('/api/account/' . $user->id, [
+			'name' => '',
+			'email' => '',
+			'password' => '',
+			'password_repeat' => ''
+		]);
 
-        $response
-            ->assertStatus(422)
-            ->assertJson([
-                'success' => false,
-                'message' => 'The given data was invalid.',
-                'errors' => [
-                    'name' => ['The name field is required.'],
-                    'email' => ['The email field is required.'],
-                    'password' => ['The password must be at least 8 characters.'],
-                    'password_repeat' => ['The password repeat must be at least 8 characters.']
-                ]
-            ]);
-    }
+		$response->assertUnprocessable()
+			->assertInvalid(['name', 'email', 'password', 'password_repeat'])
+			->assertJson([
+				'success' => false,
+				'message' => trans($this->invalidMessage),
+				'errors' => [
+					'name' => [trans('validation.required', [
+						'attribute' => 'name'
+					])],
+					'email' => [trans('validation.required', [
+						'attribute' => 'email'
+					])],
+					'password' => [trans('validation.min.string', [
+						'attribute' => 'password',
+						'min' => 8
+					])],
+					'password_repeat' => [trans('validation.min.string', [
+						'attribute' => 'password repeat',
+						'min' => 8
+					])]
+				]
+			]);
+	}
 
-    /**
-     * Test successfully updating an existing user through API
-     *
-     * @return void
-     */
-    public function testSuccessfullyUpdateUserFromApi()
-    {
-        $auth = new Auth();
-        $auth->createAuth();
+	public function testSuccessfullyUpdateUserFromApi()
+	{
+		(new Auth())->createAuth();
 
-        $user = User::first();
+		$user = User::first();
 
-        $response = $this->putJson('/api/account/' . $user->id, [
-            'name' => 'Ahmad Husen',
-            'email' => 'husen@portpoliwo.app'
-        ]);
+		$response = $this->putJson('/api/account/' . $user->id, [
+			'name' => 'Ahmad Husen',
+			'email' => 'husen@portpoliwo.app'
+		]);
 
-        $response
-            ->assertOk()
-            ->assertJson([
-                'success' => true,
-                'message' => 'Data successfully updated.',
-                'data' => [
-                    'name' => 'Ahmad Husen',
-                    'email' => 'husen@portpoliwo.app'
-                ]
-            ]);
-    }
+		$response->assertOk()
+			->assertValid()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->updatedMessage),
+				'data' => [
+					'name' => 'Ahmad Husen',
+					'email' => 'husen@portpoliwo.app'
+				]
+			]);
+	}
 
-    /**
-     * Test successfully updating an existing user through API
-     *
-     * @return void
-     */
-    public function testSuccessfullyUpdateUserWithAvatarFromApi()
-    {
-        $auth = new Auth();
-        $auth->createAuth();
+	public function testSuccessfullyUpdateUserWithAvatarFromApi()
+	{
+		(new Auth())->createAuth();
 
-        $user = User::first();
+		$user = User::first();
 
-        Storage::fake('local');
+		Storage::fake('local');
 
-        $avatar = UploadedFile::fake()->image('avatar.jpg');
+		$avatar = UploadedFile::fake()->image('avatar.jpg');
 
-        $response = $this->putJson('/api/account/' . $user->id, [
-            'name' => 'Ahmad Husen',
-            'email' => 'husen@portpoliwo.app',
-            'photo' => $avatar
-        ]);
+		$response = $this->putJson('/api/account/' . $user->id, [
+			'name' => 'Ahmad Husen',
+			'email' => 'husen@portpoliwo.app',
+			'photo' => $avatar
+		]);
 
-        Storage::disk('local')->assertExists('/public/avatar/' . $response['data']['photo']);
+		Storage::disk('local')->assertExists('/public/avatar/' . $response['data']['photo']);
 
-        $response
-            ->assertOk()
-            ->assertJson([
-                'success' => true,
-                'message' => 'Data successfully updated.',
-                'data' => [
-                    'name' => 'Ahmad Husen',
-                    'email' => 'husen@portpoliwo.app'
-                ]
-            ]);
+		$response->assertOk()
+			->assertValid()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->updatedMessage),
+				'data' => [
+					'name' => 'Ahmad Husen',
+					'email' => 'husen@portpoliwo.app'
+				]
+			]);
 
-        // Check custom avatar
-        $this->assertStringNotContainsString('gravatar', $response['data']['avatar']);
-    }
+		// Check custom avatar
+		$this->assertStringNotContainsString('gravatar', $response['data']['avatar']);
+	}
 
-    /**
-     * Test delete an user
-     *
-     * @return void
-     */
-    public function testDeleteUserFromApi()
-    {
-        $auth = new Auth();
-        $auth->createAuth();
+	public function testDeleteUserFromApi()
+	{
+		$auth = new Auth();
+		$auth->createAuth();
+		$user = $auth->createUser();
 
-        $user = $auth->createUser();
+		$response = $this->deleteJson('/api/account/', [
+			'selectedData' => [$user->id]
+		]);
 
-        $response = $this->deleteJson('/api/account/', [
-            'selectedData' => [$user->id]
-        ]);
+		$response->assertOk()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->deletedMessage)
+			]);
 
-        $response
-            ->assertOk()
-            ->assertJson([
-                'success' => true,
-                'message' => 'Data successfully deleted.'
-            ]);
+		$this->assertDeleted($user);
+	}
 
-        $this->assertDeleted($user);
-    }
+	public function testDeleteCurrentLoggedInUserFromApi()
+	{
+		(new Auth([
+			'name' => 'Ahmad Husen'
+		]))->createAuth();
 
-    /**
-     * Test delete current logged in user
-     * The current user is can not be deleted by default
-     *
-     * @return void
-     */
-    public function testDeleteCurrentLoggedInUserFromApi()
-    {
-        $auth = new Auth([
-            'name' => 'Ahmad Husen'
-        ]);
-        $auth->createAuth();
+		$user = User::first();
 
-        $user = User::first();
+		$response = $this->deleteJson('/api/account/', [
+			'selectedData' => [$user->id]
+		]);
 
-        $response = $this->deleteJson('/api/account/', [
-            'selectedData' => [$user->id]
-        ]);
+		$response->assertOk()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->deletedMessage)
+			]);
 
-        $response
-            ->assertOk()
-            ->assertJson([
-                'success' => true,
-                'message' => 'Data successfully deleted.'
-            ]);
-
-        $this
-            ->assertDatabaseCount('users', 1)
-            ->assertDatabaseHas('users', [
-                'name' => 'Ahmad Husen'
-            ]);
-    }
+		$this->assertDatabaseCount('users', 1)
+			->assertDatabaseHas('users', [
+				'name' => 'Ahmad Husen'
+			]);
+	}
 }

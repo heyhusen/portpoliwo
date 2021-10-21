@@ -21,7 +21,7 @@
         "laravel-mix": "^5.0.4",
         "prettier": "^2.0.5",
         "resolve-url-loader": "^3.1.1",
-        "sass": "^1.20.1",
+        "sass": "^1.43.2",
         "sass-loader": "^8.0.0",
         "vue-auto-routing": "^0.5.0",
         "vue-template-compiler": "^2.6.11"

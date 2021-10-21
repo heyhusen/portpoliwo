@@ -24,7 +24,7 @@
         "sass": "^1.43.2",
         "sass-loader": "^8.0.0",
         "vue-auto-routing": "^0.5.0",
-        "vue-template-compiler": "^2.6.11"
+        "vue-template-compiler": "^2.6.14"
     },
     "dependencies": {
         "@mdi/font": "^5.4.55",
@@ -35,7 +35,7 @@
         "tiptap": "^1.29.6",
         "tiptap-extensions": "^1.32.5",
         "vee-validate": "^3.3.8",
-        "vue": "^2.6.11",
+        "vue": "^2.6.14",
         "vue-meta": "^2.4.0",
         "vue-router": "^3.5.2",
         "vuex": "^3.5.1"

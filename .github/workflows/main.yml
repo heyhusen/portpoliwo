@@ -17,13 +17,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup PHP
+      - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: "8.0"
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
           tools: composer
           coverage: none
+
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'yarn'
 
       - name: Get Composer cache directory
         id: composer-cache
@@ -39,12 +45,17 @@ jobs:
             ${{ runner.os }}-composer-
 
       - name: Install dependencies
-        run: composer install --no-interaction
+        run: |
+          composer install --no-interaction --no-progress
+          yarn install --frozen-lockfile
 
-      - name: Setup database
+      - name: Set up database
         run: |
           mkdir -p database
           touch database/database.sqlite
+
+      - name: Build front-end
+        run: yarn prod
 
       - name: Run tests
         run: |

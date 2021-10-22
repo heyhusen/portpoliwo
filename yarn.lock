@@ -840,10 +840,10 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@mdi/font@^5.4.55":
-  version "5.4.55"
-  resolved "https://registry.yarnpkg.com/@mdi/font/-/font-5.4.55.tgz#f34263882251ac23f37c1312988e1f10256dc74c"
-  integrity sha512-M+Wdcs4nZ4/Kid949fcI0DsnvHtpE6pwk6Hv8YJZDp+Zne7ZtYdIN0z73cvcANkbyNnY3ncScULGMIceNd0xxQ==
+"@mdi/font@^6.3.95":
+  version "6.3.95"
+  resolved "https://registry.yarnpkg.com/@mdi/font/-/font-6.3.95.tgz#5e22e0626ec652028a19aa541a20b28280399dd9"
+  integrity sha512-bbvnF7rNX9aMn7PeqDCa8ZQTPxEqerZeXo/lQQxE84Ka/7UrFcqvOO3XXVLtrCCtyA6uIqiG4oYFRPVJqv247Q==
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"

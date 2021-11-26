@@ -5116,10 +5116,10 @@ object-path@0.11.4:
   resolved "https://registry.yarnpkg.com/object-path/-/object-path-0.11.4.tgz#370ae752fbf37de3ea70a861c23bba8915691949"
   integrity sha1-NwrnUvvzfePqcKhhwju6iRVpGUk=
 
-object-to-formdata@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/object-to-formdata/-/object-to-formdata-4.1.1.tgz#97589e892c01d7a7eca4789d7e222890592284ac"
-  integrity sha512-3INz16y9H1K3hKzuH0ZDAtKBVmLHgIGDUmz6mrgq3OndZQDM3r5HLejM2KXmiKI2x0bA8cmfSromVEPvd3T87A==
+object-to-formdata@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/object-to-formdata/-/object-to-formdata-4.2.0.tgz#3299ab8f82944a1330e87035c0ff43fb1db5f239"
+  integrity sha512-qUUAl8RSurv9XppU1XBrACpmLVcJCn0yg2gZ/10tMKTPXgwkJouvGi9yUvQsTAEZvVvAUyrFqGt0MVuNzKFt1A==
 
 object-visit@^1.0.0:
   version "1.0.1"

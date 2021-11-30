@@ -52,7 +52,7 @@ jobs:
       - name: Install dependencies
         run: |
           composer install --no-interaction --no-progress
-          pnpm install --frozen-lockfile
+          pnpm install --no-frozen-lockfile
 
       - name: Set up database
         run: |

@@ -1,10 +1,10 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@fortawesome/fontawesome-svg-core': ^1.2.36
-  '@fortawesome/free-brands-svg-icons': ^5.15.4
-  '@fortawesome/free-solid-svg-icons': ^5.15.4
-  '@fortawesome/vue-fontawesome': ^3.0.0-5
+  '@fortawesome/fontawesome-svg-core': 1.2.36
+  '@fortawesome/free-brands-svg-icons': 5.15.4
+  '@fortawesome/free-solid-svg-icons': 5.15.4
+  '@fortawesome/vue-fontawesome': 3.0.0-5
   '@headlessui/vue': ^1.4.2
   '@heroicons/vue': ^1.0.5
   '@oruga-ui/oruga-next': ^0.4.7

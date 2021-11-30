@@ -109,8 +109,8 @@ class WorkModuleTest extends TestCase
 			->assertInvalid([
 				'name',
 				'description',
-				'portfolio_category_id',
-				'portfolio_tag_id'
+				'category_id',
+				'tag_id'
 			])
 			->assertJson([
 				'success' => false,
@@ -122,10 +122,10 @@ class WorkModuleTest extends TestCase
 					'description' => [trans('validation.required', [
 						'attribute' => 'description'
 					])],
-					'portfolio_category_id' => [trans('validation.required', [
+					'category_id' => [trans('validation.required', [
 						'attribute' => 'category'
 					])],
-					'portfolio_tag_id' => [trans('validation.required', [
+					'tag_id' => [trans('validation.required', [
 						'attribute' => 'tag'
 					])]
 				]
@@ -147,8 +147,8 @@ class WorkModuleTest extends TestCase
 
 		$response = $this->postJson($this->url, array_merge($this->dummyContent(), [
 			'photo' => $photo,
-			'portfolio_category_id' => $portfolioCategory,
-			'portfolio_tag_id' => $portfolioTag
+			'category_id' => $portfolioCategory,
+			'tag_id' => $portfolioTag
 		]));
 
 		Storage::disk('local')->assertExists('/public/portfolio/' . $response['data']['photo']);
@@ -163,8 +163,8 @@ class WorkModuleTest extends TestCase
 
 		$response = $this->postJson($this->url, array_merge($this->dummyContent(), [
 			'photo' => $photo,
-			'portfolio_category_id' => $portfolioCategory,
-			'portfolio_tag_id' => $portfolioTag
+			'category_id' => $portfolioCategory,
+			'tag_id' => $portfolioTag
 		]));
 
 		$response->assertUnprocessable()
@@ -257,8 +257,8 @@ class WorkModuleTest extends TestCase
 
 		$response = $this->putJson($this->url . '/' . $Work->id, array_merge($this->dummyContent(), [
 			'photo' => $photo,
-			'portfolio_category_id' => $portfolioCategory,
-			'portfolio_tag_id' => $portfolioTag
+			'category_id' => $portfolioCategory,
+			'tag_id' => $portfolioTag
 		]));
 
 		Storage::disk('local')->assertExists('/public/portfolio/' . $response['data']['photo']);

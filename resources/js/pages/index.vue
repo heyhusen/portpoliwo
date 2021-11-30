@@ -1,95 +1,150 @@
 <template>
-  <Layout>
-    <div class="columns is-multiline">
-      <div class="column is-12">
-        <section class="hero is-success is-bold">
-          <div class="hero-body">
-            <div class="container">
-              <h1 class="title">Hello, {{ user.name }}.</h1>
-              <h2 class="subtitle">
-                I hope you are having a great day!
-              </h2>
-            </div>
-          </div>
-        </section>
-      </div>
-      <div class="column is-12">
-        <div v-if="!loading" class="tile is-ancestor">
-          <div class="tile is-parent">
-            <div class="tile is-child box has-text-centered">
-              <router-link to="/portfolio" title="Portfolio">
-                <p class="heading">Portfolio</p>
-                <p class="title">{{ dashboard.portfolioWork.count }}</p>
-              </router-link>
-            </div>
-          </div>
-          <div class="tile is-parent">
-            <div class="tile is-child box has-text-centered">
-              <router-link to="/blog" title="Blog">
-                <p class="heading">Blog</p>
-                <p class="title">{{ dashboard.blogPost.count }}</p>
-              </router-link>
-            </div>
-          </div>
-          <div class="tile is-parent">
-            <div class="tile is-child box has-text-centered">
-              <router-link to="/social-media" title="Social Media">
-                <p class="heading">Social Media</p>
-                <p class="title">{{ dashboard.socialMedia.count }}</p>
-              </router-link>
-            </div>
-          </div>
-          <div class="tile is-parent">
-            <div class="tile is-child box has-text-centered">
-              <router-link to="/account" title="User">
-                <p class="heading">User</p>
-                <p class="title">{{ dashboard.user.count }}</p>
-              </router-link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </Layout>
+	<Layout>
+		<section class="flex flex-col gap-2">
+			<h2 class="font-bold text-xl">Overview</h2>
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+				<div
+					v-if="data.portfolioWork"
+					class="bg-white rounded-lg shadow overflow-hidden"
+				>
+					<div class="flex p-4 gap-4 items-center">
+						<div class="bg-secondary p-2 rounded-lg">
+							<archive-icon
+								aria-hidden="true"
+								class="text-pink-50 stroke-current h-10 w-10"
+							/>
+						</div>
+						<div>
+							<h3 class="text-gray-500">Total Portfolios</h3>
+							<p class="text-5xl font-bold">{{ data.portfolioWork.count }}</p>
+						</div>
+					</div>
+					<div class="bg-gray-50 py-3 px-4">
+						<router-link
+							:to="{ path: '/work' }"
+							class="text-secondary hover:underline"
+						>
+							View all
+						</router-link>
+					</div>
+				</div>
+				<div v-else class="bg-white rounded-lg shadow overflow-hidden">
+					<div class="flex p-4 gap-4 items-center">
+							<o-skeleton height="56px" width="56px" root-class="w-auto rounded-lg overflow-hidden" animated />
+						<div class="flex-1 space-y-3">
+							<o-skeleton animated />
+							<o-skeleton height="49px" animated />
+						</div>
+					</div>
+					<div class="bg-gray-50 py-3 px-4">
+						<o-skeleton animated />
+					</div>
+				</div>
+				<div
+					v-if="data.blogPost"
+					class="bg-white rounded-lg shadow overflow-hidden"
+				>
+					<div class="flex p-4 gap-4 items-center">
+						<div class="bg-secondary p-2 rounded-lg">
+							<clipboard-check-icon
+								aria-hidden="true"
+								class="text-pink-50 stroke-current h-10 w-10"
+							/>
+						</div>
+						<div>
+							<h3 class="text-gray-500">Total Articles</h3>
+							<p class="text-5xl font-bold">{{ data.blogPost.count }}</p>
+						</div>
+					</div>
+					<div class="bg-gray-50 py-3 px-4">
+						<router-link
+							:to="{ path: '/blog' }"
+							class="text-secondary hover:underline"
+						>
+							View all
+						</router-link>
+					</div>
+				</div>
+				<div v-else class="bg-white rounded-lg shadow overflow-hidden">
+					<div class="flex p-4 gap-4 items-center">
+							<o-skeleton height="56px" width="56px" root-class="w-auto rounded-lg overflow-hidden" animated />
+						<div class="flex-1 space-y-3">
+							<o-skeleton animated />
+							<o-skeleton height="49px" animated />
+						</div>
+					</div>
+					<div class="bg-gray-50 py-3 px-4">
+						<o-skeleton animated />
+					</div>
+				</div>
+				<div
+					v-if="data.user"
+					class="bg-white rounded-lg shadow overflow-hidden"
+				>
+					<div class="flex p-4 gap-4 items-center">
+						<div class="bg-secondary p-2 rounded-lg">
+							<users-icon
+								aria-hidden="true"
+								class="text-pink-50 stroke-current h-10 w-10"
+							/>
+						</div>
+						<div>
+							<h3 class="text-gray-500">Total Users</h3>
+							<p class="text-5xl font-bold">{{ data.user.count }}</p>
+						</div>
+					</div>
+					<div class="bg-gray-50 py-3 px-4">
+						<router-link
+							:to="{ path: '/account' }"
+							class="text-secondary hover:underline"
+						>
+							View all
+						</router-link>
+					</div>
+				</div>
+				<div v-else class="bg-white rounded-lg shadow overflow-hidden">
+					<div class="flex p-4 gap-4 items-center">
+							<o-skeleton height="56px" width="56px" root-class="w-auto rounded-lg overflow-hidden" animated />
+						<div class="flex-1 space-y-3">
+							<o-skeleton animated />
+							<o-skeleton height="49px" animated />
+						</div>
+					</div>
+					<div class="bg-gray-50 py-3 px-4">
+						<o-skeleton animated />
+					</div>
+				</div>
+			</div>
+		</section>
+	</Layout>
 </template>
 
-<script>
-import { mapGetters } from 'vuex'
-import { api } from '@/js/api'
+<script setup>
+import { computed, ref } from 'vue';
+import { useStore } from 'vuex';
+import {
+	ArchiveIcon,
+	ClipboardCheckIcon,
+	UsersIcon,
+} from '@heroicons/vue/outline';
+import api from '@/plugins/api';
 
-export default {
-  name: 'Home',
-  metaInfo: {
-    title: 'Home',
-  },
-  data() {
-    return {
-      dashboard: {},
-      loading: false,
-    }
-  },
-  computed: {
-    ...mapGetters({
-      user: 'auth/user',
-    }),
-  },
-  created() {
-    this.fetchData()
-  },
-  methods: {
-    async fetchData() {
-      this.loading = true
-      await api
-        .get(`/`)
-        .then(({ data: { data } }) => {
-          this.dashboard = data
-          this.loading = false
-        })
-        .catch(() => {
-          this.dashboard = {}
-          this.loading = false
-        })
-    },
-  },
-}
+const store = useStore();
+const user = computed(() => store.getters['auth/user']);
+
+const data = ref({});
+api.get(`/`).then(({ data: { data: dashboard } }) => {
+	data.value = dashboard;
+});
+</script>
+
+<script>
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+	name: 'Home',
+	metaInfo: {
+		title: 'Home',
+	},
+});
 </script>

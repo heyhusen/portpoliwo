@@ -1,13 +1,9 @@
 <template>
-  <router-view />
+	<router-view />
 </template>
 
 <script>
-export default {
-  name: 'App',
-  metaInfo: {
-    title: 'App',
-    titleTemplate: `%s | ${process.env.MIX_APP_NAME}`,
-  },
-}
+import { defineComponent } from 'vue';
+
+export default defineComponent({});
 </script>

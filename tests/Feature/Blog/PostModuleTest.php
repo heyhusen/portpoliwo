@@ -14,26 +14,21 @@ use Tests\TestCase;
 
 class PostModuleTest extends TestCase
 {
-    use RefreshDatabase;
+	use RefreshDatabase;
 
-    protected $table = 'blog_posts';
-    protected $url = '/api/blog';
+	protected $table = 'blog_posts';
+	protected $url = '/api/blog';
 
-    /**
-     * Set dummy ontent
-     *
-     * @return void
-     */
-    public function dummyContent()
-    {
-        return [
-            'title' => 'Morbi sed consequat velit, tempor pretium nunc',
-            'slug' => Str::slug('Morbi sed consequat velit, tempor pretium nunc', '-'),
-            'summary' => 'Suspendisse euismod tellus nec nisi iaculis pellentesque.
+	public function dummyContent()
+	{
+		return [
+			'title' => 'Morbi sed consequat velit, tempor pretium nunc',
+			'slug' => Str::slug('Morbi sed consequat velit, tempor pretium nunc', '-'),
+			'summary' => 'Suspendisse euismod tellus nec nisi iaculis pellentesque.
             Curabitur ultricies condimentum orci sed maximus. Nunc maximus nunc quis velit viverra,
             eu condimentum ligula consequat. Proin sem metus, consequat non libero sed,
             vehicula facilisis lectus. Morbi eleifend velit id gravida ultrices.',
-            'content' => '<p>Vestibulum sit amet sem quis leo auctor vehicula quis ac sapien.
+			'content' => '<p>Vestibulum sit amet sem quis leo auctor vehicula quis ac sapien.
             Ut nisi odio, dapibus in orci non, dictum finibus odio. Vivamus nulla metus,
             auctor volutpat lobortis nec, aliquam ut mauris. Etiam nec diam nec sapien pellentesque pulvinar.
             Etiam velit nisl, mattis at nisi convallis, posuere vehicula urna.
@@ -77,408 +72,336 @@ class PostModuleTest extends TestCase
             Duis metus quam, maximus a tincidunt ac, ornare at turpis. Proin nec sagittis neque.
             Nullam rutrum, est nec luctus dignissim, mauris lacus varius augue,
             non vulputate nisi tellus quis purus.</p>'
-        ];
-    }
-
-    /**
-     * Set model factory
-     *
-     * @param array $data
-     * @return void
-     */
-    public function blogPost($data = [])
-    {
-        return Post::factory()
-        ->create($data)
-        ->each(function ($post) {
-            $post->categories()->save(Category::factory()->make());
-            $post->tags()->createMany(
-                Tag::factory(3)->make()->toArray()
-            );
-        });
-    }
-
-    /**
-     * Create blog categoru
-     *
-     * @return void
-     */
-    public function category()
-    {
-        return Category::factory()->create();
-    }
-
-    /**
-     * Create blog tag
-     *
-     * @return void
-     */
-    public function tag()
-    {
-        return Tag::factory()->create();
-    }
-
-    /**
-     * Test creating a record
-     *
-     * @return void
-     */
-    public function testCreateBlogPost()
-    {
-        $this->blogPost($this->dummyContent());
-
-        $this
-            ->assertDatabaseCount($this->table, 1)
-            ->assertDatabaseHas($this->table, $this->dummyContent());
-    }
-
-    /**
-     * Test updating a record
-     *
-     * @return void
-     */
-    public function testUpdateBlogPost()
-    {
-        $this->blogPost();
-
-        $blogPost = Post::first();
-        $blogPost->fill($this->dummyContent());
-        $blogPost->save();
-
-        $this
-            ->assertDatabaseCount($this->table, 1)
-            ->assertDatabaseHas($this->table, $this->dummyContent());
-    }
-
-    /**
-     * Test deleting a record
-     *
-     * @return void
-     */
-    public function testDeleteBlogPost()
-    {
-        $blogPost = $this->blogPost();
-
-        $blogPost = Post::first();
-        $blogPost->delete();
-
-        $this->assertSoftDeleted($blogPost);
-
-        $blogPost->forceDelete();
-
-        $this->assertDeleted($blogPost);
-    }
-
-    /**
-     * Test creating a record through API with validation
-     *
-     * @return void
-     */
-    public function testFailedCreateBlogPostFromApi()
-    {
-        (new Auth())->createAuth();
-
-        $response = $this->postJson($this->url);
-
-        $response
-            ->assertStatus(422)
-            ->assertJson([
-                'success' => false,
-                'message' => __('The given data was invalid.'),
-                'errors' => [
-                    'title' => [__('The title field is required.')],
-                    'content' => [__('The content field is required.')],
-                    'image' => [__('The image field is required.')],
-                    'blog_category_id' => [__('The category field is required.')],
-                    'blog_tag_id' => [__('The tag field is required.')]
-                ]
-            ]);
-    }
-
-    /**
-     * Test creating a record through API
-     *
-     * @return void
-     */
-    public function testSuccessfullCreateBlogPostFromApi()
-    {
-        (new Auth())->createAuth();
-
-        $this->category();
-        $blogCategory = Category::pluck('id');
-
-        $this->tag();
-        $blogTag = Tag::pluck('id');
-
-        Storage::fake('local');
-        $thumbnail = UploadedFile::fake()->image('thumbnail.png');
-
-        $content = 'Suspendisse non semper lorem, et maximus dolor. Aenean interdum tincidunt vulputate.
-        Integer porta augue at ante mollis feugiat. Integer non dignissim massa, sit amet convallis metus.
-        Quisque porta vulputate scelerisque. Donec imperdiet faucibus tellus sit amet laoreet.
-        Etiam malesuada, tellus sit amet accumsan mattis, elit dui fermentum ipsum, vel feugiat purus est eu sem.
-        Etiam quis lacinia augue, non lacinia ante. Maecenas vel velit at lorem tempor aliquam eget nec ligula.
-        Donec lacinia, nibh sit amet ultrices lacinia, metus ipsum maximus felis, a interdum ante purus at massa.
-        Donec luctus ut elit sit amet congue. Maecenas auctor imperdiet condimentum. Cras ut hendrerit tellus.
-        Integer semper turpis sed diam pellentesque tincidunt. Nunc at egestas erat. Fusce ac dapibus magna,
-        ut accumsan enim. Nullam quis placerat nulla. Mauris sollicitudin massa ac bibendum malesuada.
-        Fusce tempor cursus rhoncus.';
-
-        $response = $this->postJson($this->url, [
-            'title' => 'Sed eleifend pulvinar mauris id luctus',
-            'content' => $content,
-            'image' => $thumbnail,
-            'blog_category_id' => $blogCategory,
-            'blog_tag_id' => $blogTag
-        ]);
-
-        Storage::disk('local')->assertExists('/public/blog/' . $response['data']['image']);
-
-        $response
-            ->assertCreated()
-            ->assertJson([
-                'success' => true,
-                'message' => __('Data successfully created.'),
-                'data' => [
-                    'title' => 'Sed eleifend pulvinar mauris id luctus',
-                    'slug' => Str::slug('Sed eleifend pulvinar mauris id luctus', '-'),
-                    'content' => $content,
-                ]
-            ]);
-
-        $response = $this->postJson($this->url, array_merge($this->dummyContent(), [
-            'image' => $thumbnail,
-            'blog_category_id' => $blogCategory,
-            'blog_tag_id' => $blogTag
-        ]));
-
-        Storage::disk('local')->assertExists('/public/blog/' . $response['data']['image']);
-
-        $response
-            ->assertCreated()
-            ->assertJson([
-                'success' => true,
-                'message' => __('Data successfully created.'),
-                'data' => $this->dummyContent()
-            ]);
-
-        $response = $this->postJson($this->url, array_merge($this->dummyContent(), [
-            'image' => $thumbnail,
-            'blog_category_id' => $blogCategory,
-            'blog_tag_id' => $blogTag
-        ]));
-
-        $this->assertDatabaseCount($this->table, 2);
-
-        $response
-            ->assertStatus(422)
-            ->assertJson([
-                'success' => false,
-                'message' => __('The given data was invalid.'),
-                'errors' => [
-                    'title' => [__('The title has already been taken.')],
-                    'slug' => [__('The slug has already been taken.')]
-                ]
-            ]);
-    }
-
-    /**
-     * Test failed reading an existing record through API
-     *
-     * @return void
-     */
-    public function testFailedReadBlogPostFromApi()
-    {
-        (new Auth())->createAuth();
-
-        $uuid = Str::uuid();
-
-        $response = $this->getJson($this->url . '/' . $uuid);
-
-        $response
-            ->assertStatus(404)
-            ->assertJson([
-                'success' => false,
-                'message' => 'No query results for model [App\\Models\\Blog\Post] ' . $uuid
-            ]);
-    }
-
-    /**
-     * Test reading an existing record through API
-     *
-     * @return void
-     */
-    public function testSuccessfullReadBlogPostFromApi()
-    {
-        (new Auth())->createAuth();
-
-        $this->blogPost($this->dummyContent());
-        $blogPost = Post::first();
-
-        $response = $this->getJson($this->url . '/' . $blogPost->id);
-
-        $response
-            ->assertOk()
-            ->assertJson([
-                'success' => true,
-                'data' => $this->dummyContent()
-            ]);
-    }
-
-    /**
-     * Test failed updating an existing record through API
-     *
-     * @return void
-     */
-    public function testFailedUpdateBlogPostFromApi()
-    {
-        (new Auth())->createAuth();
-
-        $this->blogPost();
-        $blogPost = Post::first();
-
-        $response = $this->putJson($this->url . '/' . $blogPost->id, [
-            'title' => '',
-            'slug' => '',
-            'content' => ''
-        ]);
-
-        $response
-            ->assertStatus(422)
-            ->assertJson([
-                'success' => false,
-                'message' => __('The given data was invalid.'),
-                'errors' => [
-                    'title' => [__('The title field is required.')],
-                ]
-            ]);
-    }
-
-    /**
-     * Test successfully updating an existing record through API
-     *
-     * @return void
-     */
-    public function testSuccessfullyUpdateBlogPostFromApi()
-    {
-        (new Auth())->createAuth();
-
-        $this->blogPost();
-        $blogPost = Post::first();
-
-        $this->category();
-        $blogCategory = Category::pluck('id');
-
-        $this->tag();
-        $blogTag = Tag::pluck('id');
-
-        Storage::fake('local');
-        $thumbnail = UploadedFile::fake()->image('thumbnail.png');
-
-        $response = $this->putJson($this->url . '/' . $blogPost->id, array_merge($this->dummyContent(), [
-            'image' => $thumbnail,
-            'blog_category_id' => $blogCategory,
-            'blog_tag_id' => $blogTag
-        ]));
-
-        Storage::disk('local')->assertExists('/public/blog/' . $response['data']['image']);
-
-        $response
-            ->assertOk()
-            ->assertJson([
-                'success' => true,
-                'message' => __('Data successfully updated.'),
-                'data' => $this->dummyContent()
-            ]);
-    }
-
-    /**
-     * Test delete a record
-     *
-     * @return void
-     */
-    public function testDeleteBlogPostFromApi()
-    {
-        (new Auth())->createAuth();
-
-        $this->blogPost();
-        $blogPost = Post::first();
-
-        $response = $this->deleteJson($this->url, [
-            'selectedData' => [$blogPost->id]
-        ]);
-
-        $response
-            ->assertOk()
-            ->assertJson([
-                'success' => true,
-                'message' => __('Data successfully deleted.')
-            ]);
-
-        $this->assertSoftDeleted($blogPost);
-    }
-
-    /**
-     * Test restore deleted record
-     *
-     * @return void
-     */
-    public function testRestoreDeletedBlogPostFromApi()
-    {
-        (new Auth())->createAuth();
-
-        $this->blogPost($this->dummyContent());
-        $blogPost = Post::first();
-
-        $response = $this->deleteJson($this->url, [
-            'selectedData' => [$blogPost->id]
-        ]);
-
-        $response
-            ->assertOk()
-            ->assertJson([
-                'success' => true,
-                'message' => __('Data successfully deleted.')
-            ]);
-
-        $this->assertSoftDeleted($blogPost);
-
-        $response = $this->postJson($this->url . '/restore', [
-            'selectedData' => [$blogPost->id]
-        ]);
-
-        $response
-            ->assertOk()
-            ->assertJson([
-                'success' => true,
-                'message' => __('Data successfully restored.')
-            ]);
-        $this->assertDatabaseCount($this->table, 1);
-    }
-
-    /**
-     * Test permanent delete a record
-     *
-     * @return void
-     */
-    public function testPermanentDeleteBlogPostFromApi()
-    {
-        (new Auth())->createAuth();
-
-        $this->blogPost();
-        $blogPost = Post::first();
-
-        $response = $this->deleteJson($this->url . '/delete', [
-            'selectedData' => [$blogPost->id]
-        ]);
-
-        $response
-            ->assertOk()
-            ->assertJson([
-                'success' => true,
-                'message' => __('Data successfully deleted.')
-            ]);
-
-        $this->assertDeleted($blogPost);
-    }
+		];
+	}
+
+	public function blogPost($data = [])
+	{
+		return Post::factory()
+			->create($data)
+			->each(function ($post) {
+				$post->categories()->save(Category::factory()->make());
+				$post->tags()->createMany(
+					Tag::factory(3)->make()->toArray()
+				);
+			});
+	}
+
+	public function category()
+	{
+		return Category::factory()->create();
+	}
+
+	public function tag()
+	{
+		return Tag::factory()->create();
+	}
+
+	public function testCreateBlogPost()
+	{
+		$this->blogPost($this->dummyContent());
+
+		$this->assertDatabaseCount($this->table, 1)
+			->assertDatabaseHas($this->table, $this->dummyContent());
+	}
+
+	public function testUpdateBlogPost()
+	{
+		$this->blogPost();
+
+		$blogPost = Post::first();
+		$blogPost->fill($this->dummyContent());
+		$blogPost->save();
+
+		$this->assertDatabaseCount($this->table, 1)
+			->assertDatabaseHas($this->table, $this->dummyContent());
+	}
+
+	public function testDeleteBlogPost()
+	{
+		$blogPost = $this->blogPost();
+
+		$blogPost = Post::first();
+		$blogPost->delete();
+
+		$this->assertSoftDeleted($blogPost);
+
+		$blogPost->forceDelete();
+
+		$this->assertDeleted($blogPost);
+	}
+
+	public function testFailedCreateBlogPostFromApi()
+	{
+		(new Auth())->createAuth();
+
+		$response = $this->postJson($this->url);
+
+		$response->assertUnprocessable()
+			->assertInvalid([
+				'title',
+				'content',
+				'image',
+				'blog_category_id',
+				'blog_tag_id'
+			])
+			->assertJson([
+				'success' => false,
+				'message' => trans($this->invalidMessage),
+				'errors' => [
+					'title' => [trans('validation.required', [
+						'attribute' => 'title'
+					])],
+					'content' => [trans('validation.required', [
+						'attribute' => 'content'
+					])],
+					'image' => [trans('validation.required', [
+						'attribute' => 'image'
+					])],
+					'blog_category_id' => [trans('validation.required', [
+						'attribute' => 'category'
+					])],
+					'blog_tag_id' => [trans('validation.required', [
+						'attribute' => 'tag'
+					])]
+				]
+			]);
+	}
+
+	public function testSuccessfullCreateBlogPostFromApi()
+	{
+		(new Auth())->createAuth();
+
+		$this->category();
+		$blogCategory = Category::pluck('id');
+
+		$this->tag();
+		$blogTag = Tag::pluck('id');
+
+		Storage::fake('local');
+		$thumbnail = UploadedFile::fake()->image('thumbnail.png');
+
+		$response = $this->postJson($this->url, [
+			'title' => $this->dummyContent()['title'] . ' test',
+			'content' => $this->dummyContent()['content'],
+			'image' => $thumbnail,
+			'blog_category_id' => $blogCategory,
+			'blog_tag_id' => $blogTag
+		]);
+
+		Storage::disk('local')->assertExists('/public/blog/' . $response['data']['image']);
+
+		$response->assertCreated()
+			->assertValid()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->createdMessage),
+				'data' => [
+					'title' => $this->dummyContent()['title'] . ' test',
+					'slug' => $this->dummyContent()['slug'] . '-test',
+					'content' => $this->dummyContent()['content'],
+				]
+			]);
+
+		$response = $this->postJson($this->url, array_merge($this->dummyContent(), [
+			'image' => $thumbnail,
+			'blog_category_id' => $blogCategory,
+			'blog_tag_id' => $blogTag
+		]));
+
+		Storage::disk('local')->assertExists('/public/blog/' . $response['data']['image']);
+
+		$response->assertCreated()
+			->assertValid()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->createdMessage),
+				'data' => $this->dummyContent()
+			]);
+
+		$response = $this->postJson($this->url, array_merge($this->dummyContent(), [
+			'image' => $thumbnail,
+			'blog_category_id' => $blogCategory,
+			'blog_tag_id' => $blogTag
+		]));
+
+		$this->assertDatabaseCount($this->table, 2);
+
+		$response->assertUnprocessable()
+			->assertInvalid(['title', 'slug'])
+			->assertJson([
+				'success' => false,
+				'message' => trans($this->invalidMessage),
+				'errors' => [
+					'title' => [trans('validation.unique', [
+						'attribute' => 'title'
+					])],
+					'slug' => [trans('validation.unique', [
+						'attribute' => 'slug'
+					])]
+				]
+			]);
+	}
+
+	public function testFailedReadBlogPostFromApi()
+	{
+		(new Auth())->createAuth();
+
+		$uuid = Str::uuid();
+
+		$response = $this->getJson($this->url . '/' . $uuid);
+
+		$response->assertNotFound()
+			->assertJson([
+				'success' => false,
+				'message' => 'No query results for model [App\\Models\\Blog\Post] ' . $uuid
+			]);
+	}
+
+	public function testSuccessfullReadBlogPostFromApi()
+	{
+		(new Auth())->createAuth();
+
+		$this->blogPost($this->dummyContent());
+		$blogPost = Post::first();
+
+		$response = $this->getJson($this->url . '/' . $blogPost->id);
+
+		$response->assertOk()
+			->assertJson([
+				'success' => true,
+				'data' => $this->dummyContent()
+			]);
+	}
+
+	public function testFailedUpdateBlogPostFromApi()
+	{
+		(new Auth())->createAuth();
+
+		$this->blogPost();
+		$blogPost = Post::first();
+
+		$response = $this->putJson($this->url . '/' . $blogPost->id, [
+			'title' => '',
+			'slug' => '',
+			'content' => ''
+		]);
+
+		$response->assertUnprocessable()
+			->assertInvalid(['title'])
+			->assertJson([
+				'success' => false,
+				'message' => trans($this->invalidMessage),
+				'errors' => [
+					'title' => [trans('validation.required', [
+						'attribute' => 'title'
+					])],
+				]
+			]);
+	}
+
+	public function testSuccessfullyUpdateBlogPostFromApi()
+	{
+		(new Auth())->createAuth();
+
+		$this->blogPost();
+		$blogPost = Post::first();
+
+		$this->category();
+		$blogCategory = Category::pluck('id');
+
+		$this->tag();
+		$blogTag = Tag::pluck('id');
+
+		Storage::fake('local');
+		$thumbnail = UploadedFile::fake()->image('thumbnail.png');
+
+		$response = $this->putJson($this->url . '/' . $blogPost->id, array_merge($this->dummyContent(), [
+			'image' => $thumbnail,
+			'blog_category_id' => $blogCategory,
+			'blog_tag_id' => $blogTag
+		]));
+
+		Storage::disk('local')->assertExists('/public/blog/' . $response['data']['image']);
+
+		$response->assertOk()
+			->assertValid()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->updatedMessage),
+				'data' => $this->dummyContent()
+			]);
+	}
+
+	public function testDeleteBlogPostFromApi()
+	{
+		(new Auth())->createAuth();
+
+		$this->blogPost();
+		$blogPost = Post::first();
+
+		$response = $this->deleteJson($this->url, [
+			'selectedData' => [$blogPost->id]
+		]);
+
+		$response->assertOk()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->deletedMessage)
+			]);
+
+		$this->assertSoftDeleted($blogPost);
+	}
+
+	public function testRestoreDeletedBlogPostFromApi()
+	{
+		(new Auth())->createAuth();
+
+		$this->blogPost($this->dummyContent());
+		$blogPost = Post::first();
+
+		$response = $this->deleteJson($this->url, [
+			'selectedData' => [$blogPost->id]
+		]);
+
+		$response->assertOk()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->deletedMessage)
+			]);
+
+		$this->assertSoftDeleted($blogPost);
+
+		$response = $this->postJson($this->url . '/restore', [
+			'selectedData' => [$blogPost->id]
+		]);
+
+		$response->assertOk()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->restoredMessage)
+			]);
+		$this->assertDatabaseCount($this->table, 1);
+	}
+
+	public function testPermanentDeleteBlogPostFromApi()
+	{
+		(new Auth())->createAuth();
+
+		$this->blogPost();
+		$blogPost = Post::first();
+
+		$response = $this->deleteJson($this->url, [
+			'selectedData' => [$blogPost->id],
+			'permanent' => true
+		]);
+
+		$response->assertOk()
+			->assertJson([
+				'success' => true,
+				'message' => trans($this->deletedMessage)
+			]);
+
+		$this->assertDeleted($blogPost);
+	}
 }

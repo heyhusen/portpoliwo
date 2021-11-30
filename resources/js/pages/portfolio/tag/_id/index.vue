@@ -1,84 +1,120 @@
 <template>
-  <div class="box">
-    <ValidationObserver ref="form" v-slot="{ passes }">
-      <form @submit.prevent="passes(onSubmit)">
-        <div class="columns is-multiline">
-          <div class="column is-half-tablet">
-            <FormInput v-model="tag.name" label="Name" name="name" />
-          </div>
-          <div class="column is-half-tablet">
-            <FormInput v-model="tag.slug" label="Slug (Optional)" name="slug" />
-          </div>
-        </div>
-        <hr />
-        <SaveButton />
-      </form>
-    </ValidationObserver>
-  </div>
+	<header class="py-2">
+		<h1 class="font-bold text-2xl sm:text-3xl">Portfolio Tag Detail</h1>
+	</header>
+
+	<section class="flex flex-col sm:flex-row gap-6 md:gap-8">
+		<header class="space-y-1 sm:max-w-2/5">
+			<h3 class="font-medium text-lg">Tag</h3>
+			<small class="text-sm text-gray-500">
+				Edit tag for your portfolio, to make it even more organized than a
+				category.
+			</small>
+		</header>
+
+		<form
+			@submit="onSubmit"
+			class="bg-white rounded-md shadow overflow-hidden flex-1"
+		>
+			<div class="space-y-6 px-4 py-5 sm:p-6">
+				<oc-field
+					label="Name"
+					:variant="nameError ? 'danger' : ''"
+					:message="nameError"
+				>
+					<oc-input v-model="name" name="name" />
+				</oc-field>
+				<oc-field
+					label="Slug (Optional)"
+					:variant="slugError ? 'danger' : ''"
+					:message="slugError"
+				>
+					<oc-input v-model="slug" name="slug" />
+				</oc-field>
+			</div>
+
+			<div class="bg-gray-50 px-4 py-3 sm:px-6 text-right">
+				<oc-button native-type="submit" variant="primary">
+					<div class="inline-flex gap-2 items-center">
+						<o-loading
+							v-model:active="loading"
+							:full-page="false"
+							:overlay="false"
+							root-class="static"
+						/>
+						<span>Save</span>
+					</div>
+				</oc-button>
+			</div>
+		</form>
+	</section>
 </template>
 
-<script>
-import { ValidationObserver } from 'vee-validate'
-import { api } from '@/js/api'
-import pick from 'lodash/pick'
+<script setup>
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { useField, useForm } from 'vee-validate';
+import { useProgrammatic } from '@oruga-ui/oruga-next';
 
+import api from '@/plugins/api';
+import OcField from '@/components/Field.vue';
+import OcInput from '@/components/Input.vue';
+import OcButton from '@/components/Button.vue';
+
+const loading = ref(false);
+const tag = ref({});
+const route = useRoute();
+const { handleSubmit, setErrors } = useForm({ initialValues: tag });
+const { value: name, errorMessage: nameError } = useField('name');
+const { value: slug, errorMessage: slugError } = useField('slug');
+const { oruga } = useProgrammatic();
+
+const fetchData = () => {
+	api
+		.get(`/portfolio/tag/${route.params.id}`)
+		.then(({ data: { data } }) => {
+			const { name, slug } = data;
+			tag.value = { name, slug };
+		})
+		.catch(() => {
+			tag.value = {};
+		});
+};
+fetchData();
+
+const onSubmit = handleSubmit((values) => {
+	loading.value = true;
+	api
+		.put(`/portfolio/tag/${route.params.id}`, values)
+		.then(({ data: success }) => {
+			oruga.notification.open({
+				message: success.message,
+				rootClass: 'rounded-md p-4 text-sm bg-emerald-100 text-success',
+				position: 'top',
+				duration: 3000,
+			});
+			fetchData();
+		})
+		.catch(({ response: { data: failed } }) => {
+			oruga.notification.open({
+				message: failed.message,
+				rootClass: 'rounded-md p-4 text-sm bg-red-100 text-error',
+				position: 'top',
+				duration: 3000,
+			});
+			setErrors(failed.errors);
+		})
+		.finally(() => {
+			loading.value = false;
+		});
+});
+</script>
+
+<script>
 export default {
-  name: 'PortfolioTagDetail',
-  metaInfo: {
-    title: 'Portfolio: Tag Detail',
-  },
-  components: {
-    ValidationObserver,
-    FormInput: () => import('@/js/components/form/Input'),
-    SaveButton: () => import('@/js/components/SaveButton'),
-  },
-  data() {
-    return {
-      tag: {
-        name: '',
-        slug: '',
-      },
-    }
-  },
-  mounted() {
-    this.fetchData()
-  },
-  methods: {
-    async fetchData() {
-      await api
-        .get(`/portfolio/tag/${this.$route.params.id}`)
-        .then(({ data: { data } }) => {
-          this.tag = pick(data, ['name', 'slug'])
-        })
-        .catch(() => {
-          this.tag = {
-            name: '',
-            slug: '',
-          }
-        })
-    },
-    async onSubmit() {
-      await api
-        .put(`/portfolio/tag/${this.$route.params.id}`, this.tag)
-        .then(({ data }) => {
-          if (data.success) {
-            this.$buefy.toast.open({
-              message: data.message,
-              type: 'is-success',
-            })
-          }
-          this.fetchData()
-        })
-        .catch(({ response: { data } }) => {
-          if (data.errors) {
-            this.$refs.form.setErrors(data.errors)
-          }
-          this.$buefy.toast.open({
-            message: data.message,
-            type: 'is-danger',
-          })
-        })
-    },
-  },
-}
+	name: 'PortfolioTagDetail',
+	metaInfo: {
+		title: 'Portfolio: Tag Detail',
+	},
+};
 </script>

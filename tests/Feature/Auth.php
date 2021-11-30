@@ -21,22 +21,12 @@ class Auth extends TestCase
         $this->data = $data;
     }
 
-    /**
-     * Create user with model factory
-     *
-     * @return void
-     */
     public function createUser()
     {
         $user = User::factory()->create($this->data);
         return $user;
     }
 
-    /**
-     * Create auth with Sanctum
-     *
-     * @return void
-     */
     public function createAuth()
     {
         $auth = Sanctum::actingAs($this->createUser($this->data));

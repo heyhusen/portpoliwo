@@ -15,5 +15,5 @@ use Illuminate\Support\Facades\Route;
 
 // SPA
 Route::get('/{any}', function () {
-    return view('layouts.vue');
+    return view('layouts.spa');
 })->where('any', '.*');

@@ -1,9 +1,9 @@
 <template>
-  <router-view />
+	<router-view />
 </template>
 
 <script>
 export default {
-  name: 'BlogCategory',
-}
+	name: 'BlogCategory',
+};
 </script>

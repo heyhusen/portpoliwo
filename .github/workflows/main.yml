@@ -25,11 +25,16 @@ jobs:
           tools: composer
           coverage: none
 
+      - name: Set up pnpm v6
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.x.x
+
       - name: Set up Node
         uses: actions/setup-node@v2
         with:
           node-version: '16'
-          cache: 'yarn'
+          cache: 'pnpm'
 
       - name: Get Composer cache directory
         id: composer-cache
@@ -47,7 +52,7 @@ jobs:
       - name: Install dependencies
         run: |
           composer install --no-interaction --no-progress
-          yarn install --frozen-lockfile
+          pnpm install --frozen-lockfile
 
       - name: Set up database
         run: |
@@ -55,7 +60,7 @@ jobs:
           touch database/database.sqlite
 
       - name: Build front-end
-        run: yarn prod
+        run: pnpm build
 
       - name: Run tests
         run: |

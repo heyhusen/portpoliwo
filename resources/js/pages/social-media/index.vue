@@ -1,97 +1,47 @@
 <template>
-  <div class="box">
-    <AddButton :to="{ name: 'social-media-create' }" />
-    <b-button
-      v-if="checkedRows.length"
-      type="is-danger"
-      size="is-small"
-      icon-left="delete"
-      rounded
-      @click="deleteData"
-    >
-      <span>Delete</span>
-    </b-button>
-    <hr />
-    <b-table
-      :data="data"
-      :loading="loading"
-      :checked-rows.sync="checkedRows"
-      checkable
-      :checkbox-position="checkboxPosition"
-      paginated
-      hoverable
-      scrollable
-      backend-pagination
-      :total="total"
-      :per-page="perPage"
-      aria-next-label="Next page"
-      aria-previous-label="Previous page"
-      aria-page-label="Page"
-      aria-current-label="Current page"
-      backend-sorting
-      :default-sort-direction="defaultSortOrder"
-      :default-sort="[sortField, sortOrder]"
-      @page-change="onPageChange"
-      @sort="onSort"
-    >
-      <template slot="empty">
-        <div class="has-text-centered">Empty</div>
-      </template>
-      <b-table-column
-        v-slot="props"
-        field="created_at"
-        label="Created At"
-        sortable
-        centered
-      >
-        {{
-          props.row.created_at
-            ? new Date(props.row.created_at).toLocaleString()
-            : 'unknown'
-        }}
-      </b-table-column>
+	<header class="py-2">
+		<h1 class="font-bold text-2xl sm:text-3xl">Social Media</h1>
+	</header>
 
-      <b-table-column v-slot="props" field="name" label="Name" sortable>
-        {{ props.row.name }}
-      </b-table-column>
-
-      <b-table-column v-slot="props" field="icon" label="Icon" sortable>
-        <b-icon :icon="props.row.icon"></b-icon>
-      </b-table-column>
-
-      <b-table-column v-slot="props" field="url" label="URL" sortable>
-        <a :href="props.row.url" target="_blank">{{ props.row.url }}</a>
-      </b-table-column>
-
-      <b-table-column v-slot="props" field="action" label="Action">
-        <ActionButton
-          :edit="false"
-          :detail-to="{
-            name: 'social-media-id',
-            params: { id: props.row.id },
-          }"
-        />
-      </b-table-column>
-      <template slot="bottom-left">
-        <b>Total checked</b>: {{ checkedRows.length }}
-      </template>
-    </b-table>
-  </div>
+	<datatable endpoint="social-media">
+		<o-table-column
+			v-slot="{ row: { name } }"
+			field="name"
+			label="Name"
+			sortable
+		>
+			{{ name }}
+		</o-table-column>
+		<o-table-column v-slot="{ row: { icon } }" field="icon" label="Icon">
+			{{ icon }}
+		</o-table-column>
+		<o-table-column v-slot="{ row: { url } }" field="url" label="URL">
+			<a
+				:href="url"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-primary hover:underline"
+			>
+				{{ url }}
+			</a>
+		</o-table-column>
+		<o-table-column v-slot="{ row: { id } }" field="action" label="Action">
+			<router-link :to="{ name: 'social-media-id', params: { id } }">
+				<o-icon icon="eye" root-class="text-gray-500 hover:text-gray-700" />
+			</router-link>
+		</o-table-column>
+	</datatable>
 </template>
 
-<script>
-import { datatableMixin } from '@/js/mixins/datatable'
+<script setup>
+import Datatable from '@/components/Datatable.vue';
+</script>
 
+<script>
 export default {
-  name: 'SocialMediaIndex',
-  metaInfo: {
-    title: 'Social Media',
-  },
-  mixins: [datatableMixin],
-  data() {
-    return {
-      url: 'social-media',
-    }
-  },
-}
+	name: 'SocialMediaIndex',
+	metaInfo: {
+		title: 'Social Media',
+	},
+};
 </script>

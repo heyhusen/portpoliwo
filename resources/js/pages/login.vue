@@ -1,113 +1,106 @@
 <template>
-  <div>
-    <div class="has-background-primary pt-1"></div>
-    <section class="hero is-bold" type="is-light">
-      <div class="hero-body">
-        <div class="container is-fullhd">
-          <div class="columns">
-            <div class="column is-three-fifths is-offset-one-fifth">
-              <div class="box">
-                <div class="columns is-vcentered">
-                  <div class="column is-half has-text-centered">
-                    <router-link :to="{ name: 'index' }" :title="title"
-                      ><h1 class="title is-size-1">{{ title }}</h1></router-link
-                    >
-                  </div>
-                  <div class="column is-half">
-                    <div class="section has-text-centered">
-                      <h1 class="title">Sign in</h1>
-                    </div>
-                    <ValidationObserver ref="form" v-slot="{ passes }">
-                      <form @submit.prevent="passes(onSubmit)">
-                        <div class="columns is-multiline">
-                          <div class="column is-12">
-                            <FormInput
-                              v-model="user.email"
-                              size="is-medium"
-                              label="E-Mail"
-                              name="email"
-                              icon="email"
-                            />
-                          </div>
-                          <div class="column is-12">
-                            <FormInput
-                              v-model="user.password"
-                              size="is-medium"
-                              label="Password"
-                              name="password"
-                              type="password"
-                              icon="lock"
-                            />
-                          </div>
-                          <div class="column is-12">
-                            <b-field>
-                              <b-button
-                                size="is-medium"
-                                type="is-primary"
-                                native-type="submit"
-                                expanded
-                                >Log in</b-button
-                              >
-                            </b-field>
-                          </div>
-                        </div>
-                      </form>
-                    </ValidationObserver>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <Footer />
-  </div>
+	<main class="bg-gray-50 min-h-screen grid place-content-center p-6 lg:py-8">
+		<section class="max-w-md flex flex-col gap-8 items-center">
+			<router-link :to="{ name: 'home' }">
+				<Logo class="text-primary fill-current w-2/3 mx-auto" />
+			</router-link>
+			<h1 class="text-2xl md:text-4xl font-bold">Sign in to your account</h1>
+			<form
+				@submit="onSubmit"
+				class="
+					bg-white
+					p-6
+					shadow
+					rounded-md
+					flex flex-col
+					self-stretch
+					gap-4
+					sm:gap-6
+					md:p-8
+					lg:p-10
+				"
+			>
+				<oc-notification v-if="message" variant="danger">
+					{{ message }}
+				</oc-notification>
+				<oc-field
+					label="E-Mail"
+					:variant="emailError ? 'danger' : ''"
+					:message="emailError"
+				>
+					<oc-input type="email" name="email" v-model="email" />
+				</oc-field>
+				<oc-field
+					label="Password"
+					:variant="passwordError ? 'danger' : ''"
+					:message="passwordError"
+				>
+					<oc-input
+						type="password"
+						name="password"
+						v-model="password"
+						password-reveal
+					/>
+				</oc-field>
+				<oc-button
+					native-type="submit"
+					label="Sign in"
+					variant="primary"
+					class="mt-1 sm:mt-2"
+				/>
+			</form>
+		</section>
+	</main>
 </template>
 
+<script setup>
+import { ref } from 'vue';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
+import {
+	Form as VeeForm,
+	Field as VeeField,
+	useForm,
+	useField,
+} from 'vee-validate';
+
+import Logo from '@/components/Logo.vue';
+import OcField from '@/components/Field.vue';
+import OcInput from '@/components/Input.vue';
+import OcButton from '@/components/Button.vue';
+import OcNotification from '@/components/Notification.vue';
+
+const state = useStore();
+const router = useRouter();
+const message = ref('');
+const { handleSubmit, setErrors } = useForm();
+const { value: email, errorMessage: emailError } = useField('email');
+const { value: password, errorMessage: passwordError } = useField('password');
+
+const onSubmit = handleSubmit((values) => {
+	message.value = '';
+	state
+		.dispatch('auth/logIn', values)
+		.then(() => {
+			router.push({ name: 'home' });
+		})
+		.catch(({ response: { data } }) => {
+			message.value = data.message;
+			setErrors(data.errors);
+		});
+});
+</script>
+
 <script>
-import { mapActions } from 'vuex'
-import store from '@/js/store'
+import { defineComponent } from 'vue';
+import store from '@/store';
 
-export default {
-  name: 'LogIn',
-  metaInfo: {
-    title: 'Log in',
-  },
-  components: {
-    Footer: () => import('@/js/components/themes/Footer'),
-  },
-  data() {
-    return {
-      title: process.env.MIX_APP_NAME,
-      user: {
-        email: '',
-        password: '',
-      },
-    }
-  },
-  methods: {
-    ...mapActions({
-      logIn: 'auth/logIn',
-    }),
-
-    async onSubmit() {
-      try {
-        await this.logIn(this.user)
-        this.$router.push({ name: 'index' })
-      } catch (error) {
-        if (error.response.data.errors) {
-          this.$refs.form.setErrors(error.response.data.errors)
-        }
-      }
-    },
-  },
-  beforeRouteEnter(to, from, next) {
-    if (store.getters['auth/authenticated']) {
-      return next({ name: 'index' })
-    }
-    next()
-  },
-}
+export default defineComponent({
+	name: 'LogIn',
+	beforeRouteEnter() {
+		if (store.getters['auth/authenticated']) {
+			return '/';
+		}
+	},
+});
 </script>

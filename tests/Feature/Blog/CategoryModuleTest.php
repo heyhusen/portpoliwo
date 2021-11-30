@@ -15,11 +15,6 @@ class CategoryModuleTest extends TestCase
     protected $table = 'blog_categories';
     protected $url = '/api/blog/category';
 
-    /**
-     * Create dummy content
-     *
-     * @return void
-     */
     public function dummyContent()
     {
         return [
@@ -30,25 +25,14 @@ class CategoryModuleTest extends TestCase
         ];
     }
 
-    /**
-     * Test creating a record
-     *
-     * @return void
-     */
     public function testCreateBlogCategory()
     {
         Category::factory()->create($this->dummyContent());
 
-        $this
-            ->assertDatabaseCount($this->table, 1)
+        $this->assertDatabaseCount($this->table, 1)
             ->assertDatabaseHas($this->table, $this->dummyContent());
     }
 
-    /**
-     * Test updating a record
-     *
-     * @return void
-     */
     public function testUpdateBlogCategory()
     {
         Category::factory()->create();
@@ -57,16 +41,10 @@ class CategoryModuleTest extends TestCase
         $blogCategory->fill($this->dummyContent());
         $blogCategory->save();
 
-        $this
-            ->assertDatabaseCount($this->table, 1)
+        $this->assertDatabaseCount($this->table, 1)
             ->assertDatabaseHas($this->table, $this->dummyContent());
     }
 
-    /**
-     * Test deleting a record
-     *
-     * @return void
-     */
     public function testDeleteBlogCategory()
     {
         Category::factory()->create();
@@ -77,33 +55,25 @@ class CategoryModuleTest extends TestCase
         $this->assertDeleted($blogCategory);
     }
 
-    /**
-     * Test creating a record through API with validation
-     *
-     * @return void
-     */
     public function testFailedCreateBlogCategoryFromApi()
     {
         (new Auth())->createAuth();
 
         $response = $this->postJson($this->url);
 
-        $response
-            ->assertStatus(422)
+        $response->assertUnprocessable()
+        	->assertInvalid(['title'])
             ->assertJson([
                 'success' => false,
-                'message' => 'The given data was invalid.',
+                'message' => trans($this->invalidMessage),
                 'errors' => [
-                    'title' => ['The title field is required.']
+                    'title' => [trans('validation.required', [
+                    	'attribute' => 'title'
+                    ])]
                 ]
             ]);
     }
 
-    /**
-     * Test creating a record through API
-     *
-     * @return void
-     */
     public function testSuccessfullCreateBlogCategoryFromApi()
     {
         (new Auth())->createAuth();
@@ -112,11 +82,11 @@ class CategoryModuleTest extends TestCase
             'title' => 'Frontend'
         ]);
 
-        $response
-            ->assertCreated()
+        $response->assertCreated()
+        	->assertValid()
             ->assertJson([
                 'success' => true,
-                'message' => 'Data successfully created.',
+                'message' => trans($this->createdMessage),
                 'data' => [
                     'title' => 'Frontend',
                     'slug' => 'frontend'
@@ -125,11 +95,11 @@ class CategoryModuleTest extends TestCase
 
         $response = $this->postJson($this->url, $this->dummyContent());
 
-        $response
-            ->assertCreated()
+        $response->assertCreated()
+        	->assertValid()
             ->assertJson([
                 'success' => true,
-                'message' => 'Data successfully created.',
+                'message' => trans($this->createdMessage),
                 'data' => $this->dummyContent()
             ]);
 
@@ -137,23 +107,22 @@ class CategoryModuleTest extends TestCase
 
         $this->assertDatabaseCount($this->table, 2);
 
-        $response
-            ->assertStatus(422)
+        $response->assertUnprocessable()
+        	->assertInvalid(['title', 'slug'])
             ->assertJson([
                 'success' => false,
-                'message' => 'The given data was invalid.',
+                'message' => trans($this->invalidMessage),
                 'errors' => [
-                    'title' => ['The title has already been taken.'],
-                    'slug' => ['The slug has already been taken.']
+                    'title' => [trans('validation.unique', [
+                    	'attribute' => 'title'
+                    ])],
+                    'slug' => [trans('validation.unique', [
+                    	'attribute' => 'slug'
+                    ])]
                 ]
             ]);
     }
 
-    /**
-     * Test failed reading an existing record through API
-     *
-     * @return void
-     */
     public function testFailedReadBlogCategoryFromApi()
     {
         (new Auth())->createAuth();
@@ -162,19 +131,13 @@ class CategoryModuleTest extends TestCase
 
         $response = $this->getJson($this->url . '/' . $uuid);
 
-        $response
-            ->assertStatus(404)
+        $response->assertNotFound()
             ->assertJson([
                 'success' => false,
                 'message' => 'No query results for model [App\\Models\\Blog\Category] ' . $uuid
             ]);
     }
 
-    /**
-     * Test reading an existing record through API
-     *
-     * @return void
-     */
     public function testSuccessfullReadBlogCategoryFromApi()
     {
         (new Auth())->createAuth();
@@ -184,19 +147,13 @@ class CategoryModuleTest extends TestCase
 
         $response = $this->getJson($this->url . '/' . $blogCategory->id);
 
-        $response
-            ->assertOk()
+        $response->assertOk()
             ->assertJson([
                 'success' => true,
                 'data' => $this->dummyContent()
             ]);
     }
 
-    /**
-     * Test failed updating an existing record through API
-     *
-     * @return void
-     */
     public function testFailedUpdateBlogCategoryFromApi()
     {
         (new Auth())->createAuth();
@@ -210,22 +167,19 @@ class CategoryModuleTest extends TestCase
             'description' => ''
         ]);
 
-        $response
-            ->assertStatus(422)
+        $response->assertUnprocessable()
+        	->assertInvalid(['title'])
             ->assertJson([
                 'success' => false,
-                'message' => 'The given data was invalid.',
+                'message' => trans($this->invalidMessage),
                 'errors' => [
-                    'title' => ['The title field is required.'],
+                    'title' => [trans('validation.required', [
+                    	'attribute' => 'title'
+                    ])],
                 ]
             ]);
     }
 
-    /**
-     * Test successfully updating an existing record through API
-     *
-     * @return void
-     */
     public function testSuccessfullyUpdateBlogCategoryFromApi()
     {
         (new Auth())->createAuth();
@@ -235,20 +189,14 @@ class CategoryModuleTest extends TestCase
 
         $response = $this->putJson($this->url . '/' . $blogCategory->id, $this->dummyContent());
 
-        $response
-            ->assertOk()
+        $response->assertOk()
             ->assertJson([
                 'success' => true,
-                'message' => 'Data successfully updated.',
+                'message' => trans($this->updatedMessage),
                 'data' => $this->dummyContent()
             ]);
     }
 
-    /**
-     * Test delete a record
-     *
-     * @return void
-     */
     public function testDeleteBlogCategoryFromApi()
     {
         (new Auth())->createAuth();
@@ -260,11 +208,10 @@ class CategoryModuleTest extends TestCase
             'selectedData' => [$blogCategory->id]
         ]);
 
-        $response
-            ->assertOk()
+        $response->assertOk()
             ->assertJson([
                 'success' => true,
-                'message' => 'Data successfully deleted.'
+                'message' => trans($this->deletedMessage)
             ]);
 
         $this->assertDeleted($blogCategory);

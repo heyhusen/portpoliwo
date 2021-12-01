@@ -12,8 +12,8 @@
 		</header>
 
 		<form
-			@submit="onSubmit"
 			class="bg-white rounded-md shadow overflow-hidden flex-1"
+			@submit="onSubmit"
 		>
 			<div class="space-y-6 px-4 py-5 sm:p-6">
 				<oc-field

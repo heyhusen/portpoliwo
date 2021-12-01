@@ -47,9 +47,7 @@
 					<o-upload v-model="photo" name="photo" root-class="cursor-pointer">
 						<img
 							:src="
-								photo && photo.type.includes('image')
-									? tempUrl()
-									: work.image
+								photo && photo.type.includes('image') ? tempUrl() : work.image
 							"
 							alt="Photo"
 							class="h-32 w-auto object-cover border border-gray-300 p-1"
@@ -249,27 +247,6 @@ export default {
 	name: 'PortfolioWorkDetail',
 	metaInfo: {
 		title: 'Portfolio: Work Detail',
-	},
-	methods: {
-		async fetchData() {
-			await api
-				.get(`/portfolio/${this.$route.params.id}`)
-				.then(({ data: { data } }) => {
-					this.work = pick(data, ['name', 'description', 'url', 'image']);
-					this.work.category_id = data.categories;
-					this.work.tag_id = data.tags;
-				})
-				.catch(() => {
-					this.work = {
-						name: '',
-						description: '',
-						url: '',
-						photo: null,
-						category_id: [],
-						tag_id: [],
-					};
-				});
-		},
 	},
 };
 </script>

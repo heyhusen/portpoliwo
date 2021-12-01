@@ -12,8 +12,8 @@
 		</header>
 
 		<form
-			@submit="onSubmit"
 			class="flex-1 bg-white rounded-md shadow overflow-hidden"
+			@submit="onSubmit"
 		>
 			<div class="px-4 py-5 sm:p-6 space-y-6">
 				<oc-field
@@ -84,7 +84,7 @@
 </template>
 
 <script setup>
-import { ref, defineComponent } from 'vue';
+import { ref } from 'vue';
 import { useForm, useField } from 'vee-validate';
 import { useProgrammatic } from '@oruga-ui/oruga-next';
 
@@ -153,10 +153,10 @@ const onSubmit = handleSubmit((values) => {
 </script>
 
 <script>
-export default defineComponent({
+export default {
 	name: 'SettingIndex',
 	metaInfo: {
 		title: 'Setting',
 	},
-});
+};
 </script>

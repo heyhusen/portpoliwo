@@ -92,15 +92,14 @@ const onSubmit = handleSubmit((values) => {
 </script>
 
 <script>
-import { defineComponent } from 'vue';
 import store from '@/store';
 
-export default defineComponent({
+export default {
 	name: 'LogIn',
 	beforeRouteEnter() {
 		if (store.getters['auth/authenticated']) {
 			return '/';
 		}
 	},
-});
+};
 </script>

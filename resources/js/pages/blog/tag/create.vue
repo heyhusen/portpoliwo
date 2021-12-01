@@ -7,13 +7,14 @@
 		<header class="space-y-1 sm:max-w-2/5">
 			<h3 class="font-medium text-lg">Tag</h3>
 			<small class="text-sm text-gray-500">
-				Add a tag to your blog post, to make it even more organized than a category.
+				Add a tag to your blog post, to make it even more organized than a
+				category.
 			</small>
 		</header>
 
 		<form
-			@submit="onSubmit"
 			class="bg-white rounded-md shadow overflow-hidden flex-1"
+			@submit="onSubmit"
 		>
 			<div class="space-y-6 px-4 py-5 sm:p-6">
 				<oc-field

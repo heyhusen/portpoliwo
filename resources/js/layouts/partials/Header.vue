@@ -67,25 +67,9 @@
 				>
 					<headless-menu-items
 						as="ul"
-						class="
-							absolute
-							right-0
-							origin-top-right
-							rounded-md
-							ring-1 ring-black ring-opacity-5
-							shadow-lg
-							flex flex-col
-							text-sm
-							bg-white
-							overflow-hidden
-							min-w-36
-							gap-1
-							focus:outline-none
-							p-1
-							z-10
-						"
+						class="absolute right-0 origin-top-right rounded-md ring-1 ring-black ring-opacity-5 shadow-lg flex flex-col text-sm bg-white overflow-hidden min-w-36 gap-1 focus:outline-none p-1 z-10"
 					>
-						<headless-menu-item as="li" v-slot="{ active }">
+						<headless-menu-item v-slot="{ active }" as="li">
 							<router-link
 								:to="{ path: '/setting/profile' }"
 								:class="[
@@ -96,7 +80,7 @@
 								Profile
 							</router-link>
 						</headless-menu-item>
-						<headless-menu-item as="li" v-slot="{ active }">
+						<headless-menu-item v-slot="{ active }" as="li">
 							<router-link
 								:to="{ path: '/setting' }"
 								:class="[
@@ -108,8 +92,8 @@
 							</router-link>
 						</headless-menu-item>
 						<headless-menu-item
-							as="li"
 							v-slot="{ active }"
+							as="li"
 							class="border-t pt-1"
 						>
 							<button
@@ -151,12 +135,4 @@ const store = useStore();
 const user = computed(() => store.getters['auth/user']);
 const { isMobileOpen, isDesktopOpen, mobileToggle, desktopToggle } = useMenu();
 const { signOut } = useSignOut();
-</script>
-
-<script>
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-	name: 'Header',
-});
 </script>

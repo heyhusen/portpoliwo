@@ -12,8 +12,8 @@
 		</header>
 
 		<form
-			@submit="onSubmit"
 			class="bg-white rounded-md shadow overflow-hidden flex-1"
+			@submit="onSubmit"
 		>
 			<div class="space-y-6 px-4 py-5 sm:p-6">
 				<oc-field
@@ -28,7 +28,7 @@
 					:variant="iconError ? 'danger' : ''"
 					:message="iconError"
 				>
-					<oc-select icon-pack="fab" :icon="icon" v-model="icon" name="icon">
+					<oc-select v-model="icon" icon-pack="fab" :icon="icon" name="icon">
 						<option v-for="(item, key) of icons" :key="key" :value="item">
 							{{ item }}
 						</option>

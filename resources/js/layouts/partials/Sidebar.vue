@@ -11,36 +11,10 @@
 		]"
 	>
 		<div
-			class="
-				bg-white
-				text-gray-600
-				sm:border-r
-				px-4
-				py-6
-				flex flex-col
-				gap-6
-				flex-1
-				sm:flex-none sm:min-w-72
-				lg:min-w-64
-				relative
-				h-screen'
-			"
+			class="bg-white text-gray-600 sm:border-r px-4 py-6 flex flex-col gap-6 flex-1 sm:flex-none sm:min-w-72 lg:min-w-64 relative h-screen'"
 		>
 			<button
-				class="
-					absolute
-					right-2
-					top-2
-					z-20
-					rounded-full
-					border
-					p-1
-					focus:outline-none
-					hover:bg-transparent
-					duration-200
-					focus:bg-transparent
-					lg:hidden
-				"
+				class="absolute right-2 top-2 z-20 rounded-full border p-1 focus:outline-none hover:bg-transparent duration-200 focus:bg-transparent lg:hidden"
 				@click="mobileToggle"
 			>
 				<x-icon aria-hidden="true" class="h-7 w-7 stroke-current" />
@@ -62,19 +36,7 @@
 								:default-open="isActive"
 							>
 								<disclosure-button
-									class="
-										appearance-none
-										w-full
-										focus:outline-none
-										flex
-										gap-2
-										items-center
-										py-2
-										px-3
-										hover:bg-indigo-50 hover:text-gray-800
-										rounded-md
-										duration-200
-									"
+									class="appearance-none w-full focus:outline-none flex gap-2 items-center py-2 px-3 hover:bg-indigo-50 hover:text-gray-800 rounded-md duration-200"
 								>
 									<component
 										:is="menu.icon"
@@ -97,15 +59,7 @@
 								>
 									<disclosure-panel
 										as="ul"
-										class="
-											text-sm
-											border-l-2
-											ml-5.5
-											pl-2.5
-											py-1
-											space-y-1
-											border-gray-100
-										"
+										class="text-sm border-l-2 ml-5.5 pl-2.5 py-1 space-y-1 border-gray-100"
 									>
 										<li v-for="(subMenu, subKey) of menu.sub" :key="subKey">
 											<router-link
@@ -119,13 +73,7 @@
 											>
 												<a
 													:href="subHref"
-													class="
-														hover:bg-indigo-50 hover:text-gray-800
-														py-2
-														px-3
-														block
-														rounded-md
-													"
+													class="hover:bg-indigo-50 hover:text-gray-800 py-2 px-3 block rounded-md"
 													:class="{
 														'bg-indigo-100 text-indigo-800 duration-200':
 															subIsActive,
@@ -142,16 +90,7 @@
 							<a
 								v-else
 								:href="href"
-								class="
-									gap-2
-									flex
-									items-center
-									py-2
-									px-3
-									rounded-md
-									hover:bg-indigo-50 hover:text-gray-800
-									duration-200
-								"
+								class="gap-2 flex items-center py-2 px-3 rounded-md hover:bg-indigo-50 hover:text-gray-800 duration-200"
 								:class="{ 'bg-indigo-100 text-indigo-800': isActive }"
 								@click="navigate"
 							>
@@ -167,19 +106,7 @@
 				</ul>
 				<div class="border-t border-gray-200 mt-4 pt-4">
 					<button
-						class="
-							w-full
-							py-2
-							px-3
-							duration-200
-							inline-flex
-							items-center
-							rounded-md
-							appearance-none
-							focus:outline-none
-							gap-1
-							hover:bg-indigo-50 hover:text-gray-800
-						"
+						class="w-full py-2 px-3 duration-200 inline-flex items-center rounded-md appearance-none focus:outline-none gap-1 hover:bg-indigo-50 hover:text-gray-800"
 						@click="signOut"
 					>
 						<logout-icon class="w-6 h-6" />
@@ -189,15 +116,7 @@
 			</nav>
 		</div>
 		<div
-			class="
-				flex-1
-				cursor-pointer
-				bg-gray-500 bg-opacity-75
-				hidden
-				sm:block
-				lg:hidden
-				h-full
-			"
+			class="flex-1 cursor-pointer bg-gray-500 bg-opacity-75 hidden sm:block lg:hidden h-full"
 			@click="mobileToggle"
 		></div>
 	</div>

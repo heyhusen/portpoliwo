@@ -30,7 +30,12 @@
 				</div>
 				<div v-else class="bg-white rounded-lg shadow overflow-hidden">
 					<div class="flex p-4 gap-4 items-center">
-							<o-skeleton height="56px" width="56px" root-class="w-auto rounded-lg overflow-hidden" animated />
+						<o-skeleton
+							height="56px"
+							width="56px"
+							root-class="w-auto rounded-lg overflow-hidden"
+							animated
+						/>
 						<div class="flex-1 space-y-3">
 							<o-skeleton animated />
 							<o-skeleton height="49px" animated />
@@ -67,7 +72,12 @@
 				</div>
 				<div v-else class="bg-white rounded-lg shadow overflow-hidden">
 					<div class="flex p-4 gap-4 items-center">
-							<o-skeleton height="56px" width="56px" root-class="w-auto rounded-lg overflow-hidden" animated />
+						<o-skeleton
+							height="56px"
+							width="56px"
+							root-class="w-auto rounded-lg overflow-hidden"
+							animated
+						/>
 						<div class="flex-1 space-y-3">
 							<o-skeleton animated />
 							<o-skeleton height="49px" animated />
@@ -104,7 +114,12 @@
 				</div>
 				<div v-else class="bg-white rounded-lg shadow overflow-hidden">
 					<div class="flex p-4 gap-4 items-center">
-							<o-skeleton height="56px" width="56px" root-class="w-auto rounded-lg overflow-hidden" animated />
+						<o-skeleton
+							height="56px"
+							width="56px"
+							root-class="w-auto rounded-lg overflow-hidden"
+							animated
+						/>
 						<div class="flex-1 space-y-3">
 							<o-skeleton animated />
 							<o-skeleton height="49px" animated />
@@ -139,12 +154,10 @@ api.get(`/`).then(({ data: { data: dashboard } }) => {
 </script>
 
 <script>
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-	name: 'Home',
+export default {
+	name: 'HomePage',
 	metaInfo: {
 		title: 'Home',
 	},
-});
+};
 </script>

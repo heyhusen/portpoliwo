@@ -11,18 +11,7 @@
 			</p>
 		</header>
 		<div
-			class="
-				space-y-6
-				md:space-y-8
-				flex-1
-				px-4
-				py-5
-				sm:p-6
-				bg-white
-				rounded-md
-				shadow
-				overflow-hidden
-			"
+			class="space-y-6 md:space-y-8 flex-1 px-4 py-5 sm:p-6 bg-white rounded-md shadow overflow-hidden"
 		>
 			<form @submit="onSubmit">
 				<oc-field
@@ -45,8 +34,10 @@
 				</oc-field>
 			</form>
 			<div v-if="createdToken" class="space-y-2">
-				<p>Make sure to copy your new API token now. You won’t be able to see it
-				again!</p>
+				<p>
+					Make sure to copy your new API token now. You won’t be able to see it
+					again!
+				</p>
 				<oc-notification variant="info" :closable="false">
 					{{ createdToken }}
 				</oc-notification>
@@ -62,17 +53,7 @@
 			</p>
 		</header>
 		<div
-			class="
-				space-y-6
-				flex-1
-				px-4
-				py-5
-				sm:p-6
-				bg-white
-				rounded-md
-				shadow
-				overflow-hidden
-			"
+			class="space-y-6 flex-1 px-4 py-5 sm:p-6 bg-white rounded-md shadow overflow-hidden"
 		>
 			<p v-if="tokens.length < 1" class="text-center">No API token yet.</p>
 			<ul v-else class="divide-y divide-gray-100">

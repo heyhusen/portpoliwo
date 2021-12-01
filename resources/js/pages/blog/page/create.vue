@@ -12,8 +12,8 @@
 		</header>
 
 		<form
-			@submit="onSubmit"
 			class="bg-white rounded-md shadow overflow-hidden flex-1"
+			@submit="onSubmit"
 		>
 			<div class="space-y-6 px-4 py-5 sm:p-6">
 				<oc-field
@@ -52,17 +52,7 @@
 						/>
 						<div
 							v-else
-							class="
-								block
-								border-2 border-dashed
-								rounded-md
-								p-8
-								border-gray-300
-								flex flex-col
-								gap-1
-								sm:px-12
-								items-center
-							"
+							class="block border-2 border-dashed rounded-md p-8 border-gray-300 flex flex-col gap-1 sm:px-12 items-center"
 						>
 							<photograph-icon class="w-12 h-12 text-gray-500" />
 							<p class="text-sm">Upload a file or drag and drop</p>

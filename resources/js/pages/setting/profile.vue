@@ -12,8 +12,8 @@
 		</header>
 
 		<form
-			@submit="onSubmit"
 			class="flex-1 bg-white rounded-md shadow overflow-hidden"
+			@submit="onSubmit"
 		>
 			<div class="px-4 py-5 sm:p-6 space-y-6">
 				<oc-field
@@ -172,12 +172,10 @@ const tempUrl = () => {
 </script>
 
 <script>
-import { defineComponent } from 'vue';
-
-export default defineComponent({
+export default {
 	name: 'SettingProfile',
 	metaInfo: {
 		title: 'My Account',
 	},
-});
+};
 </script>

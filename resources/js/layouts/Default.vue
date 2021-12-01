@@ -10,16 +10,7 @@
 				<img
 					:src="user.avatar"
 					:alt="user.name"
-					class="
-						rounded-full
-						w-14
-						sm:w-16
-						md:w-20
-						h-14
-						sm:h-16
-						md:h-20
-						object-cover
-					"
+					class="rounded-full w-14 sm:w-16 md:w-20 h-14 sm:h-16 md:h-20 object-cover"
 				/>
 				<div>
 					<h1 class="text-xl sm:text-2xl md:text-3xl">
@@ -58,9 +49,7 @@ const user = computed(() => store.getters['auth/user']);
 </script>
 
 <script>
-import { defineComponent } from 'vue';
-
-export default defineComponent({
+export default {
 	name: 'Layout',
-});
+};
 </script>

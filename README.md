@@ -2,6 +2,8 @@
 
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/hapakaien/portpoliwo/CI?label=CI&style=flat-square)](https://github.com/hapakaien/portpoliwo/actions) ![GitHub](https://img.shields.io/github/license/hapakaien/portpoliwo?style=flat-square)
 
+![Screenshot](screenshot.png)
+
 Portpoliwo is a simple headless CMS for personal portfolio site. This project
 uses [Laravel](https://github.com/laravel/laravel "Laravel") as back-end, and
 [Vue.js](https://github.com/vuejs/vue "Vue.js") as SPA (front-end).  
@@ -11,7 +13,7 @@ Here are some of the features it includes:
 - Using Redis as session and cache driver
 - Storage flexibility with S3-compatible object storage
 - Replaced Laravel Mix with Vite for faster development
-- Lightweight interface with Headless UI, Oruga UI and Windi CSS
+- Lightweight interface with Headless UI, Oruga UI, Tiptap and Windi CSS
 - Good app performance with SVG icons from Heroicons and FontAwesome
 
 ## Motivation

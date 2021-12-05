@@ -31,7 +31,7 @@
 		"@headlessui/vue": "1.4.2",
 		"@heroicons/vue": "1.0.5",
 		"@oruga-ui/oruga-next": "0.4.8",
-		"@tiptap/starter-kit": "2.0.0-beta.150",
+		"@tiptap/starter-kit": "2.0.0-beta.152",
 		"@tiptap/vue-3": "2.0.0-beta.82",
 		"@vee-validate/rules": "4.5.6",
 		"axios": "0.24.0",

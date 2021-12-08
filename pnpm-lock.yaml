@@ -10,7 +10,7 @@ specifiers:
   '@oruga-ui/oruga-next': 0.4.8
   '@tiptap/starter-kit': 2.0.0-beta.153
   '@tiptap/vue-3': 2.0.0-beta.82
-  '@vee-validate/rules': 4.5.6
+  '@vee-validate/rules': 4.5.7
   '@vitejs/plugin-vue': 1.10.2
   axios: 0.24.0
   daisyui: 1.16.2
@@ -43,7 +43,7 @@ dependencies:
   '@oruga-ui/oruga-next': 0.4.8_vue@3.2.24
   '@tiptap/starter-kit': 2.0.0-beta.153
   '@tiptap/vue-3': 2.0.0-beta.82_vue@3.2.24
-  '@vee-validate/rules': 4.5.6
+  '@vee-validate/rules': 4.5.7
   axios: 0.24.0
   object-to-formdata: 4.2.2
   redaxios: 0.4.1
@@ -517,8 +517,8 @@ packages:
     resolution: {integrity: sha512-5eQEtSCoESnh2FsiLTxE121IiE60hnMqcb435fShf4bpLRjEu1Eoekht23y6zXS9Ts3l+Szu3TARnTsA0GkOkQ==}
     dev: true
 
-  /@vee-validate/rules/4.5.6:
-    resolution: {integrity: sha512-bi9rytxS8mtYyqrodZmg4SEkqmEKLhD9G0Qxh1iekbbu5YBuu53Mq/6h8Zqjc/ZJZuR+bG12OAX7m3qG6rQutg==}
+  /@vee-validate/rules/4.5.7:
+    resolution: {integrity: sha512-8Q89wiOJ7cdYDOHTBAWr0/CyLvqPtTTxMieEhYFiL//PpkrsmCPuad1wziz1tck2U15J0IXA01/lwrq/J3VD7g==}
     dev: false
 
   /@vitejs/plugin-vue/1.10.2_vite@2.7.1:

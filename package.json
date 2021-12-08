@@ -33,7 +33,7 @@
 		"@oruga-ui/oruga-next": "0.4.8",
 		"@tiptap/starter-kit": "2.0.0-beta.153",
 		"@tiptap/vue-3": "2.0.0-beta.82",
-		"@vee-validate/rules": "4.5.6",
+		"@vee-validate/rules": "4.5.7",
 		"axios": "0.24.0",
 		"object-to-formdata": "4.2.2",
 		"redaxios": "0.4.1",

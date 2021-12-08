@@ -26,7 +26,7 @@ specifiers:
   redaxios: 0.4.1
   sass: 1.44.0
   vee-validate: 4.5.6
-  vite: 2.7.0
+  vite: 2.7.1
   vite-plugin-windicss: 1.5.4
   vue: 3.2.24
   vue-router: 4.0.12
@@ -53,7 +53,7 @@ dependencies:
   vuex: 4.0.2_vue@3.2.24
 
 devDependencies:
-  '@vitejs/plugin-vue': 1.10.2_vite@2.7.0
+  '@vitejs/plugin-vue': 1.10.2_vite@2.7.1
   daisyui: 1.16.2
   eslint: 8.4.1
   eslint-config-airbnb-base: 15.0.0_581d2b6245defd0595f2dd29dbf58da2
@@ -64,8 +64,8 @@ devDependencies:
   npm-run-all: 4.1.5
   prettier: 2.5.1
   sass: 1.44.0
-  vite: 2.7.0_sass@1.44.0
-  vite-plugin-windicss: 1.5.4_vite@2.7.0
+  vite: 2.7.1_sass@1.44.0
+  vite-plugin-windicss: 1.5.4_vite@2.7.1
   windicss: 3.2.1
 
 packages:
@@ -521,13 +521,13 @@ packages:
     resolution: {integrity: sha512-bi9rytxS8mtYyqrodZmg4SEkqmEKLhD9G0Qxh1iekbbu5YBuu53Mq/6h8Zqjc/ZJZuR+bG12OAX7m3qG6rQutg==}
     dev: false
 
-  /@vitejs/plugin-vue/1.10.2_vite@2.7.0:
+  /@vitejs/plugin-vue/1.10.2_vite@2.7.1:
     resolution: {integrity: sha512-/QJ0Z9qfhAFtKRY+r57ziY4BSbGUTGsPRMpB/Ron3QPwBZM4OZAZHdTa4a8PafCwU5DTatXG8TMDoP8z+oDqJw==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       vite: ^2.5.10
     dependencies:
-      vite: 2.7.0_sass@1.44.0
+      vite: 2.7.1_sass@1.44.0
     dev: true
 
   /@vue/compiler-core/3.2.24:
@@ -2391,7 +2391,7 @@ packages:
       vue: 3.2.24
     dev: false
 
-  /vite-plugin-windicss/1.5.4_vite@2.7.0:
+  /vite-plugin-windicss/1.5.4_vite@2.7.1:
     resolution: {integrity: sha512-bG2IERA9J50MGq1QEbGC/PjrkVIaq2b3LilCeidyIpmFV/4aR14/wGDe83SobF+8coIeJ+23S0uDK/fXX5X0pQ==}
     peerDependencies:
       vite: ^2.0.1
@@ -2399,14 +2399,14 @@ packages:
       '@windicss/plugin-utils': 1.5.4
       debug: 4.3.3
       kolorist: 1.5.0
-      vite: 2.7.0_sass@1.44.0
+      vite: 2.7.1_sass@1.44.0
       windicss: 3.2.1
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /vite/2.7.0_sass@1.44.0:
-    resolution: {integrity: sha512-ZM629j9n6f1Gcr2KsfpLhJ0FRkift4SsTLSvExmNpGJYzyi1JyLOFybz85ShqFP5f4oCfJSblWAma9X8lZg/vA==}
+  /vite/2.7.1_sass@1.44.0:
+    resolution: {integrity: sha512-TDXXhcu5lyQ6uosK4ZWaOyB4VzOiizk0biitRzDzaEtgSUi8rVYPc4k1xgOjLSf0OuceDJmojFKXHOX9DB1WuQ==}
     engines: {node: '>=12.2.0'}
     hasBin: true
     peerDependencies:

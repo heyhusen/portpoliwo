@@ -9,7 +9,7 @@ specifiers:
   '@heroicons/vue': 1.0.5
   '@oruga-ui/oruga-next': 0.4.8
   '@tiptap/starter-kit': 2.0.0-beta.155
-  '@tiptap/vue-3': 2.0.0-beta.82
+  '@tiptap/vue-3': 2.0.0-beta.83
   '@vee-validate/rules': 4.5.7
   '@vitejs/plugin-vue': 1.10.2
   axios: 0.24.0
@@ -42,7 +42,7 @@ dependencies:
   '@heroicons/vue': 1.0.5_vue@3.2.24
   '@oruga-ui/oruga-next': 0.4.8_vue@3.2.24
   '@tiptap/starter-kit': 2.0.0-beta.155
-  '@tiptap/vue-3': 2.0.0-beta.82_vue@3.2.24
+  '@tiptap/vue-3': 2.0.0-beta.83_vue@3.2.24
   '@vee-validate/rules': 4.5.7
   axios: 0.24.0
   object-to-formdata: 4.2.2
@@ -419,8 +419,8 @@ packages:
       '@tiptap/extension-text': 2.0.0-beta.15_@tiptap+core@2.0.0-beta.152
     dev: false
 
-  /@tiptap/vue-3/2.0.0-beta.82_vue@3.2.24:
-    resolution: {integrity: sha512-pAtsPXl9++MwR0ssmhqvALrQlJLGvM+c8QDJt/wkd5ygO0YuX5EroAVKtNU+C96kPusld9dYXprhKVPsyOpMPw==}
+  /@tiptap/vue-3/2.0.0-beta.83_vue@3.2.24:
+    resolution: {integrity: sha512-Fbh07jR3I2Ui6ZfmFiJn7WpeqHvnKEmCLsJiFmXYisdczD6GMbjfRNKZjw5MFk+lqnvzhytc4N93B/5PUiWbbQ==}
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
       vue: ^3.0.0

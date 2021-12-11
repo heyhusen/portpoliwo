@@ -9,7 +9,6 @@
 	},
 	"devDependencies": {
 		"@vitejs/plugin-vue": "1.10.2",
-		"daisyui": "1.16.4",
 		"eslint": "8.4.1",
 		"eslint-config-airbnb-base": "15.0.0",
 		"eslint-config-prettier": "8.3.0",
@@ -36,7 +35,6 @@
 		"@vee-validate/rules": "4.5.7",
 		"axios": "0.24.0",
 		"object-to-formdata": "4.2.2",
-		"redaxios": "0.4.1",
 		"vee-validate": "4.5.7",
 		"vue": "3.2.24",
 		"vue-router": "4.0.12",

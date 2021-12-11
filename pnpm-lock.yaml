@@ -13,7 +13,6 @@ specifiers:
   '@vee-validate/rules': 4.5.7
   '@vitejs/plugin-vue': 1.10.2
   axios: 0.24.0
-  daisyui: 1.16.4
   eslint: 8.4.1
   eslint-config-airbnb-base: 15.0.0
   eslint-config-prettier: 8.3.0
@@ -23,7 +22,6 @@ specifiers:
   npm-run-all: 4.1.5
   object-to-formdata: 4.2.2
   prettier: 2.5.1
-  redaxios: 0.4.1
   sass: 1.45.0
   vee-validate: 4.5.7
   vite: 2.7.1
@@ -46,7 +44,6 @@ dependencies:
   '@vee-validate/rules': 4.5.7
   axios: 0.24.0
   object-to-formdata: 4.2.2
-  redaxios: 0.4.1
   vee-validate: 4.5.7_vue@3.2.24
   vue: 3.2.24
   vue-router: 4.0.12_vue@3.2.24
@@ -54,7 +51,6 @@ dependencies:
 
 devDependencies:
   '@vitejs/plugin-vue': 1.10.2_vite@2.7.1
-  daisyui: 1.16.4
   eslint: 8.4.1
   eslint-config-airbnb-base: 15.0.0_581d2b6245defd0595f2dd29dbf58da2
   eslint-config-prettier: 8.3.0_eslint@8.4.1
@@ -847,10 +843,6 @@ packages:
   /csstype/2.6.18:
     resolution: {integrity: sha512-RSU6Hyeg14am3Ah4VZEmeX8H7kLwEEirXe6aU2IPfKNvhXwTflK5HQRDNI0ypQXoqmm+QPyG2IaPuQE5zMwSIQ==}
     dev: false
-
-  /daisyui/1.16.4:
-    resolution: {integrity: sha512-bpPUlIR6PJdnaM+Vj+Rd0ljMwbdwjvFAW9E/bhxCRDEU48OnmpKQxnkwNGAtXbwWWATS6I1dEIlLdM8zCbV3uQ==}
-    dev: true
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -2115,10 +2107,6 @@ packages:
     dependencies:
       picomatch: 2.3.0
     dev: true
-
-  /redaxios/0.4.1:
-    resolution: {integrity: sha512-+Jhh1j8/H0KBro+Hih/MrDEJ1PICaU10JA6iu5b3+uvgRI+5n2M7qpMNXq7eC/0fspP0tTq49ONXlGWFdRoNLg==}
-    dev: false
 
   /regexpp/3.2.0:
     resolution: {integrity: sha512-pq2bWo9mVD43nbts2wGv17XLiNLya+GklZ8kaDLV2Z08gDCsGpnKn9BFMepvWuHCbyVvY7J5o5+BVvoQbmlJLg==}

@@ -13,7 +13,7 @@ specifiers:
   '@vee-validate/rules': 4.5.7
   '@vitejs/plugin-vue': 1.10.2
   axios: 0.24.0
-  daisyui: 1.16.2
+  daisyui: 1.16.4
   eslint: 8.4.1
   eslint-config-airbnb-base: 15.0.0
   eslint-config-prettier: 8.3.0
@@ -54,7 +54,7 @@ dependencies:
 
 devDependencies:
   '@vitejs/plugin-vue': 1.10.2_vite@2.7.1
-  daisyui: 1.16.2
+  daisyui: 1.16.4
   eslint: 8.4.1
   eslint-config-airbnb-base: 15.0.0_581d2b6245defd0595f2dd29dbf58da2
   eslint-config-prettier: 8.3.0_eslint@8.4.1
@@ -848,8 +848,8 @@ packages:
     resolution: {integrity: sha512-RSU6Hyeg14am3Ah4VZEmeX8H7kLwEEirXe6aU2IPfKNvhXwTflK5HQRDNI0ypQXoqmm+QPyG2IaPuQE5zMwSIQ==}
     dev: false
 
-  /daisyui/1.16.2:
-    resolution: {integrity: sha512-kHoTvq3/eU8tPbu3U3Nwq7yy0I5zauqAYRSvw1x+t8g9FBjFm3jNtUQO/vBjUZsU7ABIf5aaT58iBF2NeusCUA==}
+  /daisyui/1.16.4:
+    resolution: {integrity: sha512-bpPUlIR6PJdnaM+Vj+Rd0ljMwbdwjvFAW9E/bhxCRDEU48OnmpKQxnkwNGAtXbwWWATS6I1dEIlLdM8zCbV3uQ==}
     dev: true
 
   /debug/2.6.9:

@@ -9,7 +9,7 @@
 	},
 	"devDependencies": {
 		"@vitejs/plugin-vue": "1.10.2",
-		"daisyui": "1.16.2",
+		"daisyui": "1.16.4",
 		"eslint": "8.4.1",
 		"eslint-config-airbnb-base": "15.0.0",
 		"eslint-config-prettier": "8.3.0",

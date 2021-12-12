@@ -36,7 +36,7 @@
 		"axios": "0.24.0",
 		"object-to-formdata": "4.2.2",
 		"vee-validate": "4.5.7",
-		"vue": "3.2.24",
+		"vue": "3.2.26",
 		"vue-router": "4.0.12",
 		"vuex": "4.0.2"
 	}

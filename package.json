@@ -18,7 +18,7 @@
 		"npm-run-all": "4.1.5",
 		"prettier": "2.5.1",
 		"sass": "1.45.1",
-		"vite": "2.7.6",
+		"vite": "2.7.7",
 		"vite-plugin-windicss": "1.6.1",
 		"windicss": "3.4.0"
 	},

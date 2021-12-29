@@ -29,7 +29,7 @@ specifiers:
   vue: 3.2.26
   vue-router: 4.0.12
   vuex: 4.0.2
-  windicss: 3.4.1
+  windicss: 3.4.2
 
 dependencies:
   '@fortawesome/fontawesome-svg-core': 1.2.36
@@ -62,7 +62,7 @@ devDependencies:
   sass: 1.45.1
   vite: 2.7.9_sass@1.45.1
   vite-plugin-windicss: 1.6.1_vite@2.7.9
-  windicss: 3.4.1
+  windicss: 3.4.2
 
 packages:
 
@@ -620,7 +620,7 @@ packages:
     dependencies:
       debug: 4.3.3
       jiti: 1.12.9
-      windicss: 3.4.1
+      windicss: 3.4.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -634,7 +634,7 @@ packages:
       fast-glob: 3.2.7
       magic-string: 0.25.7
       micromatch: 4.0.4
-      windicss: 3.4.1
+      windicss: 3.4.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2391,7 +2391,7 @@ packages:
       debug: 4.3.3
       kolorist: 1.5.1
       vite: 2.7.9_sass@1.45.1
-      windicss: 3.4.1
+      windicss: 3.4.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2496,8 +2496,8 @@ packages:
       isexe: 2.0.0
     dev: true
 
-  /windicss/3.4.1:
-    resolution: {integrity: sha512-g6mX0q8divtPT+TSWqvI35lc77pOhGwMrwCdcX48dFA16wUlSDn1kOv5z1msZy3SlWLx3Bjbe7FA6uNTvdVH8A==}
+  /windicss/3.4.2:
+    resolution: {integrity: sha512-YieqWaXiwPu0JJoB7z03RXdjZjQQJtMZAeXUXu/j3JXSMhIgV/2rUXu4Q7QrworRlbaASZlFhxjnL/78aAty+Q==}
     engines: {node: '>= 12'}
     hasBin: true
     dev: true

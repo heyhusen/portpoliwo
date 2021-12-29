@@ -20,7 +20,7 @@
 		"sass": "1.45.1",
 		"vite": "2.7.9",
 		"vite-plugin-windicss": "1.6.1",
-		"windicss": "3.4.1"
+		"windicss": "3.4.2"
 	},
 	"dependencies": {
 		"@fortawesome/fontawesome-svg-core": "1.2.36",

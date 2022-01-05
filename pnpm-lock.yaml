@@ -8,7 +8,7 @@ specifiers:
   '@headlessui/vue': 1.4.2
   '@heroicons/vue': 1.0.5
   '@oruga-ui/oruga-next': 0.4.8
-  '@tiptap/starter-kit': 2.0.0-beta.165
+  '@tiptap/starter-kit': 2.0.0-beta.168
   '@tiptap/vue-3': 2.0.0-beta.86
   '@vee-validate/rules': 4.5.7
   '@vitejs/plugin-vue': 2.0.1
@@ -39,7 +39,7 @@ dependencies:
   '@headlessui/vue': 1.4.2_vue@3.2.26
   '@heroicons/vue': 1.0.5_vue@3.2.26
   '@oruga-ui/oruga-next': 0.4.8_vue@3.2.26
-  '@tiptap/starter-kit': 2.0.0-beta.165
+  '@tiptap/starter-kit': 2.0.0-beta.168
   '@tiptap/vue-3': 2.0.0-beta.86_vue@3.2.26
   '@vee-validate/rules': 4.5.7
   axios: 0.24.0
@@ -253,8 +253,8 @@ packages:
       '@tiptap/core': 2.0.0-beta.160
     dev: false
 
-  /@tiptap/extension-code-block/2.0.0-beta.33_@tiptap+core@2.0.0-beta.160:
-    resolution: {integrity: sha512-zKiGxbbnZJrKXr0DtBd0B7yXvY3wRk5Y5BsJqe0ZsyXR8lCEY4+DcOPpr6dja2gpgQIB9+vtqZvgBfnnUXXTcw==}
+  /@tiptap/extension-code-block/2.0.0-beta.35_@tiptap+core@2.0.0-beta.160:
+    resolution: {integrity: sha512-8SIP45Bl/mii3mdRdVPCF3yJGU37Nt2EJiU9eyfTzQSMbaf9Vf1Kop39tjKdbjTrsZ3W7Lnycj+q4x18Zusb6Q==}
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
@@ -316,8 +316,8 @@ packages:
       '@tiptap/core': 2.0.0-beta.160
     dev: false
 
-  /@tiptap/extension-heading/2.0.0-beta.24_@tiptap+core@2.0.0-beta.160:
-    resolution: {integrity: sha512-5a3vgdO7Cf2+z7sulCGs/1j23gBcKiZe3pA1FrC5h6blwLu86hA1xnMAVBVNilP9b6c9f3lN9yxMzEWsp6ZEkA==}
+  /@tiptap/extension-heading/2.0.0-beta.25_@tiptap+core@2.0.0-beta.160:
+    resolution: {integrity: sha512-7cK2gB3eqb7U0KmpWIPT7tsHGuVeFk4q1q/V6q91NTtZ4HdOMAyFuYTZu1iXufKyoEXTftByE85EYsfJGeGiRQ==}
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
@@ -391,20 +391,20 @@ packages:
       '@tiptap/core': 2.0.0-beta.160
     dev: false
 
-  /@tiptap/starter-kit/2.0.0-beta.165:
-    resolution: {integrity: sha512-nCXvLY9O/fwudJSs2rVgN2dCQNYqHDZagSIF+6D6TGu/nFxYeGlie3f6Zd4MdJgNu+NheRqGpaXBycfm1/M5bA==}
+  /@tiptap/starter-kit/2.0.0-beta.168:
+    resolution: {integrity: sha512-qBIWGIkHUNfGRej46BuFLoOxmzgXLQKkhxVcsRpMbmJWhnvKZ4zqanMbSWefo5NvHa6jCYfayBbWs30At5Dbwg==}
     dependencies:
       '@tiptap/core': 2.0.0-beta.160
       '@tiptap/extension-blockquote': 2.0.0-beta.26_@tiptap+core@2.0.0-beta.160
       '@tiptap/extension-bold': 2.0.0-beta.25_@tiptap+core@2.0.0-beta.160
       '@tiptap/extension-bullet-list': 2.0.0-beta.26_@tiptap+core@2.0.0-beta.160
       '@tiptap/extension-code': 2.0.0-beta.26_@tiptap+core@2.0.0-beta.160
-      '@tiptap/extension-code-block': 2.0.0-beta.33_@tiptap+core@2.0.0-beta.160
+      '@tiptap/extension-code-block': 2.0.0-beta.35_@tiptap+core@2.0.0-beta.160
       '@tiptap/extension-document': 2.0.0-beta.15_@tiptap+core@2.0.0-beta.160
       '@tiptap/extension-dropcursor': 2.0.0-beta.25_@tiptap+core@2.0.0-beta.160
       '@tiptap/extension-gapcursor': 2.0.0-beta.34_@tiptap+core@2.0.0-beta.160
       '@tiptap/extension-hard-break': 2.0.0-beta.30_@tiptap+core@2.0.0-beta.160
-      '@tiptap/extension-heading': 2.0.0-beta.24_@tiptap+core@2.0.0-beta.160
+      '@tiptap/extension-heading': 2.0.0-beta.25_@tiptap+core@2.0.0-beta.160
       '@tiptap/extension-history': 2.0.0-beta.21_@tiptap+core@2.0.0-beta.160
       '@tiptap/extension-horizontal-rule': 2.0.0-beta.30_@tiptap+core@2.0.0-beta.160
       '@tiptap/extension-italic': 2.0.0-beta.25_@tiptap+core@2.0.0-beta.160

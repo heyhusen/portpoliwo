@@ -31,7 +31,7 @@
 		"@heroicons/vue": "1.0.5",
 		"@oruga-ui/oruga-next": "0.4.8",
 		"@tiptap/starter-kit": "2.0.0-beta.165",
-		"@tiptap/vue-3": "2.0.0-beta.85",
+		"@tiptap/vue-3": "2.0.0-beta.86",
 		"@vee-validate/rules": "4.5.7",
 		"axios": "0.24.0",
 		"object-to-formdata": "4.4.1",

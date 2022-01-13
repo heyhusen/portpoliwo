@@ -24,7 +24,7 @@ specifiers:
   prettier: 2.5.1
   sass: 1.48.0
   vee-validate: 4.5.7
-  vite: 2.7.10
+  vite: 2.7.11
   vite-plugin-windicss: 1.6.2
   vue: 3.2.26
   vue-router: 4.0.12
@@ -50,7 +50,7 @@ dependencies:
   vuex: 4.0.2_vue@3.2.26
 
 devDependencies:
-  '@vitejs/plugin-vue': 2.0.1_vite@2.7.10+vue@3.2.26
+  '@vitejs/plugin-vue': 2.0.1_vite@2.7.11+vue@3.2.26
   eslint: 8.6.0
   eslint-config-airbnb-base: 15.0.0_b5a36b8c1535387c8dd00eff7ec6b551
   eslint-config-prettier: 8.3.0_eslint@8.6.0
@@ -60,8 +60,8 @@ devDependencies:
   npm-run-all: 4.1.5
   prettier: 2.5.1
   sass: 1.48.0
-  vite: 2.7.10_sass@1.48.0
-  vite-plugin-windicss: 1.6.2_vite@2.7.10
+  vite: 2.7.11_sass@1.48.0
+  vite-plugin-windicss: 1.6.2_vite@2.7.11
   windicss: 3.4.2
 
 packages:
@@ -517,14 +517,14 @@ packages:
     resolution: {integrity: sha512-8Q89wiOJ7cdYDOHTBAWr0/CyLvqPtTTxMieEhYFiL//PpkrsmCPuad1wziz1tck2U15J0IXA01/lwrq/J3VD7g==}
     dev: false
 
-  /@vitejs/plugin-vue/2.0.1_vite@2.7.10+vue@3.2.26:
+  /@vitejs/plugin-vue/2.0.1_vite@2.7.11+vue@3.2.26:
     resolution: {integrity: sha512-wtdMnGVvys9K8tg+DxowU1ytTrdVveXr3LzdhaKakysgGXyrsfaeds2cDywtvujEASjWOwWL/OgWM+qoeM8Plg==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       vite: ^2.5.10
       vue: ^3.2.25
     dependencies:
-      vite: 2.7.10_sass@1.48.0
+      vite: 2.7.11_sass@1.48.0
       vue: 3.2.26
     dev: true
 
@@ -2374,7 +2374,7 @@ packages:
       vue: 3.2.26
     dev: false
 
-  /vite-plugin-windicss/1.6.2_vite@2.7.10:
+  /vite-plugin-windicss/1.6.2_vite@2.7.11:
     resolution: {integrity: sha512-JFZmWo2XumDIoOk6wOW7RugVFpq0ACJ7DRT0dPi8KJ0fCNyYF+Wu6xyig7/QOQEAfoMbYxnVeU3CWGU4D5PlyA==}
     peerDependencies:
       vite: ^2.0.1
@@ -2382,14 +2382,14 @@ packages:
       '@windicss/plugin-utils': 1.6.2
       debug: 4.3.3
       kolorist: 1.5.1
-      vite: 2.7.10_sass@1.48.0
+      vite: 2.7.11_sass@1.48.0
       windicss: 3.4.2
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /vite/2.7.10_sass@1.48.0:
-    resolution: {integrity: sha512-KEY96ntXUid1/xJihJbgmLZx7QSC2D4Tui0FdS0Old5OokYzFclcofhtxtjDdGOk/fFpPbHv9yw88+rB93Tb8w==}
+  /vite/2.7.11_sass@1.48.0:
+    resolution: {integrity: sha512-W1OVwJmtuxnzt9HwZ1AebVLgvsgNpe4TK/sxvF+1x2y8MRnTEHvaPqxy9A67IYb5BR0Q+nENmLYa3QfESmp5GQ==}
     engines: {node: '>=12.2.0'}
     hasBin: true
     peerDependencies:

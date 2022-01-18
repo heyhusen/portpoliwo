@@ -33,7 +33,7 @@
 		"@tiptap/starter-kit": "2.0.0-beta.171",
 		"@tiptap/vue-3": "2.0.0-beta.88",
 		"@vee-validate/rules": "4.5.7",
-		"axios": "0.24.0",
+		"axios": "0.25.0",
 		"object-to-formdata": "4.4.1",
 		"vee-validate": "4.5.7",
 		"vue": "3.2.27",

@@ -23,7 +23,7 @@ specifiers:
   object-to-formdata: 4.4.1
   prettier: 2.5.1
   sass: 1.49.0
-  vee-validate: 4.5.7
+  vee-validate: 4.5.8
   vite: 2.7.13
   vite-plugin-windicss: 1.6.3
   vue: 3.2.29
@@ -44,7 +44,7 @@ dependencies:
   '@vee-validate/rules': 4.5.7
   axios: 0.25.0
   object-to-formdata: 4.4.1
-  vee-validate: 4.5.7_vue@3.2.29
+  vee-validate: 4.5.8_vue@3.2.29
   vue: 3.2.29
   vue-router: 4.0.12_vue@3.2.29
   vuex: 4.0.2_vue@3.2.29
@@ -2355,8 +2355,8 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /vee-validate/4.5.7_vue@3.2.29:
-    resolution: {integrity: sha512-EcpvOikBP5LlRIKwULfwRDeyIaERuOJztZUPWRmSIeWpeQWD6hs9qQ8A3CmVVteqEohbUM07gV/ea8lPXCfCJQ==}
+  /vee-validate/4.5.8_vue@3.2.29:
+    resolution: {integrity: sha512-XZx2J93rlET49CdIIoxG9R6wQNoT3RxUUw9ar3QbIhczpzbtlm4BQ+TpCA9DoYHKFlApcXnE28WU7m4quoPsCA==}
     peerDependencies:
       vue: ^3.0.0
     dependencies:

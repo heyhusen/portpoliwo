@@ -7,7 +7,7 @@ specifiers:
   '@fortawesome/vue-fontawesome': 3.0.0-5
   '@headlessui/vue': 1.4.3
   '@heroicons/vue': 1.0.5
-  '@oruga-ui/oruga-next': 0.5.2
+  '@oruga-ui/oruga-next': 0.5.3
   '@tiptap/starter-kit': 2.0.0-beta.180
   '@tiptap/vue-3': 2.0.0-beta.90
   '@vee-validate/rules': 4.5.7
@@ -38,7 +38,7 @@ dependencies:
   '@fortawesome/vue-fontawesome': 3.0.0-5_4b3cf360b23a80d0edd7a261c1792cec
   '@headlessui/vue': 1.4.3_vue@3.2.29
   '@heroicons/vue': 1.0.5_vue@3.2.29
-  '@oruga-ui/oruga-next': 0.5.2_vue@3.2.29
+  '@oruga-ui/oruga-next': 0.5.3_vue@3.2.29
   '@tiptap/starter-kit': 2.0.0-beta.180
   '@tiptap/vue-3': 2.0.0-beta.90_vue@3.2.29
   '@vee-validate/rules': 4.5.7
@@ -188,8 +188,8 @@ packages:
       fastq: 1.13.0
     dev: true
 
-  /@oruga-ui/oruga-next/0.5.2_vue@3.2.29:
-    resolution: {integrity: sha512-zvTMMXkBoLqgrNhyuVulEPG31M0jcJ3oM/ZndKbHDMhhNnMmtpSFOAlF3wYHRPsco5ch8pnDe29PDg6cELgKag==}
+  /@oruga-ui/oruga-next/0.5.3_vue@3.2.29:
+    resolution: {integrity: sha512-++WHQDFrsdck/Wey0GWgxs5U6JsRYPkAIvVGlnN+A29u4EcOZphn5l7fc6Tu4LKBduPYQr2122tXuGThCnQ8UA==}
     peerDependencies:
       vue: ^3.0.0
     dependencies:

@@ -152,7 +152,7 @@ class PageModuleTest extends TestCase
 			'image' => $thumbnail
 		]));
 
-		Storage::disk('local')->assertExists('/public/blog/page/' . $response['data']['image']);
+		Storage::assertExists('/public/blog/page/' . $response['data']['image']);
 
 		$response->assertCreated()
 			->assertValid()
@@ -255,7 +255,7 @@ class PageModuleTest extends TestCase
 			'image' => $thumbnail,
 		]));
 
-		Storage::disk('local')->assertExists('/public/blog/page/' . $response['data']['image']);
+		Storage::assertExists('/public/blog/page/' . $response['data']['image']);
 
 		$response->assertOk()
 			->assertValid()

@@ -1,10 +1,9 @@
 version: "3"
 services:
-
   redis:
     image: docker.io/library/redis:6-alpine
     ports:
-      - "127.0.0.1:6379:6379"
+      - "${REDIS_PORT}:${REDIS_PORT}"
     volumes:
       - "redisdata:/data"
     healthcheck:
@@ -15,21 +14,21 @@ services:
   mariadb:
     image: docker.io/jbergstroem/mariadb-alpine
     ports:
-      - "127.0.0.1:3306:3306"
+      - "${DB_PORT}:${DB_PORT}"
     volumes:
       - "mariadbdata:/var/lib/mysql"
     environment:
-      - MYSQL_DATABASE=laravel
-      - MYSQL_ROOT_PASSWORD=secret
+      MYSQL_DATABASE: "${DB_DATABASE}"
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
 
   minio:
     image: docker.io/minio/minio
     ports:
-      - "127.0.0.1:9000:9000"
-      - "127.0.0.1:8900:8900"
+      - "9000:9000"
+      - "8900:8900"
     environment:
-      MINIO_ROOT_USER: "laravel"
-      MINIO_ROOT_PASSWORD: "password"
+      MINIO_ROOT_USER: ${AWS_ACCESS_KEY_ID}
+      MINIO_ROOT_PASSWORD: ${AWS_SECRET_ACCESS_KEY}
     volumes:
       - "miniodata:/data/minio"
     command: minio server /data/minio --console-address ":8900"
@@ -38,11 +37,24 @@ services:
       retries: 3
       timeout: 5s
 
+  minio-client:
+    image: docker.io/minio/mc
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc config host add myminio http://minio:9000 ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY};
+      /usr/bin/mc rm -r --force myminio/local;
+      /usr/bin/mc mb myminio/local;
+      /usr/bin/mc policy set download myminio/local;
+      exit 0;
+      "
+
   mailhog:
     image: mailhog/mailhog:v1.0.0
     ports:
-      - "127.0.0.1:1025:1025"
-      - "127.0.0.1:8025:8025"
+      - "${MAIL_PORT}:${MAIL_PORT}"
+      - "8025:8025"
 
 volumes:
   redisdata:

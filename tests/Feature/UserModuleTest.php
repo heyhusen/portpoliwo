@@ -145,7 +145,7 @@ class UserModuleTest extends TestCase
 			'photo' => $avatar
 		]);
 
-		Storage::disk('local')->assertExists('/public/avatar/' . $response['data']['photo']);
+		Storage::assertExists('/public/avatar/' . $response['data']['photo']);
 
 		$response->assertCreated()
 			->assertValid()
@@ -275,7 +275,7 @@ class UserModuleTest extends TestCase
 			'photo' => $avatar
 		]);
 
-		Storage::disk('local')->assertExists('/public/avatar/' . $response['data']['photo']);
+		Storage::assertExists('/public/avatar/' . $response['data']['photo']);
 
 		$response->assertOk()
 			->assertValid()

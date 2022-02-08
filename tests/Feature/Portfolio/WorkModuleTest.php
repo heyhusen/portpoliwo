@@ -151,7 +151,7 @@ class WorkModuleTest extends TestCase
 			'tag_id' => $portfolioTag
 		]));
 
-		Storage::disk('local')->assertExists('/public/portfolio/' . $response['data']['photo']);
+		Storage::assertExists('/public/portfolio/' . $response['data']['photo']);
 
 		$response->assertCreated()
 			->assertValid()
@@ -261,7 +261,7 @@ class WorkModuleTest extends TestCase
 			'tag_id' => $portfolioTag
 		]));
 
-		Storage::disk('local')->assertExists('/public/portfolio/' . $response['data']['photo']);
+		Storage::assertExists('/public/portfolio/' . $response['data']['photo']);
 
 		$response->assertOk()
 			->assertValid()

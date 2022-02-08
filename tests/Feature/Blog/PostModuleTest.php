@@ -189,7 +189,7 @@ class PostModuleTest extends TestCase
 			'blog_tag_id' => $blogTag
 		]);
 
-		Storage::disk('local')->assertExists('/public/blog/' . $response['data']['image']);
+		Storage::assertExists('/public/blog/' . $response['data']['image']);
 
 		$response->assertCreated()
 			->assertValid()
@@ -209,7 +209,7 @@ class PostModuleTest extends TestCase
 			'blog_tag_id' => $blogTag
 		]));
 
-		Storage::disk('local')->assertExists('/public/blog/' . $response['data']['image']);
+		Storage::assertExists('/public/blog/' . $response['data']['image']);
 
 		$response->assertCreated()
 			->assertValid()
@@ -322,7 +322,7 @@ class PostModuleTest extends TestCase
 			'blog_tag_id' => $blogTag
 		]));
 
-		Storage::disk('local')->assertExists('/public/blog/' . $response['data']['image']);
+		Storage::assertExists('/public/blog/' . $response['data']['image']);
 
 		$response->assertOk()
 			->assertValid()

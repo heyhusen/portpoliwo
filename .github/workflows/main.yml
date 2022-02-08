@@ -10,8 +10,11 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: Build (PHP v${{ matrix.php }})
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['8.0', '8.1']
 
     steps:
       - name: Checkout code
@@ -20,12 +23,12 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.0"
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo
           tools: composer
           coverage: none
 
-      - name: Set up pnpm v6
+      - name: Set up pnpm
         uses: pnpm/action-setup@v2.0.1
         with:
           version: 6.x.x
@@ -33,8 +36,17 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
-          cache: 'pnpm'
+          cache: "pnpm"
+
+      - name: Set up Docker Compose
+        run: docker-compose --env-file .env.testing up -d
+
+      - name: Create Minio bucket
+        run: aws --endpoint-url http://127.0.0.1:9000/ s3 mb s3://local
+        env:
+          AWS_ACCESS_KEY_ID: laravel
+          AWS_SECRET_ACCESS_KEY: password
+          AWS_EC2_METADATA_DISABLED: true
 
       - name: Get Composer cache directory
         id: composer-cache
@@ -54,11 +66,6 @@ jobs:
           composer install --no-interaction --no-progress
           pnpm install --frozen-lockfile
 
-      - name: Set up database
-        run: |
-          mkdir -p database
-          touch database/database.sqlite
-
       - name: Build front-end
         run: pnpm build
 
@@ -66,3 +73,6 @@ jobs:
         run: |
           php artisan config:clear
           php artisan test
+
+      - name: Destroy Docker Compose
+        run: docker-compose --env-file .env.testing down -v

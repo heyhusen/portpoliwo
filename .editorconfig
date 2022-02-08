@@ -13,3 +13,6 @@ trim_trailing_whitespace = false
 
 [*.{yml,yaml,js,vue}]
 indent_size = 2
+
+[*.{yml,yaml}]
+indent_style = space

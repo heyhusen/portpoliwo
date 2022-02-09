@@ -10,9 +10,12 @@
 </template>
 
 <style lang="scss" scoped>
-.o-table__wrapper {
-	@apply bg-white shadow rounded-md overflow-hidden;
-	&--scrollable {
+.o-table__root {
+	&:deep(.o-table__wrapper) {
+		@apply bg-white shadow rounded-md overflow-hidden;
+	}
+
+	&:deep(.table__wrapper--scrollable) {
 		@apply overflow-x-auto max-w-full;
 	}
 	&:deep(.o-table) {

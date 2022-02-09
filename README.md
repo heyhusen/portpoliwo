@@ -5,33 +5,16 @@
 ![Screenshot](screenshot.png)
 
 Portpoliwo is a simple headless CMS for personal portfolio site. This project
-uses [Laravel](https://github.com/laravel/laravel "Laravel") as back-end, and
-[Vue.js](https://github.com/vuejs/vue "Vue.js") as SPA (front-end).  
+uses [Laravel](https://github.com/laravel/laravel) as back-end, and
+[Vue.js](https://github.com/vuejs/vue) as front-end (SPA).  
+
 Here are some of the features it includes:
 
 - Easy authentication with Laravel Sanctum
 - Using Redis as session and cache driver
 - Storage flexibility with S3-compatible object storage
-- Replaced Laravel Mix with Vite for faster development
-- Lightweight interface with Headless UI, Oruga UI, Tiptap and Windi CSS
-- Good app performance with SVG icons from Heroicons and FontAwesome
-
-## Motivation
-
-As long as I've been using Laravel, I've always relied on jQuery for front-end
-development. I rarely even use vanilla JavaScript, which seems to have
-progressed a lot without me realizing it.
-
-I admit I'm late to learn JavaScript in depth. But, isn't it better late than
-never? :)  
-This project is where I started learning modern vanilla JavaScript. My preferred
-framework for this is Vue.js. I've always loved playing with CSS, and Vue loves
-it too. Apart from that, it seems like Laravel is also easier to integrate with
-Vue.js.
-
-In essence, I use this project as a learning medium, especially Laravel and
-Vue.js. I'll try to follow these two frameworks, and update the project as best
-I can.
+- Replace Laravel Mix with Vite for faster front-end development
+- Lightweight UI with Headless UI, Oruga UI, Tiptap, SVG icons and Windi CSS
 
 ## Setup
 
@@ -39,12 +22,12 @@ If you are interested in trying Portpoliwo, you can do the following.
 
 ### Local
 
-For local setup, you need at least 2 terminals.
+For local setup, you need at least 2 terminals open at the same time.
 
 1. Clone this repository to your machine.
 
    ```bash
-   git clone -b main --depth 1 --single-branch https://github.com/hapakaien/portpoliwo.git && cd portpoliwo 
+   git clone -b v3 --depth 1 --single-branch https://github.com/hapakaien/portpoliwo.git && cd portpoliwo
    ```
 
 2. Install dependencies.
@@ -53,42 +36,55 @@ For local setup, you need at least 2 terminals.
     composer install && pnpm install
     ```
 
-3. Run docker compose, and wait until all container running perfectly.
+3. Copy `.env.example` file to `.env`.
+
+	```bash
+	cp .env.example .env
+	```
+	This file will be used by Laravel, Vue, and Docker Compose during development.
+
+4. Run all managed services with Docker Compose, and wait for all containers to run perfectly.
 
    ```bash
    docker-compose up -d
    ```
 
-4. Set up application.
+5. Set up application with artisan command.
 
    ```bash
    php artisan app:install
    ```
 
-5. Start Vue development server.
+6. Start Vue development server.
 
    ```bash
    pnpm dev
    ```
 
-6. Open second terminal, start Laravel development server, and visit <http://127.0.0.1:8000> in your web browser.
+7. Open second terminal at the same location, and start Laravel development server.
 
    ```bash
    php artisan serve
    ```
+   
+   If all goes well, you can immediately try opening http://localhost:8000 in the browser.
+   
+   You can try logging in with the account in the [database/seeders/UsersTableSeeder.php](database/seeders/UsersTableSeeder.php) file.
 
 ## Testing
 
 ### Laravel
 
-1. Install dependencies.
+To perform the test, you can start with steps 1 and 2 in [local setup](#local). After that, you can proceed with the following steps.
+
+1. Run all managed services with Docker Compose, and wait for all containers to run perfectly.
 
    ```bash
-   composer install
+   docker-compose -p portpoliwo-test --env-file .env.testing
    ```
 
 2. Run test.
 
    ```bash
-   php artisan test --env=testing
+   php artisan test
    ```

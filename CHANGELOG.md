@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2022-02-09
+
 ### Added
 
 - Improved testing environment
@@ -29,5 +31,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initialize project
 
-[Unreleased]: https://github.com/hapakaien/portpoliwo/compare/nyerat/v2.0.0...HEAD
+[Unreleased]: https://github.com/hapakaien/portpoliwo/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/hapakaien/portpoliwo/compare/v2.0.0...v3.0.0
 [2.0.0]: https://github.com/hapakaien/portpoliwo/releases/tag/v2.0.0

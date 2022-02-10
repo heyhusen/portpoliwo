@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.0] - 2022-02-10
+
 ### Added
 
 - Hugo module compatible go.mod
@@ -35,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initialize project
 
-[Unreleased]: https://github.com/hapakaien/portpoliwo/compare/v3.0.0...HEAD
+[Unreleased]: https://github.com/hapakaien/portpoliwo/compare/v3.1.0...HEAD
+[3.1.0]: https://github.com/hapakaien/portpoliwo/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/hapakaien/portpoliwo/compare/v2.0.0...v3.0.0
 [2.0.0]: https://github.com/hapakaien/portpoliwo/releases/tag/v2.0.0

@@ -2,7 +2,7 @@
 
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/hapakaien/portpoliwo/CI?label=CI&style=flat-square)](https://github.com/hapakaien/portpoliwo/actions) ![GitHub](https://img.shields.io/github/license/hapakaien/portpoliwo?style=flat-square)
 
-![Screenshot](screenshot.png)
+![Screenshot](screenshot-color.jpeg)
 
 Portpoliwo is a simple headless CMS for personal portfolio site. This project
 uses [Laravel](https://github.com/laravel/laravel) as back-end, and

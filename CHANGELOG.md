@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Hugo module compatible go.mod
+
 ## [3.0.0] - 2022-02-09
 
 ### Added

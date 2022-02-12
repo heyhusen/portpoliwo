@@ -20,7 +20,7 @@ specifiers:
   eslint-plugin-prettier: 4.0.0
   eslint-plugin-vue: 8.4.1
   npm-run-all: 4.1.5
-  object-to-formdata: 4.4.1
+  object-to-formdata: 4.4.2
   prettier: 2.5.1
   sass: 1.49.7
   vee-validate: 4.5.8
@@ -43,7 +43,7 @@ dependencies:
   '@tiptap/vue-3': 2.0.0-beta.90_vue@3.2.31
   '@vee-validate/rules': 4.5.7
   axios: 0.25.0
-  object-to-formdata: 4.4.1
+  object-to-formdata: 4.4.2
   vee-validate: 4.5.8_vue@3.2.31
   vue: 3.2.31
   vue-router: 4.0.12_vue@3.2.31
@@ -1868,8 +1868,8 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /object-to-formdata/4.4.1:
-    resolution: {integrity: sha512-hHqo2JID8muY6hSeaEmze8BRN7bYu/BZvh2a+okxMHrYOkU29kxqlkn1ITAqsH7Mx9eRSWlJ3cC6sV3sx5F+6Q==}
+  /object-to-formdata/4.4.2:
+    resolution: {integrity: sha512-fu6UDjsqIfFUu/B3GXJ2IFnNAL/YbsC1PPzqDIFXcfkhdYjTD3K4zqhyD/lZ6+KdP9O/64YIPckIOiS5ouXwLA==}
     dev: false
 
   /object.assign/4.1.2:

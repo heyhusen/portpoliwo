@@ -22,7 +22,7 @@ specifiers:
   npm-run-all: 4.1.5
   object-to-formdata: 4.4.2
   prettier: 2.5.1
-  sass: 1.49.7
+  sass: 1.49.8
   vee-validate: 4.5.8
   vite: 2.8.3
   vite-plugin-windicss: 1.7.1
@@ -59,8 +59,8 @@ devDependencies:
   eslint-plugin-vue: 8.4.1_eslint@8.9.0
   npm-run-all: 4.1.5
   prettier: 2.5.1
-  sass: 1.49.7
-  vite: 2.8.3_sass@1.49.7
+  sass: 1.49.8
+  vite: 2.8.3_sass@1.49.8
   vite-plugin-windicss: 1.7.1_vite@2.8.3
   windicss: 3.4.3
 
@@ -524,7 +524,7 @@ packages:
       vite: ^2.5.10
       vue: ^3.2.25
     dependencies:
-      vite: 2.8.3_sass@1.49.7
+      vite: 2.8.3_sass@1.49.8
       vue: 3.2.31
     dev: true
 
@@ -2187,14 +2187,14 @@ packages:
       queue-microtask: 1.2.3
     dev: true
 
-  /sass/1.49.7:
-    resolution: {integrity: sha512-13dml55EMIR2rS4d/RDHHP0sXMY3+30e1TKsyXaSz3iLWVoDWEoboY8WzJd5JMnxrRHffKO3wq2mpJ0jxRJiEQ==}
+  /sass/1.49.8:
+    resolution: {integrity: sha512-NoGOjvDDOU9og9oAxhRnap71QaTjjlzrvLnKecUJ3GxhaQBrV6e7gPuSPF28u1OcVAArVojPAe4ZhOXwwC4tGw==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
       chokidar: 3.5.2
       immutable: 4.0.0
-      source-map-js: 1.0.1
+      source-map-js: 1.0.2
     dev: true
 
   /semver/5.7.1:
@@ -2249,11 +2249,6 @@ packages:
       call-bind: 1.0.2
       get-intrinsic: 1.1.1
       object-inspect: 1.11.0
-    dev: true
-
-  /source-map-js/1.0.1:
-    resolution: {integrity: sha512-4+TN2b3tqOCd/kaGRJ/sTYA0tR0mdXx26ipdolxcwtJVqEnqNYvlCAt1q3ypy4QMlYus+Zh34RNtYLoq2oQ4IA==}
-    engines: {node: '>=0.10.0'}
     dev: true
 
   /source-map-js/1.0.2:
@@ -2430,13 +2425,13 @@ packages:
       '@windicss/plugin-utils': 1.7.1
       debug: 4.3.3
       kolorist: 1.5.1
-      vite: 2.8.3_sass@1.49.7
+      vite: 2.8.3_sass@1.49.8
       windicss: 3.4.3
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /vite/2.8.3_sass@1.49.7:
+  /vite/2.8.3_sass@1.49.8:
     resolution: {integrity: sha512-967klrEiG7HEsN7fQYYVETs5495Iu6GpI7YyxoO5yVTJCRxjV8HhWgNWKgrbazjoOB9DQuztL53/nUoNqHNsWg==}
     engines: {node: '>=12.2.0'}
     hasBin: true
@@ -2456,7 +2451,7 @@ packages:
       postcss: 8.4.6
       resolve: 1.22.0
       rollup: 2.60.0
-      sass: 1.49.7
+      sass: 1.49.8
     optionalDependencies:
       fsevents: 2.3.2
     dev: true

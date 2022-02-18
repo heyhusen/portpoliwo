@@ -8,7 +8,7 @@
 		"format:prettier": "prettier --ignore-path .gitignore  --write ."
 	},
 	"devDependencies": {
-		"@vitejs/plugin-vue": "2.2.0",
+		"@vitejs/plugin-vue": "2.2.2",
 		"eslint": "8.9.0",
 		"eslint-config-airbnb-base": "15.0.0",
 		"eslint-config-prettier": "8.3.0",

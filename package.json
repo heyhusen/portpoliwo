@@ -35,7 +35,7 @@
 		"@vee-validate/rules": "4.5.9",
 		"axios": "0.26.0",
 		"object-to-formdata": "4.4.2",
-		"vee-validate": "4.5.8",
+		"vee-validate": "4.5.9",
 		"vue": "3.2.31",
 		"vue-router": "4.0.12",
 		"vuex": "4.0.2"

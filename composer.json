@@ -13,7 +13,7 @@
         "datakrama/lapires": "^2.0",
         "doctrine/dbal": "^3.1",
         "fideloper/proxy": "^4.0",
-        "fruitcake/laravel-cors": "^2.0",
+        "fruitcake/laravel-cors": "^3.0",
         "laravel/fortify": "^1.8",
         "laravel/framework": "^8.0",
         "laravel/sanctum": "^2.4",

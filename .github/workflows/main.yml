@@ -34,7 +34,7 @@ jobs:
           version: 6.x.x
 
       - name: Set up Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3.0.0
         with:
           cache: "pnpm"
 

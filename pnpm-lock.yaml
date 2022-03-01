@@ -27,7 +27,7 @@ specifiers:
   vite: 2.8.4
   vite-plugin-windicss: 1.8.1
   vue: 3.2.31
-  vue-router: 4.0.12
+  vue-router: 4.0.13
   vuex: 4.0.2
   windicss: 3.5.0
 
@@ -46,7 +46,7 @@ dependencies:
   object-to-formdata: 4.4.2
   vee-validate: 4.5.9_vue@3.2.31
   vue: 3.2.31
-  vue-router: 4.0.12_vue@3.2.31
+  vue-router: 4.0.13_vue@3.2.31
   vuex: 4.0.2_vue@3.2.31
 
 devDependencies:
@@ -562,6 +562,10 @@ packages:
 
   /@vue/devtools-api/6.0.0-beta.20.1:
     resolution: {integrity: sha512-R2rfiRY+kZugzWh9ZyITaovx+jpU4vgivAEAiz80kvh3yviiTU3CBuGuyWpSwGz9/C7TkSWVM/FtQRGlZ16n8Q==}
+    dev: false
+
+  /@vue/devtools-api/6.0.12:
+    resolution: {integrity: sha512-iO/4FIezHKXhiDBdKySCvJVh8/mZPxHpiQrTy+PXVqJZgpTPTdHy4q8GXulaY+UKEagdkBb0onxNQZ0LNiqVhw==}
     dev: false
 
   /@vue/reactivity-transform/3.2.31:
@@ -2468,12 +2472,12 @@ packages:
       - supports-color
     dev: true
 
-  /vue-router/4.0.12_vue@3.2.31:
-    resolution: {integrity: sha512-CPXvfqe+mZLB1kBWssssTiWg4EQERyqJZes7USiqfW9B5N2x+nHlnsM1D3b5CaJ6qgCvMmYJnz+G0iWjNCvXrg==}
+  /vue-router/4.0.13_vue@3.2.31:
+    resolution: {integrity: sha512-LmXrC+BkDRLak+d5xTMgUYraT3Nj0H/vCbP+7usGvIl9Viqd1UP6AsP0i69pSbn9O0dXK/xCdp4yPw21HqV9Jw==}
     peerDependencies:
-      vue: ^3.0.0
+      vue: ^3.2.0
     dependencies:
-      '@vue/devtools-api': 6.0.0-beta.20.1
+      '@vue/devtools-api': 6.0.12
       vue: 3.2.31
     dev: false
 

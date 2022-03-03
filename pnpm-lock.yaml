@@ -6,7 +6,7 @@ specifiers:
   '@fortawesome/free-solid-svg-icons': 6.0.0
   '@fortawesome/vue-fontawesome': 3.0.0-5
   '@headlessui/vue': 1.5.0
-  '@heroicons/vue': 1.0.5
+  '@heroicons/vue': 1.0.6
   '@oruga-ui/oruga-next': 0.5.4
   '@tiptap/starter-kit': 2.0.0-beta.183
   '@tiptap/vue-3': 2.0.0-beta.90
@@ -37,7 +37,7 @@ dependencies:
   '@fortawesome/free-solid-svg-icons': 6.0.0
   '@fortawesome/vue-fontawesome': 3.0.0-5_57300062c04de25e6ec7d83402663243
   '@headlessui/vue': 1.5.0_vue@3.2.31
-  '@heroicons/vue': 1.0.5_vue@3.2.31
+  '@heroicons/vue': 1.0.6_vue@3.2.31
   '@oruga-ui/oruga-next': 0.5.4_vue@3.2.31
   '@tiptap/starter-kit': 2.0.0-beta.183
   '@tiptap/vue-3': 2.0.0-beta.90_vue@3.2.31
@@ -142,8 +142,8 @@ packages:
       vue: 3.2.31
     dev: false
 
-  /@heroicons/vue/1.0.5_vue@3.2.31:
-    resolution: {integrity: sha512-idWtp20Fjr7mqnD7EdGDUDi83oWHnx3SwyuQY6GZyF33OApzpBOLxz7xa4t6rPOddGz9tI5RGnndLk+ake7ijQ==}
+  /@heroicons/vue/1.0.6_vue@3.2.31:
+    resolution: {integrity: sha512-ng2YcCQrdoQWEFpw+ipFl2rZo8mZ56v0T5+MyfQQvNqfKChwgP6DMloZLW+rl17GEcHkE3H82UTAMKBKZr4+WA==}
     peerDependencies:
       vue: '>= 3'
     dependencies:

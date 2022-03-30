@@ -11,7 +11,7 @@ specifiers:
   '@tiptap/starter-kit': 2.0.0-beta.183
   '@tiptap/vue-3': 2.0.0-beta.90
   '@vee-validate/rules': 4.5.10
-  '@vitejs/plugin-vue': 2.2.4
+  '@vitejs/plugin-vue': 2.3.1
   axios: 0.26.1
   eslint: 8.11.0
   eslint-config-airbnb-base: 15.0.0
@@ -50,7 +50,7 @@ dependencies:
   vuex: 4.0.2_vue@3.2.31
 
 devDependencies:
-  '@vitejs/plugin-vue': 2.2.4_vite@2.8.6+vue@3.2.31
+  '@vitejs/plugin-vue': 2.3.1_vite@2.8.6+vue@3.2.31
   eslint: 8.11.0
   eslint-config-airbnb-base: 15.0.0_fe22d862ffeecaee86c93a006d59e41e
   eslint-config-prettier: 8.5.0_eslint@8.11.0
@@ -511,8 +511,8 @@ packages:
     resolution: {integrity: sha512-8kFsXvCzP1JHuyzXyH7cIhLQOJnba6ySG5GzaKnWGIJnbT1itNJ6dACdedjW3bWWpYiOkxi76Nqj14UL0ukMFQ==}
     dev: false
 
-  /@vitejs/plugin-vue/2.2.4_vite@2.8.6+vue@3.2.31:
-    resolution: {integrity: sha512-ev9AOlp0ljCaDkFZF3JwC/pD2N4Hh+r5srl5JHM6BKg5+99jiiK0rE/XaRs3pVm1wzyKkjUy/StBSoXX5fFzcw==}
+  /@vitejs/plugin-vue/2.3.1_vite@2.8.6+vue@3.2.31:
+    resolution: {integrity: sha512-YNzBt8+jt6bSwpt7LP890U1UcTOIZZxfpE5WOJ638PNxSEKOqAi0+FSKS0nVeukfdZ0Ai/H7AFd6k3hayfGZqQ==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       vite: ^2.5.10

@@ -18,7 +18,7 @@ specifiers:
   eslint-config-prettier: 8.5.0
   eslint-plugin-import: 2.25.4
   eslint-plugin-prettier: 4.0.0
-  eslint-plugin-vue: 8.5.0
+  eslint-plugin-vue: 8.6.0
   npm-run-all: 4.1.5
   object-to-formdata: 4.4.2
   prettier: 2.6.2
@@ -56,7 +56,7 @@ devDependencies:
   eslint-config-prettier: 8.5.0_eslint@8.12.0
   eslint-plugin-import: 2.25.4_eslint@8.12.0
   eslint-plugin-prettier: 4.0.0_f2c91d0f54113167d2bd9214a5ab5a36
-  eslint-plugin-vue: 8.5.0_eslint@8.12.0
+  eslint-plugin-vue: 8.6.0_eslint@8.12.0
   npm-run-all: 4.1.5
   prettier: 2.6.2
   sass: 1.49.11
@@ -1225,8 +1225,8 @@ packages:
       prettier-linter-helpers: 1.0.0
     dev: true
 
-  /eslint-plugin-vue/8.5.0_eslint@8.12.0:
-    resolution: {integrity: sha512-i1uHCTAKOoEj12RDvdtONWrGzjFm/djkzqfhmQ0d6M/W8KM81mhswd/z+iTZ0jCpdUedW3YRgcVfQ37/J4zoYQ==}
+  /eslint-plugin-vue/8.6.0_eslint@8.12.0:
+    resolution: {integrity: sha512-abXiF2J18n/7ZPy9foSlJyouKf54IqpKlNvNmzhM93N0zs3QUxZG/oBd3tVPOJTKg7SlhBUtPxugpqzNbgGpQQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^6.2.0 || ^7.0.0 || ^8.0.0

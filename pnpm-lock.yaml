@@ -10,7 +10,7 @@ specifiers:
   '@oruga-ui/oruga-next': 0.5.5
   '@tiptap/starter-kit': 2.0.0-beta.183
   '@tiptap/vue-3': 2.0.0-beta.90
-  '@vee-validate/rules': 4.5.10
+  '@vee-validate/rules': 4.5.11
   '@vitejs/plugin-vue': 2.3.1
   axios: 0.26.1
   eslint: 8.12.0
@@ -41,7 +41,7 @@ dependencies:
   '@oruga-ui/oruga-next': 0.5.5_vue@3.2.31
   '@tiptap/starter-kit': 2.0.0-beta.183
   '@tiptap/vue-3': 2.0.0-beta.90_vue@3.2.31
-  '@vee-validate/rules': 4.5.10
+  '@vee-validate/rules': 4.5.11
   axios: 0.26.1
   object-to-formdata: 4.4.2
   vee-validate: 4.5.10_vue@3.2.31
@@ -507,8 +507,8 @@ packages:
       '@types/prosemirror-transform': 1.1.5
     dev: false
 
-  /@vee-validate/rules/4.5.10:
-    resolution: {integrity: sha512-8kFsXvCzP1JHuyzXyH7cIhLQOJnba6ySG5GzaKnWGIJnbT1itNJ6dACdedjW3bWWpYiOkxi76Nqj14UL0ukMFQ==}
+  /@vee-validate/rules/4.5.11:
+    resolution: {integrity: sha512-aGwxjr/5/w8LFVObPB6UrqYt0oRlHHFw8/nxZHowY4LP62GWlAi+mAp1fb15Paav/c9rgV4iiqsNYarS1zpNQw==}
     dev: false
 
   /@vitejs/plugin-vue/2.3.1_vite@2.9.1+vue@3.2.31:

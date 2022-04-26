@@ -12,7 +12,7 @@ specifiers:
   '@tiptap/vue-3': 2.0.0-beta.90
   '@vee-validate/rules': 4.5.11
   '@vitejs/plugin-vue': 2.3.1
-  axios: 0.27.0
+  axios: 0.27.1
   eslint: 8.14.0
   eslint-config-airbnb-base: 15.0.0
   eslint-config-prettier: 8.5.0
@@ -42,7 +42,7 @@ dependencies:
   '@tiptap/starter-kit': 2.0.0-beta.183
   '@tiptap/vue-3': 2.0.0-beta.90_vue@3.2.33
   '@vee-validate/rules': 4.5.11
-  axios: 0.27.0
+  axios: 0.27.1
   object-to-formdata: 4.4.2
   vee-validate: 4.5.11_vue@3.2.33
   vue: 3.2.33
@@ -715,8 +715,8 @@ packages:
     resolution: {integrity: sha1-x57Zf380y48robyXkLzDZkdLS3k=}
     dev: false
 
-  /axios/0.27.0:
-    resolution: {integrity: sha512-XV/WrPxXfzgZ8j4lcB5i6LyaXmi90yetmV/Fem0kmglGx+mpY06CiweL3YxU6wOTNLmqLUePW4G8h45nGZ/+pA==}
+  /axios/0.27.1:
+    resolution: {integrity: sha512-ePNMai55xo5GsXajb/k756AqZqpqeDaGwGcdvbZLSSELbbYwsIn2jNmGfUPEwd8j/yu4OoMstLLIVa4t0MneEA==}
     dependencies:
       follow-redirects: 1.14.9
       form-data: 4.0.0

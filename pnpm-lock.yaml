@@ -9,7 +9,7 @@ specifiers:
   '@heroicons/vue': 1.0.6
   '@oruga-ui/oruga-next': 0.5.5
   '@tiptap/starter-kit': 2.0.0-beta.184
-  '@tiptap/vue-3': 2.0.0-beta.90
+  '@tiptap/vue-3': 2.0.0-beta.91
   '@vee-validate/rules': 4.5.11
   '@vitejs/plugin-vue': 2.3.3
   axios: 0.27.2
@@ -40,7 +40,7 @@ dependencies:
   '@heroicons/vue': 1.0.6_vue@3.2.33
   '@oruga-ui/oruga-next': 0.5.5_vue@3.2.33
   '@tiptap/starter-kit': 2.0.0-beta.184
-  '@tiptap/vue-3': 2.0.0-beta.90_vue@3.2.33
+  '@tiptap/vue-3': 2.0.0-beta.91_vue@3.2.33
   '@vee-validate/rules': 4.5.11
   axios: 0.27.2
   object-to-formdata: 4.4.2
@@ -248,8 +248,8 @@ packages:
       '@tiptap/core': 2.0.0-beta.175
     dev: false
 
-  /@tiptap/extension-bubble-menu/2.0.0-beta.55:
-    resolution: {integrity: sha512-v32/QnwwRbepdbrho8mTYru1/XNW/rJi3Mjrgo3rrIs67R86aEPmhmdzD3QEQUJhAJkduuwdw8zElmVWqIJQ9w==}
+  /@tiptap/extension-bubble-menu/2.0.0-beta.56:
+    resolution: {integrity: sha512-nZozwauICdaNPmDPrSn1JFd/9/2rLtK8i2vBOcqxWHObVROvu8ZlJspnrJv23vS6P7/ZO3e/QLVHpnn+1yVq3g==}
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
@@ -301,8 +301,8 @@ packages:
       prosemirror-dropcursor: 1.4.0
     dev: false
 
-  /@tiptap/extension-floating-menu/2.0.0-beta.50:
-    resolution: {integrity: sha512-aQu1HtthMIYEPylr6kzioLxMiObLbcgwx9xZzF03KwNnkjQLbjZOeJX2RwSYVpiVgtfPBGOm3N/br6NSYec4yQ==}
+  /@tiptap/extension-floating-menu/2.0.0-beta.51:
+    resolution: {integrity: sha512-rEe7jADK9xr2n2LJsrGEN3Dz7sEGC1JT/7AdTdaZBxQRQvwxTjomqYGrt+LnX+v0MYggh6swMzj7upJosnKbBg==}
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
@@ -428,14 +428,14 @@ packages:
       '@tiptap/extension-text': 2.0.0-beta.15_@tiptap+core@2.0.0-beta.175
     dev: false
 
-  /@tiptap/vue-3/2.0.0-beta.90_vue@3.2.33:
-    resolution: {integrity: sha512-5QwYpwqomqD1DmEL9DVS0wXuVouzp+2CThXl9QzPxXXsE+pm03yjjk+VhNMiFkA+DaY0hhnrvtWU7n0o00ExRQ==}
+  /@tiptap/vue-3/2.0.0-beta.91_vue@3.2.33:
+    resolution: {integrity: sha512-CKwYGyWadFyFudHEu6gdbPgvbu397AxbqWZT2F1m24FvN8G7JS0wPCdl8dG0nUvNZZB2nWa0tRrhYrOweFzW1A==}
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
       vue: ^3.0.0
     dependencies:
-      '@tiptap/extension-bubble-menu': 2.0.0-beta.55
-      '@tiptap/extension-floating-menu': 2.0.0-beta.50
+      '@tiptap/extension-bubble-menu': 2.0.0-beta.56
+      '@tiptap/extension-floating-menu': 2.0.0-beta.51
       prosemirror-state: 1.3.4
       prosemirror-view: 1.23.6
       vue: 3.2.33

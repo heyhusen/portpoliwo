@@ -27,7 +27,7 @@ specifiers:
   vite: 2.9.9
   vite-plugin-windicss: 1.8.4
   vue: 3.2.33
-  vue-router: 4.0.14
+  vue-router: 4.0.15
   vuex: 4.0.2
   windicss: 3.5.3
 
@@ -46,7 +46,7 @@ dependencies:
   object-to-formdata: 4.4.2
   vee-validate: 4.5.11_vue@3.2.33
   vue: 3.2.33
-  vue-router: 4.0.14_vue@3.2.33
+  vue-router: 4.0.15_vue@3.2.33
   vuex: 4.0.2_vue@3.2.33
 
 devDependencies:
@@ -2603,8 +2603,8 @@ packages:
       - supports-color
     dev: true
 
-  /vue-router/4.0.14_vue@3.2.33:
-    resolution: {integrity: sha512-wAO6zF9zxA3u+7AkMPqw9LjoUCjSxfFvINQj3E/DceTt6uEz1XZLraDhdg2EYmvVwTBSGlLYsUw8bDmx0754Mw==}
+  /vue-router/4.0.15_vue@3.2.33:
+    resolution: {integrity: sha512-xa+pIN9ZqORdIW1MkN2+d9Ui2pCM1b/UMgwYUCZOiFYHAvz/slKKBDha8DLrh5aCG/RibtrpyhKjKOZ85tYyWg==}
     peerDependencies:
       vue: ^3.2.0
     dependencies:

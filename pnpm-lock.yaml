@@ -22,7 +22,7 @@ specifiers:
   npm-run-all: 4.1.5
   object-to-formdata: 4.4.2
   prettier: 2.6.2
-  sass: 1.52.0
+  sass: 1.52.2
   vee-validate: 4.5.11
   vite: 2.9.9
   vite-plugin-windicss: 1.8.4
@@ -59,8 +59,8 @@ devDependencies:
   eslint-plugin-vue: 9.0.1_eslint@8.15.0
   npm-run-all: 4.1.5
   prettier: 2.6.2
-  sass: 1.52.0
-  vite: 2.9.9_sass@1.52.0
+  sass: 1.52.2
+  vite: 2.9.9_sass@1.52.2
   vite-plugin-windicss: 1.8.4_vite@2.9.9
   windicss: 3.5.4
 
@@ -530,7 +530,7 @@ packages:
       vite: ^2.5.10
       vue: ^3.2.25
     dependencies:
-      vite: 2.9.9_sass@1.52.0
+      vite: 2.9.9_sass@1.52.2
       vue: 3.2.36
     dev: true
 
@@ -2284,8 +2284,8 @@ packages:
       queue-microtask: 1.2.3
     dev: true
 
-  /sass/1.52.0:
-    resolution: {integrity: sha512-6EnTglag2oVD8sNJCxUi2Jd3ICH9tJ5Mqudt/gIZNBR2uKJUBZuTpW9O1t04SkDLP7VFa76FCWTV2rwchqM8Kw==}
+  /sass/1.52.2:
+    resolution: {integrity: sha512-mfHB2VSeFS7sZlPv9YohB9GB7yWIgQNTGniQwfQ04EoQN0wsQEv7SwpCwy/x48Af+Z3vDeFXz+iuXM3HK/phZQ==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
@@ -2537,13 +2537,13 @@ packages:
       '@windicss/plugin-utils': 1.8.4
       debug: 4.3.4
       kolorist: 1.5.1
-      vite: 2.9.9_sass@1.52.0
+      vite: 2.9.9_sass@1.52.2
       windicss: 3.5.4
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /vite/2.9.9_sass@1.52.0:
+  /vite/2.9.9_sass@1.52.2:
     resolution: {integrity: sha512-ffaam+NgHfbEmfw/Vuh6BHKKlI/XIAhxE5QSS7gFLIngxg171mg1P3a4LSRME0z2ZU1ScxoKzphkipcYwSD5Ew==}
     engines: {node: '>=12.2.0'}
     hasBin: true
@@ -2563,7 +2563,7 @@ packages:
       postcss: 8.4.13
       resolve: 1.22.0
       rollup: 2.60.0
-      sass: 1.52.0
+      sass: 1.52.2
     optionalDependencies:
       fsevents: 2.3.2
     dev: true

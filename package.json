@@ -37,7 +37,7 @@
 		"object-to-formdata": "4.4.2",
 		"vee-validate": "4.5.11",
 		"vue": "3.2.37",
-		"vue-router": "4.0.16",
+		"vue-router": "4.1.1",
 		"vuex": "4.0.2"
 	}
 }

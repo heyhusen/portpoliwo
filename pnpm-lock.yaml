@@ -17,7 +17,7 @@ specifiers:
   eslint-config-airbnb-base: 15.0.0
   eslint-config-prettier: 8.5.0
   eslint-plugin-import: 2.26.0
-  eslint-plugin-prettier: 4.0.0
+  eslint-plugin-prettier: 4.2.1
   eslint-plugin-vue: 9.2.0
   npm-run-all: 4.1.5
   object-to-formdata: 4.4.2
@@ -55,7 +55,7 @@ devDependencies:
   eslint-config-airbnb-base: 15.0.0_de2e8b5f32821e366389b4575f54c566
   eslint-config-prettier: 8.5.0_eslint@8.17.0
   eslint-plugin-import: 2.26.0_eslint@8.17.0
-  eslint-plugin-prettier: 4.0.0_3c82efea95883424a9dcf6342e14d9cb
+  eslint-plugin-prettier: 4.2.1_3c82efea95883424a9dcf6342e14d9cb
   eslint-plugin-vue: 9.2.0_eslint@8.17.0
   npm-run-all: 4.1.5
   prettier: 2.7.1
@@ -1190,9 +1190,9 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-prettier/4.0.0_3c82efea95883424a9dcf6342e14d9cb:
-    resolution: {integrity: sha512-98MqmCJ7vJodoQK359bqQWaxOE0CS8paAz/GgjaZLyex4TTk3g9HugoO89EqWCrFiOqn9EVvcoo7gZzONCWVwQ==}
-    engines: {node: '>=6.0.0'}
+  /eslint-plugin-prettier/4.2.1_3c82efea95883424a9dcf6342e14d9cb:
+    resolution: {integrity: sha512-f/0rXLXUt0oFYs8ra4w49wYZBG5GKZpAYsJSm6rnYL5uVDjd+zowwMwVZHnAjf4edNrKpCDYfXDgmRE/Ak7QyQ==}
+    engines: {node: '>=12.0.0'}
     peerDependencies:
       eslint: '>=7.28.0'
       eslint-config-prettier: '*'

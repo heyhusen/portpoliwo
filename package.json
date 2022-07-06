@@ -19,7 +19,7 @@
 		"prettier": "2.7.1",
 		"sass": "1.52.2",
 		"vite": "2.9.13",
-		"vite-plugin-windicss": "1.8.4",
+		"vite-plugin-windicss": "1.8.6",
 		"windicss": "3.5.4"
 	},
 	"dependencies": {

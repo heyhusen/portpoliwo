@@ -29,7 +29,7 @@ specifiers:
   vue: 3.2.37
   vue-router: 4.1.1
   vuex: 4.0.2
-  windicss: 3.5.4
+  windicss: 3.5.6
 
 dependencies:
   '@fortawesome/fontawesome-svg-core': 6.1.1
@@ -62,7 +62,7 @@ devDependencies:
   sass: 1.52.2
   vite: 2.9.13_sass@1.52.2
   vite-plugin-windicss: 1.8.6_vite@2.9.13
-  windicss: 3.5.4
+  windicss: 3.5.6
 
 packages:
 
@@ -2565,12 +2565,6 @@ packages:
     hasBin: true
     dependencies:
       isexe: 2.0.0
-    dev: true
-
-  /windicss/3.5.4:
-    resolution: {integrity: sha512-x2Iu0a69dtNiKHMkR886lx0WKbZI5GqvXyvGBCJ2VA6rcjKYjnzCA/Ljd6hNQBfqlkSum8J+qAVcCfLzQFI4rQ==}
-    engines: {node: '>= 12'}
-    hasBin: true
     dev: true
 
   /windicss/3.5.6:

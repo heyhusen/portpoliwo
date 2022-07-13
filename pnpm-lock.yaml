@@ -23,7 +23,7 @@ specifiers:
   object-to-formdata: 4.4.2
   prettier: 2.7.1
   sass: 1.52.2
-  vee-validate: 4.5.11
+  vee-validate: 4.6.1
   vite: 2.9.13
   vite-plugin-windicss: 1.8.6
   vue: 3.2.37
@@ -44,7 +44,7 @@ dependencies:
   '@vee-validate/rules': 4.5.11
   axios: 0.27.2
   object-to-formdata: 4.4.2
-  vee-validate: 4.5.11_vue@3.2.37
+  vee-validate: 4.6.1_vue@3.2.37
   vue: 3.2.37
   vue-router: 4.1.1_vue@3.2.37
   vuex: 4.0.2_vue@3.2.37
@@ -483,10 +483,6 @@ packages:
 
   /@vue/devtools-api/6.0.0-beta.20.1:
     resolution: {integrity: sha512-R2rfiRY+kZugzWh9ZyITaovx+jpU4vgivAEAiz80kvh3yviiTU3CBuGuyWpSwGz9/C7TkSWVM/FtQRGlZ16n8Q==}
-    dev: false
-
-  /@vue/devtools-api/6.0.12:
-    resolution: {integrity: sha512-iO/4FIezHKXhiDBdKySCvJVh8/mZPxHpiQrTy+PXVqJZgpTPTdHy4q8GXulaY+UKEagdkBb0onxNQZ0LNiqVhw==}
     dev: false
 
   /@vue/devtools-api/6.2.0:
@@ -2430,12 +2426,12 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /vee-validate/4.5.11_vue@3.2.37:
-    resolution: {integrity: sha512-bNF2TtuRnLnPsw6+Q/P3bMx8c2iJbvQmyikTr9r65PLAdqtdhQxnsIS3ayYNIzNWZ50sysv01DteN9h3XT/gFg==}
+  /vee-validate/4.6.1_vue@3.2.37:
+    resolution: {integrity: sha512-8IVy8PHpezerEEsvSBArFXmAN/hymeYzCA8RdDsMiX+NmYtKnkLlgtHS86j6RZ/wGQRKoStNjBOZG07ZVNr53Q==}
     peerDependencies:
       vue: ^3.0.0
     dependencies:
-      '@vue/devtools-api': 6.0.12
+      '@vue/devtools-api': 6.2.0
       vue: 3.2.37
     dev: false
 

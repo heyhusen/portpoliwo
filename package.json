@@ -27,7 +27,7 @@
 		"@fortawesome/free-brands-svg-icons": "6.1.1",
 		"@fortawesome/free-solid-svg-icons": "6.1.1",
 		"@fortawesome/vue-fontawesome": "3.0.1",
-		"@headlessui/vue": "1.6.5",
+		"@headlessui/vue": "1.6.7",
 		"@heroicons/vue": "1.0.6",
 		"@oruga-ui/oruga-next": "0.5.5",
 		"@tiptap/starter-kit": "2.0.0-beta.190",
